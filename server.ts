@@ -8,6 +8,16 @@ import { join } from 'node:path';
 import bootstrap from './src/main.server';
 import { createCareersRouter } from './src/server/careers/careers.routes';
 
+const ALLOWED_ORIGINS: string[] = (
+  process.env['ALLOWED_ORIGINS'] ||
+  'https://zapfarma.com,https://www.zapfarma.com,http://localhost:4200,http://localhost:4000'
+).split(',').map((o) => o.trim()).filter(Boolean);
+
+function isOriginAllowed(origin: string | undefined): boolean {
+  if (!origin) return false;
+  return ALLOWED_ORIGINS.includes(origin);
+}
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
@@ -21,10 +31,16 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
+  // Security: disable X-Powered-By header
+  server.disable('x-powered-by');
+
   server.use(express.json({ limit: '12mb' }));
 
   server.use('/api/careers', (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    const origin = req.headers.origin;
+    if (isOriginAllowed(origin)) {
+      res.header('Access-Control-Allow-Origin', origin!);
+    }
     res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
     res.header(
       'Access-Control-Allow-Headers',
