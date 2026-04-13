@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ContatoClienteComponent implements OnInit {
+export class ContatoClienteComponent {
 
   _id: any
 
@@ -25,16 +25,6 @@ export class ContatoClienteComponent implements OnInit {
       // window.open('whatsapp://send?phone=5521984384352&text=Pedido de teste')
       
    })
-  }
-
-  ngOnInit() {
-    console.log(this._id)
-    //Recuperar dados da URL
-
-    // Encaminhar para o WhatsAPP da Farmácia
-    // this.router.navigateByUrl("https://api.whatsapp.com/send?phone=5521984384352&text=Pedidodeteste")
-    // window.location.href = 'whatsapp://send?phone=5521984384352&text=Pedido de teste'
-    // window.location.href = 'https://api.whatsapp.com/send?phone=5521984384352&text=Pedido de teste'
   }
 
 }

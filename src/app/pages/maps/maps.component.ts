@@ -105,32 +105,42 @@ export class MapsComponent implements OnInit {
     }
   }
 
+  private escapeHtml(text: string): string {
+    const div = document.createElement('span');
+    div.appendChild(document.createTextNode(text ?? ''));
+    return div.innerHTML;
+  }
+
   buildContent(property:any) {
     const content = document.createElement("div");
     content.classList.add("property");
+
+    const safeType = this.escapeHtml(property.type);
+    const safeName = this.escapeHtml(property.nome_fantasia);
+
     content.innerHTML = `
       <div class="icon">
-          <i aria-hidden="true" class="fa fa-icon fa-${property.type}" title="${property.type}"></i>
-          <span class="fa-sr-only">${property.type}</span>
+          <i aria-hidden="true" class="fa fa-icon fa-${safeType}" title="${safeType}"></i>
+          <span class="fa-sr-only">${safeType}</span>
       </div>
       <div class="details">
-          <div class="price">${property.nome_fantasia}</div>
-          <div class="address">${property.nome_fantasia}</div>
+          <div class="price">${safeName}</div>
+          <div class="address">${safeName}</div>
           <div class="features">
           <div>
               <i aria-hidden="true" class="fa fa-bed fa-lg bed" title="bedroom"></i>
               <span class="fa-sr-only">bedroom</span>
-              <span>${property.nome_fantasia}</span>
+              <span>${safeName}</span>
           </div>
           <div>
               <i aria-hidden="true" class="fa fa-bath fa-lg bath" title="bathroom"></i>
               <span class="fa-sr-only">bathroom</span>
-              <span>${property.nome_fantasia}</span>
+              <span>${safeName}</span>
           </div>
           <div>
               <i aria-hidden="true" class="fa fa-ruler fa-lg size" title="size"></i>
               <span class="fa-sr-only">size</span>
-              <span>${property.nome_fantasia} ft<sup>2</sup></span>
+              <span>${safeName} ft<sup>2</sup></span>
           </div>
           </div>
       </div>
