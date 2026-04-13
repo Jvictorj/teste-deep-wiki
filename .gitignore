@@ -4,6 +4,7 @@
 dist
 tmp
 /out-tsc
+/build
 
 # dependencies
 node_modules
@@ -24,21 +25,62 @@ node_modules
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# IDE - Vim
+*.swp
+*.swo
+*~
+
+# IDE - Local History
+.history/
+
 # misc
 /.sass-cache
 /connect.lock
 /coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
 /typings
+
+# logs
+logs/
+*.log
+*.log.*
+
+# runtime & process IDs
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Node.js diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# environment files
+.env
+.env.*
+!.env.example
+!.env.template
+
+# caches
+.eslintcache
+*.tsbuildinfo
+.npm
+.cache/
+
+# Angular & Nx
+.angular
+.nx/
+
+# SWC compiler cache
+.swc/
+
+# Playwright (e2e)
+/playwright-report
+/blob-report
+/test-results
+/playwright/.cache
 
 # System Files
 .DS_Store
 Thumbs.db
-
-.nx/cache
-.nx/workspace-data
-
-.angular
+ehthumbs.db
+Desktop.ini
+._*
