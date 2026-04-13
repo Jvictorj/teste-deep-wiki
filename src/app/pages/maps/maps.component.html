@@ -1,0 +1,30 @@
+<front-zapfarma-menu></front-zapfarma-menu>
+  <div class="front-zapfarma-dashboard">
+    <front-zapfarma-header title=" "></front-zapfarma-header>
+    <div class="front-zapfarma-dashboard-container">
+      <div class="front-zapfarma-dashboard-container__dash">
+        <mat-card class="example-card" appearance="outlined">
+          <mat-card-content>
+            <h3 class="h1-mobile">Farmácias parceiras</h3>
+            <google-map height="500px" width="100%" [options]="options">
+              @for (location of nzLocations; track location) {
+                <map-advanced-marker
+                  #markerElem="mapAdvancedMarker"
+                  [position]="{ lat: ConvertNumber(location.latitude), lng: ConvertNumber(location.longitude) }"
+                  [title]="'Farmácia: ' + (location.nome_fantasia) + ' | ' + (location.bairro)"
+                />
+              }
+            </google-map>
+            <div id="mapGoogle" style="margin-top: 200px;"></div>
+            <!-- <h3 class="h1-mobile">Farmácias por nome</h3>
+            @for (location of nzLocations; track location) {
+              @if (location.bairro === location.bairro) {
+                  <p>{{location.nome_fantasia}} - {{location.bairro}} </p>
+              }
+            } -->
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+

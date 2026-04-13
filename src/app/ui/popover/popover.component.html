@@ -1,0 +1,7 @@
+<ng-content select="[popoverTrigger]"></ng-content>
+
+@if (open) {
+  <div class="popover" (mouseleave)="close()">
+    <ng-content select="app-popover-content"></ng-content>
+  </div>
+}

@@ -1,0 +1,114 @@
+<front-zapfarma-menu></front-zapfarma-menu>
+  <div class="front-zapfarma-dashboard">
+    <div class="margin-top">
+      <front-zapfarma-header title="Editar Farmácias"></front-zapfarma-header>
+    </div>
+    <div class="front-zapfarma-dashboard-container">
+      <div class="front-zapfarma-empresas">
+        <mat-card class="example-card editar-card" appearance="outlined">
+          <mat-card-content>
+            <div *ngIf="!sucesso">
+              <div class="card-intro">
+                <h3>Atualize os dados da farmácia</h3>
+                <p>Revise as informações abaixo e salve para manter o cadastro sempre atualizado.</p>
+              </div>
+              <form [formGroup]="formLogin" novalidate class="example-form">
+                  <input 
+                  formControlName="id" type="hidden">
+
+                  <input 
+                  formControlName="idRepresentantes" type="hidden">
+                <div class="form-section-title form-section-title--first field-full">Drogaria</div>
+                <mat-form-field appearance="outline" class="field-full">
+                  <mat-label>CNPJ ou CPF</mat-label>
+                  <input 
+                  id="cpfCnpj"
+                  (blur)="validarCPfUsuario();validateDvCpf();" mask="000.000.000-00||00.000.000/0000-00"
+                    formControlName="cpfCnpj" matInput placeholder="Digite o CNPJ ou CPF">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="field-full">
+                  <mat-label>Nome Fantasia</mat-label>
+                  <input 
+                  formControlName="nomeFantasia" matInput placeholder="Digite o nome fantasia da empresa">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="field-full">
+                  <mat-label>Razão Social</mat-label>
+                  <input 
+                  formControlName="razaoSocial" matInput placeholder="Digite o razão social da empresa">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="field-full">
+                  <mat-label>WhatsApp(Delivery)</mat-label>
+                  <input 
+                  mask="(00) 00000-0000||(00) 0000-0000" formControlName="whatsApp" matInput
+                    placeholder="Digite o WhatsApp de atendimento">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Plano</mat-label>
+                  <mat-select formControlName="plano">
+                    <mat-option [value]="1">1º mês Gratis</mat-option>
+                    <mat-option [value]="2">Plano Básico</mat-option>
+                    <mat-option [value]="3">Plano Avançado</mat-option>
+                    <mat-option [value]="4">Plano Premium</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input 
+                  formControlName="email" matInput placeholder="Digite o email de compra">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>CEP</mat-label>
+                  <input 
+                  (blur)="consutarEndereco();" mask="00000-000" formControlName="cep" matInput
+                    placeholder="Digite o CEP">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="field-full">
+                  <mat-label>Endereço</mat-label>
+                  <input 
+                  formControlName="endereco" matInput
+                    placeholder="Digite o Endereço">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Bairro</mat-label>
+                  <input 
+                  formControlName="bairro" matInput placeholder="Digite o Bairro">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Cidade</mat-label>
+                  <input formControlName="cidade" matInput placeholder="Digite o cidade">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Estado</mat-label>
+                  <input formControlName="estado" matInput placeholder="Digite o Estado">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Horário de atendimento</mat-label>
+                  <input 
+                  formControlName="horarioAtendimento" matInput placeholder="Exemplo 08h as 22h">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Telefone Contato</mat-label>
+                  <input 
+                  mask="(00) 00000-0000||(00) 0000-0000" formControlName="telefone" matInput
+                    placeholder="Digite o telefone da empresa">
+                </mat-form-field>
+                <div class="form-section-title field-full">Representante</div>
+                <mat-form-field appearance="outline" class="field-full">
+                  <mat-label>Responsável</mat-label>
+                  <input 
+                  formControlName="responsavel" matInput placeholder="Digite o nome">
+                </mat-form-field>
+              </form>
+            </div>
+            <div *ngIf="sucesso" class="retorno-sucesso">
+              <h2>{{error ? error : 'Cadastro atualizado com suscesso'}}</h2>
+            </div>
+          </mat-card-content>
+          <mat-card-actions >
+            <button [disabled]="!formLogin.valid" *ngIf="!sucesso" mat-raised-button (click)="atualizar();">Salvar</button>
+            <button mat-stroked-button (click)="voltar();">Voltar</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>

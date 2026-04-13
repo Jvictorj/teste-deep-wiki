@@ -1,0 +1,164 @@
+@use './../../../style/tokens.scss' as *;
+
+.front-zapfarma-dashboard {
+  padding-top: 80px;
+  width: 100%;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(0, 146, 63, 0.11), transparent 35%),
+    radial-gradient(circle at 92% 14%, rgba(31, 79, 120, 0.12), transparent 40%),
+    linear-gradient(155deg, #f8fbfe 0%, #f1f5fa 100%);
+
+  .front-zapfarma-dashboard-container {
+    width: min(1160px, calc(100% - 32px));
+    margin: 0 auto;
+    padding-bottom: 28px;
+  }
+
+  .cadastro-card {
+    border-radius: 22px;
+    border: 1px solid rgba(31, 79, 120, 0.12);
+    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+    background: linear-gradient(170deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 253, 0.98));
+    overflow: hidden;
+  }
+
+  .card-intro {
+    margin-bottom: 18px;
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: linear-gradient(140deg, #0f335f 0%, #1f5387 100%);
+    color: #ffffff;
+
+    h3 {
+      margin: 0 0 6px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 0.93rem;
+      line-height: 1.45;
+    }
+  }
+
+  .mat-mdc-card-content {
+    padding: 22px;
+  }
+
+  .example-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    align-items: start;
+  }
+
+  .field-full {
+    grid-column: 1 / -1;
+  }
+
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+
+  .form-section-title {
+    margin-top: 4px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(31, 79, 120, 0.12);
+    color: #122b69;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .form-section-title--first {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  ::ng-deep .cadastro-card {
+    .mat-mdc-text-field-wrapper {
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: rgba(31, 79, 120, 0.16) !important;
+    }
+
+    .mat-mdc-form-field.mat-focused {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: #2f8b34 !important;
+        border-width: 2px !important;
+      }
+    }
+  }
+
+  .retorno-sucesso {
+    padding: 22px;
+    border-radius: 14px;
+    background: rgba(0, 146, 63, 0.13);
+    border: 1px solid rgba(0, 146, 63, 0.28);
+
+    h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #153e1a;
+    }
+
+    p {
+      margin: 8px 0 0;
+      color: #1f4d21;
+      font-size: 0.95rem;
+    }
+  }
+
+  .mat-mdc-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 22px 22px;
+    border-top: 1px solid rgba(31, 79, 120, 0.12);
+    background: rgba(31, 79, 120, 0.02);
+  }
+
+  @media (max-width: 900px) {
+    .example-form {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .field-full {
+      grid-column: auto;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .front-zapfarma-dashboard-container {
+      width: calc(100% - 16px);
+    }
+
+    .mat-mdc-card-content {
+      padding: 14px;
+    }
+
+    .card-intro {
+      padding: 14px;
+    }
+
+    .mat-mdc-card-actions {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      padding: 14px;
+    }
+  }
+}

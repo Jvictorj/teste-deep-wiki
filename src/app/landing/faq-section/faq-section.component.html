@@ -1,0 +1,26 @@
+﻿<section id="faq" class="faq-section">
+  <div class="container">
+    <div class="faq-wrapper">
+      <div class="section-header">
+        <span class="eyebrow">FAQ</span>
+        <h2>Perguntas mais comuns</h2>
+      </div>
+
+      <div class="faq-list">
+        @for (faq of faqs; track faq.question; let i = $index) {
+          <div class="faq-item" [class.open]="faq.open">
+            <button type="button" class="faq-trigger" (click)="toggle(i)">
+              {{ faq.question }}
+              <span class="chevron"></span>
+            </button>
+            <div class="faq-content" [style.maxHeight]="faq.open ? '240px' : '0px'">
+              <p>{{ faq.answer }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+

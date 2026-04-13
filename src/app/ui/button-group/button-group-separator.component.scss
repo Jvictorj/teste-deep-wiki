@@ -1,0 +1,9 @@
+.button-group-separator {
+  width: 1px;
+  background: var(--input);
+  align-self: stretch;
+}
+
+.button-group-separator.vertical {
+  height: auto;
+}

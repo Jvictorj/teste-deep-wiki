@@ -1,0 +1,18 @@
+:host {
+  display: block;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 4rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--field-border, var(--input));
+  padding: 0.5rem 0.75rem;
+  background: var(--field-background, transparent);
+  color: var(--field-foreground, var(--foreground));
+  font-size: 0.9rem;
+}
+
+.textarea::placeholder {
+  color: var(--field-placeholder, var(--muted-foreground));
+}

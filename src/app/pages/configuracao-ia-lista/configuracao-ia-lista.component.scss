@@ -1,0 +1,177 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f7f8fb;
+}
+
+.lista-configuracoes {
+  padding: 5.5rem 1rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .eyebrow {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #16a34a;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: #0f172a;
+  }
+
+  .subtitle {
+    margin-top: 0.75rem;
+    color: #475569;
+  }
+}
+
+.status {
+  text-align: center;
+  color: #0f172a;
+  margin-bottom: 1rem;
+
+  &.erro {
+    color: #b91c1c;
+    font-weight: 600;
+  }
+
+  &.meta {
+    font-weight: 600;
+
+    .has-more {
+      font-weight: 400;
+      color: #475569;
+    }
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.config-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 20px 40px rgba(14, 30, 37, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+
+  .empresa {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .nome-ia {
+    margin: 0.15rem 0 0;
+    color: #475569;
+  }
+}
+
+.chips {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+
+  .chip {
+    background: #edf2ff;
+    color: #3b82f6;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    strong {
+      margin-right: 0.15rem;
+      color: #1d4ed8;
+    }
+  }
+}
+
+dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+
+  dt {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 0.85rem;
+  }
+
+  dd {
+    margin: 0.25rem 0 0;
+    color: #475569;
+    font-size: 0.9rem;
+  }
+}
+
+details {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 0.75rem;
+
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+
+  section {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 0.75rem;
+
+    h3 {
+      margin: 0 0 0.35rem;
+      font-size: 0.95rem;
+      color: #0f172a;
+    }
+
+    p {
+      margin: 0;
+      color: #475569;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  dl {
+    grid-template-columns: 1fr;
+  }
+}

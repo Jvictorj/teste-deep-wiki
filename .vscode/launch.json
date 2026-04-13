@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Frontend Debug (localhost:4200)",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true
+    },
+    {
+      "name": "Frontend Debug (CORS off / localhost:4200)",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "runtimeArgs": [
+        "--user-data-dir=${workspaceFolder}/.vscode/chrome-debug-profile",
+        "--disable-web-security",
+        "--disable-site-isolation-trials"
+      ]
+    }
+  ]
+}

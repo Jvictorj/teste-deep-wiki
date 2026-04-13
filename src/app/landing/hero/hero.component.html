@@ -1,0 +1,294 @@
+﻿<section class="hero">
+  <div class="hero-bg">
+    <div class="glow glow-right"></div>
+    <div class="glow glow-left"></div>
+  </div>
+
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <img
+        class="meta-tech-provider hero-badge-logo"
+        src="assets/imgs/logo-security/logo-meta/meta-tech-provider-sm.png"
+        alt="Selo Meta Tech Provider oficial da Zapfarma"
+        width="666"
+        height="187"
+        decoding="async"
+      />
+      <div class="hero-badge">
+        <div class="badge-row">
+          <span class="pulse-dot"></span>
+          <span class="badge-text"
+            >Somos uma IA de verdade 🤖 Não um Chatbot</span
+          >
+        </div>
+      </div>
+
+      <h1 class="hero-title">
+        Enquanto o balconista digita "Bom dia",
+        <span class="highlight">a IA já fechou o pedido.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Chega de perder vendas! A IA da Zapfarma transforma seu WhatsApp no
+        balcão mais eficiente da sua farmácia, vendendo 24 horas por dia, 7 dias
+        por semana, com total segurança e sem complicação.
+      </p>
+
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-pill btn-lg" href="/#/home#contato">
+          Agendar Demonstração
+          <mat-icon class="icon">arrow_forward</mat-icon>
+        </a>
+        <button
+          class="btn btn-outline btn-pill btn-lg"
+          type="button"
+          (click)="restartConversationDemo()"
+        >
+          <mat-icon class="icon">play_arrow</mat-icon>
+          Ver IA em Ação
+        </button>
+      </div>
+
+      <div class="trust-grid">
+        <!-- Desativado por enquanto
+        <div class="trust-item">
+          <mat-icon class="icon accent">task_alt</mat-icon>
+          <span>+50 FarmÃ¡cias Ativas</span>
+        </div>
+        <div class="trust-item">
+          <mat-icon class="icon accent">task_alt</mat-icon>
+          <span>98% SatisfaÃ§Ã£o</span>
+        </div>
+        <div class="trust-item">
+          <mat-icon class="icon accent">task_alt</mat-icon>
+          <span>Foco 100% Farma</span>
+        </div>
+        -->
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="mockup-card">
+        <div class="real-chat-note">Retirado de um atendimento real</div>
+        <div
+          class="conversation-switcher"
+          aria-label="Selecionar demonstração de conversa"
+        >
+          <p class="conversation-switcher-label">Demonstrações</p>
+          <p class="conversation-switcher-hint">
+            Troque manualmente ou deixe a IA avançar sozinha.
+          </p>
+          <div
+            #conversationTabList
+            class="conversation-switcher-tabs"
+            role="tablist"
+            aria-label="Selecionar demonstração de conversa"
+          >
+            <button
+              *ngFor="let conversation of conversations; let conversationIndex = index"
+              #conversationTabButton
+              class="conversation-tab"
+              type="button"
+              role="tab"
+              [attr.aria-selected]="activeConversationIndex === conversationIndex"
+              [class.conversation-tab--active]="
+                activeConversationIndex === conversationIndex
+              "
+              (click)="selectConversation(conversationIndex)"
+            >
+              <span class="conversation-tab-index">
+                {{ conversationIndex + 1 }}
+              </span>
+              <span class="conversation-tab-label">
+                {{ conversation.buttonLabel }}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div #phoneFrame class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div class="avatar avatar--image">
+                <img
+                  src="assets/imgs/hero-chat/k-avatar.png"
+                  [alt]="'Avatar da cliente ' + phoneContactName"
+                  width="359"
+                  height="358"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </div>
+              <div class="phone-contact">
+                <p class="phone-title">{{ phoneContactName }}</p>
+                <p class="phone-subtitle">{{ contactStatus }}</p>
+              </div>
+              <div class="phone-actions" aria-hidden="true">
+                <mat-icon class="icon">videocam</mat-icon>
+                <mat-icon class="icon">call</mat-icon>
+                <mat-icon class="icon">more_vert</mat-icon>
+              </div>
+            </div>
+            <div #chatContainer class="chat" (scroll)="handleChatScroll()">
+              <div
+                *ngFor="let message of visibleMessages; let messageIndex = index"
+                class="bubble"
+                [class.incoming]="message.side === 'incoming'"
+                [class.outgoing]="message.side === 'outgoing'"
+                [class.solid]="message.solid"
+              >
+                <span *ngIf="message.sender" class="sender-label">{{
+                  message.sender
+                }}</span>
+                <div
+                  *ngIf="message.attachment as attachment"
+                  class="chat-attachment"
+                  [class.chat-attachment--audio]="attachment.kind === 'audio'"
+                >
+                  <div
+                    class="attachment-preview"
+                    [class.attachment-preview--recipe]="
+                      attachment.kind === 'recipe'
+                    "
+                    [class.attachment-preview--medicine]="
+                      attachment.kind === 'medicine'
+                    "
+                    [class.attachment-preview--audio]="attachment.kind === 'audio'"
+                  >
+                    <span
+                      *ngIf="attachment.badge"
+                      class="attachment-badge"
+                    >
+                      {{ attachment.badge }}
+                    </span>
+                    <img
+                      *ngIf="attachment.imageSrc; else attachmentIconTemplate"
+                      class="attachment-image"
+                      [src]="attachment.imageSrc"
+                      [alt]="attachment.imageAlt || attachment.title"
+                      loading="lazy"
+                      decoding="async"
+                      (load)="handleAttachmentMediaLoad()"
+                    />
+                    <ng-template #attachmentIconTemplate>
+                      <mat-icon class="attachment-icon">
+                        {{ getAttachmentIcon(attachment.kind) }}
+                      </mat-icon>
+                    </ng-template>
+                    <div
+                      *ngIf="attachment.kind === 'audio'"
+                      class="attachment-wave"
+                      aria-hidden="true"
+                    >
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                  </div>
+
+                  <div class="attachment-info">
+                    <p class="attachment-title">{{ attachment.title }}</p>
+                    <p *ngIf="attachment.subtitle" class="attachment-subtitle">
+                      {{ attachment.subtitle }}
+                    </p>
+                    <div class="attachment-meta-row">
+                      <span *ngIf="attachment.meta" class="attachment-meta">
+                        {{ attachment.meta }}
+                      </span>
+                      <span
+                        *ngIf="attachment.duration"
+                        class="attachment-duration"
+                      >
+                        {{ attachment.duration }}
+                      </span>
+                    </div>
+                    <audio
+                      *ngIf="attachment.kind === 'audio' && attachment.audioSrc"
+                      class="attachment-audio-player"
+                      controls
+                      preload="metadata"
+                      (loadedmetadata)="handleAttachmentMediaLoad()"
+                    >
+                      <source [src]="attachment.audioSrc" type="audio/ogg" />
+                    </audio>
+                  </div>
+                </div>
+                <p
+                  *ngFor="let line of message.lines; let lineIndex = index"
+                  [class.highlight]="message.highlightIndex === lineIndex"
+                  [class.blurred-data]="
+                    message.blurLineIndices?.includes(lineIndex)
+                  "
+                >
+                  {{ line }}
+                </p>
+                <div class="bubble-meta">
+                  <span class="bubble-time">{{ message.time }}</span>
+                  <ng-container
+                    *ngIf="
+                      message.side === 'outgoing' &&
+                      getOutgoingStatus(messageIndex) as deliveryStatus
+                    "
+                  >
+                    <span
+                      class="bubble-status"
+                      [class.bubble-status--sent]="deliveryStatus === 'sent'"
+                      [class.bubble-status--delivered]="
+                        deliveryStatus === 'delivered'
+                      "
+                      [class.bubble-status--read]="deliveryStatus === 'read'"
+                      [attr.aria-label]="getOutgoingStatusAria(deliveryStatus)"
+                    >
+                      {{ getOutgoingStatusIcon(deliveryStatus) }}
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+
+              <div
+                *ngIf="isTypingVisible"
+                class="typing-indicator"
+                aria-label="Cliente digitando"
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <div class="composer-bar" aria-hidden="true">
+              <span class="composer-btn composer-btn--add">
+                <mat-icon class="icon">add</mat-icon>
+              </span>
+              <div class="composer-field">
+                <mat-icon class="icon">mood</mat-icon>
+                <span>Digite para responder</span>
+              </div>
+              <span class="composer-btn composer-btn--voice">
+                <mat-icon class="icon">mic</mat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-card right">
+          <p class="label">Vendas Totais</p>
+          <p class="value">R$183.450,22</p>
+          <div class="delta">
+            <span class="up">+14.8%</span>
+            <span class="muted">este mês</span>
+          </div>
+        </div>
+
+        <div class="floating-card left">
+          <p class="label">Vendas WhatsApp</p>
+          <p class="value accent">42%</p>
+          <p class="muted">Taxa de conversão</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

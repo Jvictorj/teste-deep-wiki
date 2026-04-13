@@ -1,0 +1,9 @@
+<span class="tooltip-trigger" (mouseenter)="show()" (mouseleave)="hide()">
+  <ng-content></ng-content>
+</span>
+@if (open) {
+  <div class="tooltip" [class.bottom]="position === 'bottom'" [class.left]="position === 'left'" [class.right]="position === 'right'">
+    {{ text }}
+    <span class="tooltip-arrow"></span>
+  </div>
+}

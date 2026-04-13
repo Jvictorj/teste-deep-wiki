@@ -1,0 +1,21 @@
+.resizable-handle {
+  width: 1px;
+  background: var(--border);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resizable-handle.vertical {
+  height: 1px;
+  width: 100%;
+}
+
+.handle-grip {
+  width: 0.75rem;
+  height: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--background);
+}

@@ -1,0 +1,94 @@
+<front-zapfarma-menu></front-zapfarma-menu>
+<div class="front-zapfarma-treinamentos">
+  <div class="front-zapfarma-treinamentos-container">
+    <mat-card class="hero-card" appearance="outlined">
+      <mat-card-content>
+        <div class="hero-page-title">
+          <mat-icon>school</mat-icon>
+          <span>Treinamentos</span>
+        </div>
+        <p class="hero-eyebrow">Plataforma de representantes</p>
+        <h1>Olá, {{ usuario ? usuario?.nome : 'Representante' }}!</h1>
+        <p class="hero-text">
+          Estruture sua rotina comercial com conteúdos diretos, objetivos e sem vídeos.
+        </p>
+
+        <div class="hero-badges">
+          <span>Guia rápido</span>
+          <span>Materiais atualizados</span>
+          <span>Suporte da equipe</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="training-grid">
+      <mat-card class="training-card training-card--primary" appearance="outlined">
+        <mat-card-content>
+          <div class="training-head">
+            <mat-icon>map</mat-icon>
+            <h2>Trilha Inicial</h2>
+          </div>
+
+          <p>
+            Passo a passo para começar como representante e estruturar os primeiros
+            dias de operação.
+          </p>
+
+          <ul>
+            <li>Configuração do perfil comercial</li>
+            <li>Organização da rotina semanal</li>
+            <li>Boas práticas de atendimento</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="training-card" appearance="outlined">
+        <mat-card-content>
+          <div class="training-head">
+            <mat-icon>campaign</mat-icon>
+            <h2>Divulgação e Conversão</h2>
+          </div>
+
+          <p>
+            Recomendações para compartilhar links, aumentar alcance e acompanhar
+            resultados de forma consistente.
+          </p>
+
+          <ul>
+            <li>Modelos de mensagens de divulgação</li>
+            <li>Canais com maior retorno</li>
+            <li>Leitura de métricas de performance</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="training-card training-card--support" appearance="outlined">
+        <mat-card-content>
+          <div class="training-head">
+            <mat-icon>support_agent</mat-icon>
+            <h2>Suporte da Equipe</h2>
+          </div>
+
+          <p>
+            Em caso de dúvidas, entre em contato com a equipe para orientação sobre
+            operação, campanhas e fluxo de vendas.
+          </p>
+
+          <span class="support-note">Atendimento em horário comercial</span>
+          <a
+            class="support-whatsapp"
+            href="https://wa.me/552135205492"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Falar com a equipe no WhatsApp"
+          >
+            <mat-icon>support_agent</mat-icon>
+            <span>Chamar no WhatsApp</span>
+          </a>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  
+  </div>
+</div>

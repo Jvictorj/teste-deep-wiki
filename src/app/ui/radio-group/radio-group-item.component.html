@@ -1,0 +1,12 @@
+<label class="radio-item" [class.disabled]="disabled">
+  <input
+    type="radio"
+    [name]="name"
+    [value]="value"
+    [checked]="checked"
+    [disabled]="disabled"
+    (change)="checkedChange.emit($any($event.target).checked)"
+  />
+  <span class="radio-control"></span>
+  <span class="radio-label"><ng-content></ng-content></span>
+</label>

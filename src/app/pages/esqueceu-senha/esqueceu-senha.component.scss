@@ -1,0 +1,93 @@
+@use './../../../style/tokens.scss'as *;
+
+.front-zapfarma-esqueceu-senha {
+    width: 100%;
+    display: flex;
+    position: relative;
+
+    .container-logo {
+        display: flex;
+        justify-content: center;
+        
+        .logo-mobile {
+            width: 200px;
+            cursor: pointer;
+        }
+    }
+
+    &__image-login {
+        background-color: $primary-color;
+        width: 40%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .logo {
+            width: 50%;
+
+        }
+    }
+
+    &__login {
+        background-color: $color-background-wh;
+        width: 60%;
+        height: 100vh;
+        display: grid;
+        // justify-content: center;
+        align-items: center;
+        .container {
+            width: 85%;
+            margin: 0 auto;
+            &__subtitle {
+                text-align: center;
+            }
+        }
+    }
+
+    .h1-mobile {
+        display: none;
+    }
+
+    @media (max-width: 750px) {
+        &__image-login {
+            display: none;
+        }
+
+        &__login { 
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .h1-mobile {
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+    }
+
+    .mat-mdc-form-field {
+        width: 100%;
+    }
+
+    .mat-mdc-card-actions {
+        display: grid;
+    }
+
+    .mat-mdc-card-outlined {
+        border-color: transparent;
+    }
+
+    .mat-mdc-card-content {
+        // padding: 0;
+    }
+
+    .mat-mdc-card-actions {
+        padding: $space-medium;
+        gap: $space-large;
+    }
+    .retorno-sucesso {
+        display: flex;
+        justify-content: center;
+    }
+}

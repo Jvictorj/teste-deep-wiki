@@ -1,0 +1,14 @@
+.empty-media {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-media.icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background: var(--muted);
+  color: var(--foreground);
+}

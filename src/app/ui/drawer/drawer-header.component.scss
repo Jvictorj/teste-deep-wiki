@@ -1,0 +1,13 @@
+.drawer-header {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .drawer-header {
+    text-align: left;
+  }
+}

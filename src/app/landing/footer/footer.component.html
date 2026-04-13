@@ -1,0 +1,81 @@
+﻿<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-media">
+          <img
+            class="footer-seal"
+            src="assets/imgs/logo-security/logo-meta/meta-partner-seal-2026.webp"
+            alt="Selo Meta Partner Oficial 2026 da Zapfarma"
+            loading="lazy"
+            decoding="async"
+          />
+          <a class="logo" href="/">
+            <span class="logo-icon">
+              <img
+                src="assets/imgs/logo-zapfarma/zapfarma-logo-branca.png"
+                alt="Logotipo da Zapfarma"
+                width="540"
+                height="356"
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+          </a>
+        </div>
+        <p>
+          Zapfarma automatiza o atendimento, aumenta vendas e recupera receita com IA preditiva, 24/7.
+        </p>
+      </div>
+
+      <div>
+        <h4>Produto</h4>
+        <ul>
+          @for (link of productLinks; track link.label) {
+            <li><a [href]="link.href">{{ link.label }}</a></li>
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h4>Sobre</h4>
+        <ul>
+          @for (link of companyLinks; track link.label) {
+            <li><a [href]="link.href">{{ link.label }}</a></li>
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:Contato&#64;zapfarma.com">Contato&#64;zapfarma.com</a></li>
+          <li><a href="tel:+552135205492">21 3520-5492</a></li>
+          <li><span>Segunda à Sexta: 08h às 18h</span></li>
+        </ul>
+        <div class="social">
+          @for (social of socialLinks; track social.label) {
+            <a [href]="social.href" [attr.aria-label]="social.label">
+              <mat-icon
+                class="icon"
+                [class.icon--facebook]="social.icon === 'social-facebook'"
+                [class.icon--instagram]="social.icon === 'social-instagram'"
+                [svgIcon]="social.icon"
+              ></mat-icon>
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {{ year }} Zapfarma. Todos os direitos reservados.</p>
+      <div class="footer-links">
+        <a href="/#/termos-uso">Termos de uso</a>
+        <a href="/#/politica-privacidade">Política de privacidade</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+

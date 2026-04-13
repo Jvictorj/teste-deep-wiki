@@ -1,0 +1,10 @@
+<div class="input-otp">
+  @for (slot of [].constructor(length); track $index; let i = $index) {
+    <input
+      class="otp-slot"
+      maxlength="1"
+      [value]="value[i] || ''"
+      (input)="onInput(i, $event)"
+    />
+  }
+</div>

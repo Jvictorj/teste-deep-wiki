@@ -1,0 +1,33 @@
+@use './../../../style/tokens.scss' as *;
+
+.front-zapfarma-mensageria {
+    width: 100%;
+    padding-left: $space-medium;
+    .front-zapfarma-mensageria-container {
+        width: 100%;
+        position: relative;
+        display: flex;
+        gap: $space-small;
+        // padding: 16px;
+        &__contato {
+            width: 28%;
+            mat-card {
+                border-radius: $space-medium;
+                height: 90vh;  
+                border: 0;      
+                box-shadow: 0px 0px 4px #e1e1e1;
+            }
+        }
+
+        &__chat {
+            width: 70%;
+            mat-card {
+                border-radius: $space-medium;
+                height: 90vh;
+                border: 0;
+                box-shadow: 0px 0px 4px #e1e1e1;
+            }
+        }
+
+    }
+}

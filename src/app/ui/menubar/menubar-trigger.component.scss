@@ -1,0 +1,16 @@
+.menubar-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.35rem;
+  border: none;
+  background: transparent;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.menubar-trigger:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}

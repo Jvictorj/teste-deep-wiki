@@ -1,0 +1,25 @@
+﻿<section id="recursos" class="features-section">
+  <div class="container">
+    <div class="features-wrapper">
+      <div class="section-header">
+        <span class="eyebrow">Recursos</span>
+        <h2>Tudo que você precisa para vender mais</h2>
+        <p>Recursos completos para transformar o atendimento da sua farmácia</p>
+      </div>
+
+      <div class="features-grid">
+        @for (feature of features; track feature.title) {
+          <div class="feature-card">
+            <div class="icon-wrap">
+              <mat-icon class="icon">{{ feature.icon }}</mat-icon>
+            </div>
+            <h3>{{ feature.title }}</h3>
+            <p>{{ feature.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+

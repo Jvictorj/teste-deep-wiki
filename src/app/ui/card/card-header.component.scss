@@ -1,0 +1,10 @@
+.card-header {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 0.5rem;
+  padding: 0 1.5rem;
+}
+
+.card-header.has-action {
+  grid-template-columns: 1fr auto;
+}

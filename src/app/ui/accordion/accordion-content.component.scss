@@ -1,0 +1,15 @@
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+}
+
+.accordion-content.open {
+  max-height: 400px;
+}
+
+.content-inner {
+  padding: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
+}

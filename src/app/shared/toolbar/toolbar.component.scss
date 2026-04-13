@@ -1,0 +1,213 @@
+@use './../../../style/tokens.scss' as *;
+
+:host {
+  display: block;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  min-height: 24px;
+}
+
+.zf-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, rgba($primary-color, 0.95), rgba(#050f3a, 0.95));
+  backdrop-filter: blur(8px);
+  color: $color-wh;
+  padding: $space-small clamp(0px, 4vw, 0px);
+  box-shadow: 0 8px 24px rgba(#000, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: $space-medium;
+  border-bottom: 1px solid rgba($color-wh, 0.12);
+}
+
+.navbar-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-medium;
+  flex-wrap: wrap;
+  row-gap: $space-small;
+  padding-inline: clamp($space-medium, 4vw, $space-x-large);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  flex: 1 1 auto;
+  min-width: 120px;
+
+  img {
+    width: clamp(90px, 8vw, 130px);
+    height: auto;
+  }
+}
+
+.shell-actions {
+  display: flex;
+  align-items: center;
+  gap: $space-small;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  flex: 0 1 auto;
+}
+
+@media (max-width: 640px) {
+  .shell-actions .pill {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.82rem;
+  }
+}
+
+.pill {
+  border-radius: 999px;
+  padding: 0.45rem 1.25rem;
+  border: 1px solid transparent;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &.ghost {
+    background: rgba($color-wh, 0.08);
+    color: $color-wh;
+    border-color: rgba($color-wh, 0.2);
+
+    &:hover {
+      background: rgba($color-wh, 0.18);
+    }
+  }
+
+  &.outline {
+    background: transparent;
+    color: $secondary-color;
+    border-color: $secondary-color;
+
+    &:hover {
+      color: $color-wh;
+      background: $secondary-color;
+    }
+  }
+
+  &.solid {
+    background: $secondary-color;
+    color: $primary-color;
+
+    &:hover {
+      filter: brightness(1.05);
+    }
+  }
+}
+
+.nav-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: rgba($color-wh, 0.08);
+  border: 1px solid rgba($color-wh, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+
+  .bar {
+    height: 2px;
+    width: 20px;
+    background: $color-wh;
+    border-radius: 2px;
+    margin: 0 auto;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.nav-panels {
+  display: none;
+  flex-direction: column;
+  gap: $space-small;
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  align-items: flex-start;
+  padding: 0 clamp($space-medium, 4vw, $space-large);
+  align-self: flex-start;
+}
+
+.menu-open .nav-panels {
+  display: flex;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-group {
+  width: 100%;
+  margin-top: $space-medium;
+}
+
+.nav-heading {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba($color-wh, 0.6);
+  margin-bottom: $space-small;
+}
+
+.nav-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 0.65rem 0;
+  text-decoration: none;
+  color: $color-wh;
+  border-bottom: 1px solid rgba($color-wh, 0.12);
+
+  span {
+    font-weight: 600;
+  }
+
+  small {
+    display: block;
+    color: rgba($color-wh, 0.7);
+    font-size: 0.85rem;
+  }
+
+  &:hover {
+    color: $secondary-color;
+  }
+}
+
+/* auth-panel e dropdown removidos do layout atual */
+
+@media (min-width: 1024px) {
+  .zf-navbar {
+    gap: $space-large;
+  }
+}

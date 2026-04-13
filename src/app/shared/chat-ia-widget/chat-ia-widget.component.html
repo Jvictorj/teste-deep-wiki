@@ -1,0 +1,94 @@
+<div class="chat-ia">
+  <button
+    type="button"
+    class="chat-ia__toggle"
+    [attr.aria-expanded]="aberto"
+    [attr.aria-label]="aberto ? 'Fechar assistente' : 'Falar com a IA'"
+    [attr.title]="aberto ? 'Fechar assistente' : 'Falar com a IA'"
+    aria-controls="chat-ia-panel"
+    (click)="alternarJanela()"
+  >
+    <mat-icon class="icon" aria-hidden="true">{{
+      aberto ? 'close' : 'smart_toy'
+    }}</mat-icon>
+    <span *ngIf="!aberto" class="chat-ia__tooltip">Falar com a IA</span>
+  </button>
+
+  <section
+    *ngIf="aberto"
+    class="chat-ia__panel"
+    id="chat-ia-panel"
+    aria-label="Janela de conversa da IA ZapFarma"
+  >
+    <header class="chat-ia__header">
+      <div class="chat-ia__header-texto">
+        <strong>Assistente IA ZapFarma</strong>
+        <small>Online</small>
+      </div>
+      <button
+        type="button"
+        class="chat-ia__reset"
+        (click)="novaConversa()"
+        [disabled]="carregando"
+      >
+        Nova conversa
+      </button>
+    </header>
+
+    <div #messagesContainer class="chat-ia__messages">
+      <article
+        *ngFor="let mensagem of mensagens; trackBy: trackByMensagemId"
+        class="chat-ia__mensagem"
+        [class.chat-ia__mensagem--user]="mensagem.role === 'user'"
+      >
+        <p>
+          <ng-container
+            *ngFor="let linha of mensagem.linhas; let ultimaLinha = last"
+          >
+            <span [class.chat-ia__linha-titulo]="linha.heading">
+              <ng-container *ngFor="let parte of linha.partes">
+                <ng-container [ngSwitch]="parte.type">
+                  <a
+                    *ngSwitchCase="'link'"
+                    [href]="parte.href"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {{ parte.value }}
+                  </a>
+                  <strong *ngSwitchCase="'bold'">{{ parte.value }}</strong>
+                  <span *ngSwitchDefault>{{ parte.value }}</span>
+                </ng-container>
+              </ng-container>
+            </span>
+            <br *ngIf="!ultimaLinha" />
+          </ng-container>
+        </p>
+      </article>
+
+      <p *ngIf="carregando" class="chat-ia__digitando">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        Assistente digitando...
+      </p>
+    </div>
+
+    <p *ngIf="erroEnvio" class="chat-ia__erro">{{ erroEnvio }}</p>
+
+    <form class="chat-ia__form" (submit)="enviarMensagem(); $event.preventDefault()">
+      <textarea
+        rows="2"
+        name="mensagemIa"
+        [(ngModel)]="textoMensagem"
+        placeholder="Digite sua mensagem..."
+        [disabled]="carregando"
+        (keydown)="onMessageKeyDown($event)"
+      ></textarea>
+      <button type="submit" [disabled]="carregando || !textoMensagem.trim()">
+        <mat-icon class="icon" aria-hidden="true">north_east</mat-icon>
+        Enviar
+      </button>
+    </form>
+  </section>
+</div>

@@ -1,0 +1,8 @@
+.table-row {
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.2s ease;
+}
+
+.table-row:hover {
+  background: color-mix(in oklch, var(--muted) 50%, transparent);
+}

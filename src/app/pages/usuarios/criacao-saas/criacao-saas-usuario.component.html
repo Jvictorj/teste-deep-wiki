@@ -1,0 +1,102 @@
+<front-zapfarma-menu></front-zapfarma-menu>
+
+<div class="front-zapfarma-dashboard">
+  <div class="front-zapfarma-dashboard-container">
+    <mat-card class="cadastro-card" appearance="outlined">
+      <mat-card-content>
+        <div *ngIf="!sucesso" class="card-intro">
+          <h3>Criar usuário SaaS</h3>
+          <p>Preencha os dados para criar um usuário na empresa.</p>
+        </div>
+
+        <form *ngIf="!sucesso" [formGroup]="form" (ngSubmit)="cadastrarUsuario()" class="user-form" novalidate>
+          <mat-form-field appearance="outline">
+            <mat-label>Nome*</mat-label>
+            <input matInput formControlName="name" placeholder="Ex.: João Operador" />
+            <mat-error *ngIf="f['name'].hasError('required')">Informe o nome.</mat-error>
+            <mat-error *ngIf="f['name'].hasError('minlength')">Mínimo de 2 caracteres.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>E-mail*</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="usuario@empresa.com" />
+            <mat-error *ngIf="f['email'].hasError('required')">Informe o e-mail.</mat-error>
+            <mat-error *ngIf="f['email'].hasError('email')">Informe um e-mail válido.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Login</mat-label>
+            <input matInput formControlName="login" placeholder="Se vazio, usa o e-mail" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Senha*</mat-label>
+            <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password" placeholder="Mínimo 5 caracteres" />
+            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" aria-label="Mostrar ou ocultar senha">
+              <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="f['password'].hasError('required')">Informe a senha.</mat-error>
+            <mat-error *ngIf="f['password'].hasError('minlength')">Mínimo de 5 caracteres.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" *ngIf="!usarEndpointPrivado">
+            <mat-label>Token (ENV_TOKEN)*</mat-label>
+            <input matInput formControlName="token" placeholder="Token para /auth/signup" />
+            <mat-error *ngIf="f['token'].hasError('required')">Informe o token.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Company ID {{ usarEndpointPrivado ? '(opcional)' : '*' }}</mat-label>
+            <input matInput type="number" min="1" formControlName="companyId" placeholder="Ex.: 10" />
+            <mat-error *ngIf="f['companyId'].hasError('required')">Company ID é obrigatório para /auth/signup.</mat-error>
+            <mat-error *ngIf="f['companyId'].hasError('min')">Informe um valor maior que zero.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Perfil</mat-label>
+            <mat-select formControlName="profile">
+              <mat-option value="admin">admin</mat-option>
+              <mat-option value="user">user</mat-option>
+              <mat-option value="super">super</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Queue IDs</mat-label>
+            <input matInput formControlName="queueIdsText" placeholder="Ex.: 1,2,3" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Whatsapp ID</mat-label>
+            <input matInput type="number" min="1" formControlName="whatsappId" placeholder="Ex.: 1" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>All Ticket</mat-label>
+            <mat-select formControlName="allTicket">
+              <mat-option value="disabled">disabled</mat-option>
+              <mat-option value="enabled">enabled</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div *ngIf="submitError" class="retorno-erro field-full">
+            <p>{{ submitError }}</p>
+          </div>
+        </form>
+
+        <div *ngIf="sucesso" class="retorno-sucesso">
+          <h2>Usuário criado com sucesso.</h2>
+          <p>O login já está disponível conforme os dados enviados.</p>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button *ngIf="!sucesso" mat-raised-button color="primary" (click)="cadastrarUsuario()" [disabled]="submitting">
+          {{ submitting ? 'Salvando...' : 'Criar usuário' }}
+        </button>
+        <button *ngIf="sucesso" mat-raised-button color="primary" (click)="criarOutroUsuario()">Criar outro usuário</button>
+        <button mat-stroked-button (click)="voltar()">Voltar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

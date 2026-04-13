@@ -1,0 +1,24 @@
+.field-separator {
+  position: relative;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-foreground);
+  font-size: 0.85rem;
+}
+
+.field-separator::before {
+  content: '';
+  position: absolute;
+  inset: 50% 0 auto 0;
+  height: 1px;
+  background: var(--border);
+}
+
+.field-separator span {
+  background: var(--background);
+  padding: 0 0.5rem;
+  position: relative;
+  z-index: 1;
+}

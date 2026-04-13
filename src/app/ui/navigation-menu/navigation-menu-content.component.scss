@@ -1,0 +1,12 @@
+.nav-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  background: var(--popover);
+  color: var(--popover-foreground);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+}

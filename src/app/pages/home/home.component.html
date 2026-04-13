@@ -1,0 +1,33 @@
+<main class="page">
+  <app-header></app-header>
+  <app-hero></app-hero>
+  <app-problem-section></app-problem-section>
+  <app-steps-section></app-steps-section>
+  <app-results-section></app-results-section>
+  <front-zapfarma-testimonials-section></front-zapfarma-testimonials-section>
+  <app-calculator-section></app-calculator-section>
+  <app-partnerships-section></app-partnerships-section>
+  <app-features-section></app-features-section>
+  <app-integration-section></app-integration-section>
+  <app-pricing-section></app-pricing-section>
+  <app-faq-section></app-faq-section>
+  <app-cta-section></app-cta-section>
+  <front-zapfarma-contact-section></front-zapfarma-contact-section>
+  <app-footer></app-footer>
+  <!--
+  <front-zapfarma-chat-ia-widget
+    [openOnInit]="openChatOnInit"
+  ></front-zapfarma-chat-ia-widget>
+  -->
+
+  @if (showBackToTop) {
+    <button
+      class="page-back-to-top"
+      type="button"
+      (click)="scrollToTop()"
+      aria-label="Voltar ao topo"
+    >
+      <mat-icon class="icon" aria-hidden="true">north</mat-icon>
+    </button>
+  }
+</main>

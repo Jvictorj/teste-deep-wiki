@@ -1,0 +1,13 @@
+.input-otp {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.otp-slot {
+  width: 2.25rem;
+  height: 2.25rem;
+  text-align: center;
+  border: 1px solid var(--input);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}

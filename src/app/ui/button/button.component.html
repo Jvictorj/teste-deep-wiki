@@ -1,0 +1,16 @@
+@if (renderAs === 'a') {
+  <a
+    class="btn-inner"
+    [href]="href"
+    [attr.target]="target"
+    [attr.rel]="rel"
+    [attr.aria-disabled]="disabled || null"
+    [attr.tabindex]="disabled ? -1 : null"
+  >
+    <ng-content></ng-content>
+  </a>
+} @else {
+  <button class="btn-inner" [attr.type]="type" [disabled]="disabled">
+    <ng-content></ng-content>
+  </button>
+}

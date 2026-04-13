@@ -1,0 +1,32 @@
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.accordion-trigger:hover {
+  text-decoration: underline;
+}
+
+.chevron {
+  width: 1rem;
+  height: 1rem;
+  color: var(--muted-foreground);
+  transition: transform 0.2s ease;
+  transform: translateY(0.1rem) rotate(0deg);
+  flex-shrink: 0;
+}
+
+.chevron.open {
+  transform: translateY(0.1rem) rotate(180deg);
+}

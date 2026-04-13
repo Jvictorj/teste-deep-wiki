@@ -1,0 +1,15 @@
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.85rem;
+}
+
+.nav-link:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}

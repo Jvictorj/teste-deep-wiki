@@ -1,0 +1,8 @@
+<ng-content></ng-content>
+
+@if (open) {
+  <div class="dropdown-overlay" (click)="close()"></div>
+  <div class="dropdown-menu" [style.left.px]="x" [style.top.px]="y">
+    <ng-content select="app-dropdown-menu-content"></ng-content>
+  </div>
+}

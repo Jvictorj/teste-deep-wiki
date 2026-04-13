@@ -1,0 +1,9 @@
+<ng-content select="[drawerTrigger]"></ng-content>
+
+@if (open) {
+  <div class="drawer-overlay" (click)="close()"></div>
+  <div class="drawer-content">
+    <div class="drawer-handle"></div>
+    <ng-content></ng-content>
+  </div>
+}

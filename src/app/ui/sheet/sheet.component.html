@@ -1,0 +1,31 @@
+<ng-content select="[sheetTrigger]"></ng-content>
+
+@if (open) {
+  <div class="sheet-overlay" (click)="close()"></div>
+  <div
+    #sheetContent
+    class="sheet-content"
+    [attr.id]="panelId"
+    [cdkTrapFocus]="open"
+    [cdkTrapFocusAutoCapture]="true"
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    [attr.aria-label]="ariaLabelledby ? null : ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledby"
+    [attr.aria-describedby]="ariaDescribedby"
+  >
+    @if (showCloseButton) {
+      <button
+        class="sheet-close"
+        type="button"
+        [attr.aria-label]="closeButtonAriaLabel"
+        (click)="close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    }
+
+    <ng-content></ng-content>
+  </div>
+}

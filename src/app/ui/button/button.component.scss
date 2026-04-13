@@ -1,0 +1,129 @@
+:host {
+  display: inline-flex;
+  width: var(--button-width, auto);
+}
+
+.btn-inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  width: var(--button-inner-width, auto);
+  min-width: var(--button-min-width, 0);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-inner:disabled,
+.btn-inner[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+:host(.default) .btn-inner {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+:host(.default) .btn-inner:hover {
+  background: color-mix(in oklch, var(--primary) 90%, transparent);
+}
+
+:host(.destructive) .btn-inner {
+  background: var(--destructive);
+  color: #fff;
+}
+
+:host(.destructive) .btn-inner:hover {
+  background: color-mix(in oklch, var(--destructive) 90%, transparent);
+}
+
+:host(.outline) .btn-inner {
+  border: 1px solid var(--border);
+  background: var(--background);
+}
+
+:host(.outline) .btn-inner:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+:host(.secondary) .btn-inner {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+:host(.secondary) .btn-inner:hover {
+  background: color-mix(in oklch, var(--secondary) 80%, transparent);
+}
+
+:host(.ghost) .btn-inner:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+:host(.link) .btn-inner {
+  background: transparent;
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+:host(.default) .btn-inner,
+:host(.destructive) .btn-inner,
+:host(.outline) .btn-inner,
+:host(.secondary) .btn-inner,
+:host(.ghost) .btn-inner,
+:host(.link) .btn-inner {
+  box-shadow: none;
+}
+
+:host(.default) .btn-inner:focus-visible,
+:host(.destructive) .btn-inner:focus-visible,
+:host(.outline) .btn-inner:focus-visible,
+:host(.secondary) .btn-inner:focus-visible,
+:host(.ghost) .btn-inner:focus-visible,
+:host(.link) .btn-inner:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+:host(.sm) .btn-inner {
+  height: 2rem;
+  padding: 0 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+}
+
+:host(.lg) .btn-inner {
+  height: 2.5rem;
+  padding: 0 1.5rem;
+  border-radius: 0.5rem;
+}
+
+:host(.icon) .btn-inner {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+}
+
+:host(.icon-sm) .btn-inner {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+}
+
+:host(.icon-lg) .btn-inner {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+}

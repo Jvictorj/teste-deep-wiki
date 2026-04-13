@@ -1,0 +1,14 @@
+<ng-content select="[dialogTrigger]"></ng-content>
+
+@if (open) {
+  <div class="dialog-overlay" (click)="close()"></div>
+  <div class="dialog-content" role="dialog" aria-modal="true">
+    <ng-content></ng-content>
+    @if (showCloseButton) {
+      <button class="dialog-close" type="button" (click)="close()">
+        <mat-icon class="icon">close</mat-icon>
+        <span class="sr-only">Close</span>
+      </button>
+    }
+  </div>
+}

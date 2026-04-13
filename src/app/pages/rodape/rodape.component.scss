@@ -1,0 +1,68 @@
+@use './../../../style/tokens.scss' as *; 
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+    cursor: pointer;
+}
+    
+.front-zapfarma-rodape {
+
+    &__container_10 {
+        background-repeat: no-repeat;
+        background-image: none;
+        background-color: #000000;
+        background-position-y: 0;
+        color: #ffffff;
+
+        @media screen and (max-width: 768px) {
+            display: block;
+        }
+
+        width: 100%;
+        padding: 0;
+
+
+        &__rodape {
+
+            @media screen and (min-width: 426px) {
+                display: flex;
+                justify-content: space-between;
+                padding: 24px clamp($space-x-large, 8vw, 180px) 24px;
+            }
+            margin-left: 0;
+            border-top: 1px solid rgba(#ffffff, 0.15);
+
+            span {
+                color: #ffffff;
+                padding-bottom: $space-small;
+                display: flex;
+            }
+
+            p {
+                color: #ffffff;
+                margin: $space-small 0;
+            }
+
+            img {
+                width: 40px;
+            }
+
+            .face {
+                width: 33px;
+                vertical-align: inherit;
+                bottom: 3px;
+                position: relative;
+            }
+            @media screen and (max-width: 640px) {
+                display: inline;
+            }
+               
+
+        }
+    }
+}

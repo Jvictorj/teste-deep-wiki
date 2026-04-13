@@ -1,0 +1,25 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.75rem;
+  border: none;
+  background: transparent;
+}
+
+.toggle.outline {
+  border: 1px solid var(--input);
+}
+
+.toggle.sm {
+  height: 2rem;
+  padding: 0 0.5rem;
+}
+
+.toggle.lg {
+  height: 2.5rem;
+  padding: 0 1rem;
+}

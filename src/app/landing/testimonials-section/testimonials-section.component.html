@@ -1,0 +1,117 @@
+<section id="depoimentos" class="testimonials-section">
+  <div class="container">
+    <div class="testimonials-wrapper">
+      <div class="section-header">
+        <span class="eyebrow">Cases de Sucesso</span>
+        <h2>Quem j&aacute; vende mais com a Zapfarma</h2>
+      </div>
+
+      <div class="testimonials-carousel">
+        <div class="carousel-header">
+          <div class="carousel-status">
+            <span>{{ currentIndex + 1 }}</span>
+            <span>/</span>
+            <span>{{ maxIndex + 1 }}</span>
+          </div>
+
+          <div class="carousel-actions">
+            <button class="carousel-btn" type="button" [disabled]="!canGoPrev" (click)="prev()" aria-label="Depoimento anterior">
+              <mat-icon class="icon">chevron_left</mat-icon>
+            </button>
+            <button class="carousel-btn" type="button" [disabled]="!canGoNext" (click)="next()" aria-label="Próximo depoimento">
+              <mat-icon class="icon">chevron_right</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="track-viewport"
+          (touchstart)="onTouchStart($event)"
+          (touchmove)="onTouchMove($event)"
+          (touchend)="onTouchEnd()"
+          (touchcancel)="onTouchEnd()"
+        >
+          <div class="testimonials-track" [style.transform]="getTrackTransform()">
+            @for (testimonial of testimonials; track testimonial.name; let i = $index) {
+              <article class="testimonial-slide">
+                <div class="testimonial-card">
+                  <div class="card-header">
+                    <div class="company">
+                      <span class="icon-box">
+                        @if (testimonial.logoSrc) {
+                          <img
+                            [src]="testimonial.logoSrc"
+                            [alt]="testimonial.logoAlt || 'Logo da ' + testimonial.name"
+                            [attr.width]="testimonial.logoWidth || null"
+                            [attr.height]="testimonial.logoHeight || null"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        } @else {
+                          <mat-icon class="icon">apartment</mat-icon>
+                        }
+                      </span>
+                      <span class="name">{{ testimonial.name }}</span>
+                    </div>
+                    <span class="trend">
+                      <mat-icon class="icon">trending_up</mat-icon>
+                    </span>
+                  </div>
+
+                  <div class="growth">
+                    <p class="value">{{ testimonial.growth }}</p>
+                    <p class="period">{{ testimonial.period }}</p>
+                  </div>
+
+                  <div class="quote">
+                    <mat-icon class="icon">format_quote</mat-icon>
+                    <p [class.is-collapsed]="isLongQuote(testimonial.quote) && !isExpanded(i)">
+                      {{ testimonial.quote }}
+                    </p>
+
+                    @if (isLongQuote(testimonial.quote)) {
+                      <button class="quote-toggle" type="button" (click)="toggleExpanded(i)">
+                        {{ isExpanded(i) ? 'Mostrar menos' : 'Mostrar mais' }}
+                        <mat-icon class="icon">{{ isExpanded(i) ? 'expand_less' : 'expand_more' }}</mat-icon>
+                      </button>
+                    }
+                  </div>
+
+                  <div class="author">
+                    <p class="author-name">{{ testimonial.author }}</p>
+                    <p class="author-role">{{ testimonial.role }}</p>
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-card">
+        <div>
+          <h3>Pronto para o Futuro do Varejo Farma?</h3>
+          <p>
+            Junte-se &agrave;s farm&aacute;cias que j&aacute; est&atilde;o transformando seus resultados.
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary btn-pill" href="/#/home#contato">
+            Agendar Demonstra&ccedil;&atilde;o
+            <mat-icon class="icon">arrow_forward</mat-icon>
+          </a>
+          <a class="btn btn-outline btn-pill btn-light" href="/#/home#contato">Falar Conosco</a>
+        </div>
+      </div>
+
+      <!--
+      <div class="see-all">
+        <a class="see-all-link" href="/#/home#contato">
+          Ver todos os cases
+          <mat-icon class="icon">arrow_forward</mat-icon>
+        </a>
+      </div>
+      -->
+    </div>
+  </div>
+</section>

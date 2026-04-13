@@ -1,0 +1,12 @@
+<button
+  type="button"
+  class="checkbox"
+  [attr.aria-checked]="checked"
+  [attr.aria-disabled]="disabled"
+  [disabled]="disabled"
+  (click)="toggle()"
+>
+  @if (checked) {
+    <mat-icon class="icon">check</mat-icon>
+  }
+</button>

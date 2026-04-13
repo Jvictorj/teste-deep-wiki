@@ -1,0 +1,9 @@
+.menubar-content {
+  min-width: 12rem;
+  background: var(--popover);
+  color: var(--popover-foreground);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}

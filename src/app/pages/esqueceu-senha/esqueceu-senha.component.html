@@ -1,0 +1,45 @@
+<div class="front-zapfarma-esqueceu-senha">
+  <div class="front-zapfarma-esqueceu-senha__image-login">
+    <img class="logo" src="../../../assets/imgs/logo-zapfarma/zapfarma-logo-branca.png">
+  </div>
+  <div class="front-zapfarma-esqueceu-senha__login">
+    <div class="container">
+      <mat-card class="example-card" appearance="outlined">
+        <mat-card-content>
+
+          <div *ngIf="!sucesso">
+            <div class="container-logo">          
+              <img class="logo-mobile" src="../../../assets/imgs/logo-zapfarma/zapfarma-logo.png">
+            </div>              
+            <div class="container__subtitle">
+              <front-zapfarma-header title="Esqueceu sua senha?"></front-zapfarma-header>
+              <p>Digite seu endereço de email.</p>
+              <p>Você receberá um link para criar uma nova senha via email.</p>
+            </div>
+            <form [formGroup]="formLogin" novalidate>
+              <mat-form-field class="example-full-width">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput placeholder="Informe seu email">
+              </mat-form-field>
+              <!-- <mat-form-field class="example-full-width">
+                <mat-label>senha</mat-label>
+                <input matInput placeholder="Informe sua senha">
+              </mat-form-field> -->
+
+            </form>
+          </div>
+          <div *ngIf="sucesso" class="retorno-sucesso">
+            <h2>{{error ? error : 'Email enviado. Um link para alterar a sua senha foi enviado para o seu email!'}}</h2>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button *ngIf="!sucesso" mat-raised-button (click)="recuperarSenha()">Recuperar minha senha</button>
+          <button mat-stroked-button (click)="voltarLogin()">voltar para Login!</button>
+        </mat-card-actions>
+      </mat-card>
+
+
+    </div>
+
+  </div>
+</div>

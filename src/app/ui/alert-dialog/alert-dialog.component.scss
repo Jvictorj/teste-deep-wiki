@@ -1,0 +1,22 @@
+.alert-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+}
+
+.alert-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(100% - 2rem, 32rem);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  display: grid;
+  gap: 1rem;
+  z-index: 60;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+}

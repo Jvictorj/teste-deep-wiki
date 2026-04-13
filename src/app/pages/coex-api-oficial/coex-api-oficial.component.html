@@ -1,0 +1,397 @@
+<front-zapfarma-toolbar></front-zapfarma-toolbar>
+
+<section class="coex-api-page">
+  <div class="hero">
+    <p class="eyebrow">COEX + API Oficial</p>
+    <h1>Formulário para coleta de dados</h1>
+    <p class="subtitle">
+      Preencha as informações abaixo para andamento da configuração da COEX e da API Oficial.
+    </p>
+  </div>
+
+  <div class="layout">
+    <section class="card">
+      <h2>Informações solicitadas</h2>
+      <p class="section-copy">
+        Campos com * são obrigatórios. Os dados de empresa de marketing só aparecem quando a BM for
+        administrada por terceiros.
+      </p>
+
+      <details class="mobile-checklist" aria-label="Checklist de coleta">
+        <summary>
+          <span>Checklist de coleta</span>
+          <small>Toque para expandir</small>
+        </summary>
+        <ul>
+          <li>CNPJ da empresa</li>
+          <li>Telefone(s) para API Oficial</li>
+          <li>Empresa de marketing (nome + telefone), se aplicável</li>
+          <li>Ciência sobre autorização de acesso à BM para Zapfarma</li>
+        </ul>
+      </details>
+
+      <form [formGroup]="formulario" (ngSubmit)="enviar()" novalidate>
+        <div class="form-grid">
+          <div class="field" [class.invalid]="f['cnpj'].touched && f['cnpj'].invalid">
+            <label for="cnpj">CNPJ da empresa*</label>
+            <input
+              id="cnpj"
+              type="text"
+              formControlName="cnpj"
+              placeholder="00.000.000/0000-00"
+              mask="00.000.000/0000-00"
+            />
+            <small *ngIf="f['cnpj'].touched && f['cnpj'].hasError('required')">
+              Informe o CNPJ da empresa.
+            </small>
+          </div>
+
+          <div
+            class="field full"
+            [class.invalid]="
+              f['bmAdministradaPorMarketing'].touched && f['bmAdministradaPorMarketing'].invalid
+            "
+          >
+            <label for="bmAdministradaPorMarketing">
+              A BM é administrada por uma empresa de marketing?*
+            </label>
+            <select id="bmAdministradaPorMarketing" formControlName="bmAdministradaPorMarketing">
+              <option value="">Selecione</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+            <small
+              *ngIf="
+                f['bmAdministradaPorMarketing'].touched &&
+                f['bmAdministradaPorMarketing'].hasError('required')
+              "
+            >
+              Informe se a BM é administrada por empresa de marketing.
+            </small>
+          </div>
+        </div>
+
+        <details class="bm-help" aria-label="Ajuda sobre Business Manager da Meta">
+          <summary>
+            <span class="bm-help-summary-main">
+              <span class="bm-help-tag">Ajuda</span>
+              <span class="bm-help-summary-text">Dúvidas sobre BM ou portfólio empresarial?</span>
+            </span>
+            <span class="bm-help-summary-side">
+              <small>Toque para entender</small>
+              <span class="bm-help-arrow" aria-hidden="true">▾</span>
+            </span>
+          </summary>
+          <div class="bm-help-content">
+            <p>
+              O <strong>BM (Business Manager da Meta)</strong> é o ambiente empresarial onde ficam os ativos
+              oficiais da empresa, como <strong>WABA/WhatsApp API</strong>, páginas e permissões.
+            </p>
+            <p>
+              Em muitos contextos, clientes também chamam isso de <strong>portfólio empresarial</strong>
+              (ou estrutura empresarial da Meta).
+            </p>
+            <p>
+              Se precisar, leia a explicação completa com exemplos e papel da BM na integração com a
+              Zapfarma:
+            </p>
+            <a class="bm-help-link" href="/#/business-manager-meta">
+              Ler explicação completa sobre Business Manager (BM)
+            </a>
+          </div>
+        </details>
+
+        <div
+          class="form-grid marketing-grid"
+          *ngIf="f['bmAdministradaPorMarketing'].value === 'sim'"
+        >
+          <div
+            class="field"
+            [class.invalid]="f['empresaMarketingNome'].touched && f['empresaMarketingNome'].invalid"
+          >
+            <label for="empresaMarketingNome">Nome da empresa de marketing*</label>
+            <input
+              id="empresaMarketingNome"
+              type="text"
+              formControlName="empresaMarketingNome"
+              placeholder="Ex.: Agência XYZ"
+            />
+            <small
+              *ngIf="
+                f['empresaMarketingNome'].touched &&
+                f['empresaMarketingNome'].hasError('required')
+              "
+            >
+              Informe o nome da empresa de marketing.
+            </small>
+          </div>
+
+          <div
+            class="field"
+            [class.invalid]="
+              f['empresaMarketingTelefone'].touched && f['empresaMarketingTelefone'].invalid
+            "
+          >
+            <label for="empresaMarketingTelefone">Telefone de contato da empresa de marketing*</label>
+            <input
+              id="empresaMarketingTelefone"
+              type="text"
+              formControlName="empresaMarketingTelefone"
+              placeholder="(00) 00000-0000"
+              mask="(00) 00000-0000||(00) 0000-0000"
+            />
+            <small
+              *ngIf="
+                f['empresaMarketingTelefone'].touched &&
+                f['empresaMarketingTelefone'].hasError('required')
+              "
+            >
+              Informe o telefone de contato.
+            </small>
+          </div>
+        </div>
+
+        <div class="group-card" formArrayName="telefonesApiOficial">
+          <div class="group-header">
+            <div>
+              <h3>Telefone(s) para cadastrar na API Oficial*</h3>
+              <p>Adicione um ou mais números (WhatsApp/telefone) que serão usados na API Oficial.</p>
+            </div>
+            <button type="button" class="ghost-btn" (click)="adicionarTelefone()">+ Adicionar</button>
+          </div>
+
+          <div class="phone-list">
+            <div
+              class="phone-row"
+              *ngFor="let telefoneControl of controlesTelefone; let i = index"
+              [class.invalid]="telefoneControl.touched && telefoneControl.invalid"
+            >
+              <label [for]="'telefone-api-' + i">Telefone {{ i + 1 }}*</label>
+              <div class="phone-input-wrap">
+                <input
+                  [id]="'telefone-api-' + i"
+                  type="text"
+                  [formControlName]="i"
+                  placeholder="(00) 00000-0000"
+                  mask="(00) 00000-0000||(00) 0000-0000"
+                />
+                <button
+                  type="button"
+                  class="remove-btn"
+                  (click)="removerTelefone(i)"
+                  [disabled]="controlesTelefone.length === 1"
+                  [attr.aria-label]="'Remover telefone ' + (i + 1)"
+                >
+                  Remover
+                </button>
+              </div>
+              <small *ngIf="telefoneControl.touched && telefoneControl.hasError('required')">
+                Informe este telefone.
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="auth-block reminder-block">
+          <div class="reminder-head">
+            <span class="reminder-tag">Lembrete</span>
+            <p class="reminder-copy">
+              Para concluir a configuração da COEX + API Oficial, será necessário autorizar o acesso
+              da Zapfarma à BM (Business Manager) em uma etapa posterior.
+            </p>
+          </div>
+
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="autorizacaoAcessoBm" />
+            <span>
+              Estou ciente de que será necessária a autorização de acesso à BM para a Zapfarma.
+            </span>
+          </label>
+        </div>
+
+        <div class="field full">
+          <label for="observacoes">Observações adicionais (opcional)</label>
+          <textarea
+            id="observacoes"
+            rows="3"
+            formControlName="observacoes"
+            placeholder="Informações extras que ajudem no processo..."
+          ></textarea>
+        </div>
+
+        <div
+          class="terms-card"
+          [class.invalid]="f['aceiteTermosCoexistencia'].touched && f['aceiteTermosCoexistencia'].invalid"
+        >
+          <details
+            class="terms-accordion"
+            #termosAccordion
+            (toggle)="liberarAceiteTermosAoExpandir(termosAccordion.open)"
+          >
+            <summary>
+              <div>
+                <span class="terms-kicker">Termo</span>
+                <strong>Política de Uso e Boas Práticas (Coexistência)</strong>
+              </div>
+              <small>Toque para ler</small>
+            </summary>
+
+            <div class="terms-content">
+              <h3>POLÍTICA DE USO E BOAS PRÁTICAS</h3>
+              <h4>COEXISTÊNCIA - WHATSAPP BUSINESS + API OFICIAL</h4>
+
+              <h5>1. Objetivo</h5>
+              <p>
+                Este documento explica como funciona a Coexistência entre o aplicativo WhatsApp Business e a API Oficial do WhatsApp integrada à Zapfarma.
+              </p>
+              <p>
+                Também esclarece os cuidados necessários para evitar que o número seja restringido ou bloqueado pela Meta Platforms.
+              </p>
+              <p>
+                Nosso objetivo é garantir transparência e segurança na utilização do serviço.
+              </p>
+
+              <h5>2. O que é Coexistência?</h5>
+              <p>A Coexistência permite que o mesmo número funcione:</p>
+              <ul>
+                <li>No aplicativo WhatsApp Business (no celular)</li>
+                <li>Na plataforma Zapfarma (via API Oficial)</li>
+              </ul>
+              <p>
+                Isso significa que sua equipe pode continuar usando o celular normalmente, enquanto também utiliza:
+              </p>
+              <ul>
+                <li>Automações</li>
+                <li>Integrações</li>
+              </ul>
+              <p><strong>Importante:</strong> mesmo com essa integração, as regras do WhatsApp continuam as mesmas.</p>
+
+              <h5>3. Sobre a responsabilidade do número</h5>
+              <p>Mesmo utilizando a Zapfarma:</p>
+              <ul>
+                <li>O número continua sendo da sua empresa</li>
+                <li>A reputação do número é avaliada pela Meta</li>
+                <li>Qualquer bloqueio ou limitação é aplicado diretamente pela plataforma da Meta</li>
+              </ul>
+              <p>A Zapfarma não tem controle sobre penalizações aplicadas pela Meta.</p>
+
+              <h5>4. O número pode ser restringido mesmo usando API?</h5>
+              <p>Sim.</p>
+              <p>Usar a API Oficial não impede bloqueios se as regras não forem respeitadas.</p>
+              <p>A Meta monitora principalmente:</p>
+              <ul>
+                <li>Se muitas pessoas bloqueiam o número</li>
+                <li>Se o número recebe denúncias de spam</li>
+                <li>Se há envio excessivo de mensagens em pouco tempo</li>
+                <li>Se as mensagens são enviadas sem autorização do cliente</li>
+              </ul>
+              <p>Se isso acontecer, podem ocorrer:</p>
+              <ul>
+                <li>Redução no limite de envio</li>
+                <li>Queda na qualidade do número</li>
+                <li>Restrição temporária</li>
+                <li>Bloqueio permanente</li>
+              </ul>
+
+              <h5>5. Situações que mais causam bloqueio</h5>
+              <h6>5.1 Enviar mensagem sem autorização</h6>
+              <p>Não é permitido:</p>
+              <ul>
+                <li>Comprar listas de contatos</li>
+                <li>Mandar mensagem para quem nunca falou com a empresa</li>
+                <li>Fazer disparos promocionais sem consentimento</li>
+              </ul>
+              <p>O cliente precisa ter autorizado o contato.</p>
+
+              <h6>5.2 Disparos excessivos ou insistentes</h6>
+              <p>Mesmo com automação:</p>
+              <ul>
+                <li>Disparos em massa sem permissão são considerados spam</li>
+                <li>Mensagens insistentes após ausência de resposta prejudicam o número</li>
+              </ul>
+
+              <h6>5.3 Uso desorganizado durante a coexistência</h6>
+              <p>Como o número funciona no celular e na plataforma ao mesmo tempo:</p>
+              <ul>
+                <li>Responder simultaneamente nos dois pode causar confusão</li>
+                <li>Enviar muitas mensagens manualmente pelo celular pode afetar a reputação</li>
+                <li>Aumentar muito o volume de mensagens de uma vez pode gerar alerta</li>
+              </ul>
+
+              <h5>6. Boas práticas recomendadas</h5>
+              <p>Para manter o número seguro:</p>
+              <ul>
+                <li>Trabalhar apenas com contatos que autorizaram mensagens</li>
+                <li>Crescer o volume de envio gradualmente</li>
+                <li>Evitar mensagens genéricas ou invasivas</li>
+                <li>Priorizar atendimento útil e relevante</li>
+                <li>Respeitar a regra da janela de 24 horas para envios via API</li>
+              </ul>
+
+              <h5>7. Considerações finais</h5>
+              <p>A Coexistência oferece mais flexibilidade e eficiência para sua operação.</p>
+              <p>Porém, as regras da Meta continuam valendo e precisam ser respeitadas.</p>
+              <p>
+                Seguir boas práticas é essencial para manter o número ativo, com boa reputação e funcionando normalmente.
+              </p>
+              <p>
+                A Zapfarma recomenda que todas as empresas utilizem o WhatsApp de forma responsável, priorizando sempre a experiência do cliente.
+              </p>
+            </div>
+          </details>
+
+          <label class="checkbox-row terms-checkbox" [class.locked]="!termosCoexistenciaLiberado">
+            <input
+              type="checkbox"
+              formControlName="aceiteTermosCoexistencia"
+              [disabled]="!termosCoexistenciaLiberado"
+            />
+            <span>Li e aceito os termos de uso e boas práticas da Coexistência.</span>
+          </label>
+          <small class="terms-hint" *ngIf="!termosCoexistenciaLiberado">
+            Abra o termo acima para liberar o aceite.
+          </small>
+          <small
+            class="terms-error"
+            *ngIf="
+              termosCoexistenciaLiberado &&
+              f['aceiteTermosCoexistencia'].touched &&
+              f['aceiteTermosCoexistencia'].hasError('required')
+            "
+          >
+            É necessário aceitar os termos para enviar o formulário.
+          </small>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary-btn" [disabled]="submitting">
+            {{ submitting ? 'Enviando...' : 'Enviar para WhatsApp' }}
+          </button>
+          <button type="button" class="secondary-btn" (click)="novaColeta()" [disabled]="submitting">
+            Limpar formulário
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="side-panel">
+      <section class="card checklist desktop-checklist">
+        <h2>Checklist de coleta</h2>
+        <ul>
+          <li>CNPJ da empresa</li>
+          <li>Telefone(s) para API Oficial</li>
+          <li>Empresa de marketing (nome + telefone), se aplicável</li>
+          <li>Ciência sobre autorização de acesso à BM para Zapfarma</li>
+        </ul>
+      </section>
+
+      <section class="card feedback" *ngIf="submitSuccess && dadosEnviados">
+        <h2>Envio iniciado</h2>
+        <p>O WhatsApp do suporte foi aberto com a mensagem preenchida. Confira e envie.</p>
+        <pre>{{ dadosEnviados | json }}</pre>
+      </section>
+    </aside>
+  </div>
+</section>
+
+<front-zapfarma-rodape></front-zapfarma-rodape>

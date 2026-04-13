@@ -1,0 +1,239 @@
+<front-zapfarma-menu></front-zapfarma-menu>
+
+<div class="front-zapfarma-dashboard">
+  <div class="front-zapfarma-dashboard-container">
+    <mat-card class="cadastro-card" appearance="outlined">
+      <mat-card-content>
+        <div class="card-intro">
+          <h3>Criar empresa SaaS</h3>
+          <p>
+            Preencha os dados da empresa. Ao salvar, o backend cria automaticamente
+            o admin inicial e as configurações padrão.
+          </p>
+        </div>
+
+        <form *ngIf="!sucesso" [formGroup]="form" (ngSubmit)="cadastrarEmpresa()" class="company-form" novalidate>
+          <mat-form-field appearance="outline" class="field-full">
+            <mat-label>Nome da empresa (obrigatório)</mat-label>
+            <input matInput formControlName="name" placeholder="Ex.: Farmácia Exemplo" />
+            <mat-error *ngIf="f['name'].hasError('required')">Informe o nome da empresa.</mat-error>
+            <mat-error *ngIf="f['name'].hasError('minlength')">O nome precisa ter no mínimo 2 caracteres.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email (recomendado)</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="admin@empresa.com" />
+            <mat-error *ngIf="f['email'].hasError('email')">Informe um email válido.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Plano (recomendado)</mat-label>
+            <mat-select formControlName="planId">
+              <mat-option [value]="null">Não definir</mat-option>
+              <mat-option [value]="3">Plano Premium </mat-option>
+              <mat-option [value]="4">Plano Premium 2 </mat-option>
+              <mat-option [value]="1">Plano SAAS </mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['planId'].hasError('min')">Informe um valor maior que zero.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option [value]="null">Não definir</mat-option>
+              <mat-option [value]="true">Ativa</mat-option>
+              <mat-option [value]="false">Inativa</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Campanhas habilitadas</mat-label>
+            <mat-select formControlName="campaignsEnabled">
+              <mat-option [value]="null">Não definir</mat-option>
+              <mat-option [value]="true">Sim</mat-option>
+              <mat-option [value]="false">Não</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput mask="(00) 00000-0000||(00) 0000-0000" formControlName="phone" placeholder="(11) 99999-9999" />
+            <mat-error *ngIf="f['phone'].hasError('telefoneInvalido')">Informe um telefone válido.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Data de vencimento</mat-label>
+            <input matInput [matDatepicker]="dueDatePicker" formControlName="dueDate" placeholder="dd/mm/aaaa" />
+            <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #dueDatePicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Recorrência</mat-label>
+            <mat-select formControlName="recurrence">
+              <mat-option value="">Não definir</mat-option>
+              <mat-option value="monthly">Mensal</mat-option>
+              <mat-option value="quarterly">Trimestral</mat-option>
+              <mat-option value="semiannual">Semestral</mat-option>
+              <mat-option value="yearly">Anual</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>CNPJ</mat-label>
+            <input matInput mask="00.000.000/0000-00" formControlName="cnpj" placeholder="00.000.000/0000-00" />
+            <mat-error *ngIf="f['cnpj'].hasError('cnpjInvalido')">Informe um CNPJ com 14 dígitos.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="field-full">
+            <mat-label>Endereço</mat-label>
+            <input matInput formControlName="address" placeholder="Rua, número, bairro, cidade" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="field-full">
+            <mat-label>Responsável</mat-label>
+            <input matInput formControlName="responsible" placeholder="Nome do responsável" />
+          </mat-form-field>
+
+          <div *ngIf="submitError" class="retorno-erro field-full">
+            <p>{{ submitError }}</p>
+          </div>
+
+        </form>
+
+        <div *ngIf="sucesso" class="retorno-sucesso">
+          <h2>Empresa criada com sucesso.</h2>
+          <p>O usuário admin inicial e os settings default foram gerados automaticamente pelo backend.</p>
+        </div>
+
+        <hr class="section-divider" />
+
+        <section class="section-block">
+          <h3>Criar usuário SaaS</h3>
+          <p>Os usuários abaixo serão criados automaticamente após a criação da empresa.</p>
+
+          <form *ngIf="!sucesso" [formGroup]="userForm" class="company-form" novalidate>
+            <mat-form-field appearance="outline" *ngIf="!usarEndpointPrivadoUsuario">
+              <mat-label>Token (ENV_TOKEN)*</mat-label>
+              <input matInput formControlName="token" placeholder="Token para /auth/signup" />
+              <mat-error *ngIf="uf['token'].hasError('required')">Informe o token.</mat-error>
+            </mat-form-field>
+
+            <div class="field-full users-list" formArrayName="users">
+              <article class="user-row" *ngFor="let userControl of usersArray.controls; let i = index" [formGroupName]="i">
+                <header class="user-row__header">
+                  <strong>Usuário {{ i + 1 }}</strong>
+                  <button type="button" mat-stroked-button color="warn" (click)="removerUsuarioLinha(i)" [disabled]="usersArray.length === 1">
+                    Remover
+                  </button>
+                </header>
+                <div class="user-row__grid">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Nome*</mat-label>
+                    <input matInput formControlName="name" placeholder="Ex.: João Operador" />
+                    <mat-error *ngIf="userControl.get('name')?.hasError('required')">Informe o nome.</mat-error>
+                    <mat-error *ngIf="userControl.get('name')?.hasError('minlength')">Mínimo de 2 caracteres.</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>E-mail*</mat-label>
+                    <input matInput type="email" formControlName="email" placeholder="usuario@empresa.com" />
+                    <mat-error *ngIf="userControl.get('email')?.hasError('required')">Informe o e-mail.</mat-error>
+                    <mat-error *ngIf="userControl.get('email')?.hasError('email')">Informe um e-mail válido.</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Senha*</mat-label>
+                    <input [type]="hideUserPassword ? 'password' : 'text'" matInput formControlName="password" placeholder="Mínimo 5 caracteres" />
+                    <button type="button" mat-icon-button matSuffix (click)="hideUserPassword = !hideUserPassword" aria-label="Mostrar ou ocultar senha">
+                      <mat-icon>{{ hideUserPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="userControl.get('password')?.hasError('required')">Informe a senha.</mat-error>
+                    <mat-error *ngIf="userControl.get('password')?.hasError('minlength')">Mínimo de 5 caracteres.</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Login (opcional)</mat-label>
+                    <input matInput formControlName="login" placeholder="Se vazio, usa o e-mail" />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Perfil</mat-label>
+                    <mat-select formControlName="profile">
+                      <mat-option value="admin">admin</mat-option>
+                      <mat-option value="user">user</mat-option>
+                      <mat-option value="super">super</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>All Ticket</mat-label>
+                    <mat-select formControlName="allTicket">
+                      <mat-option value="disabled">disabled</mat-option>
+                      <mat-option value="enabled">enabled</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </article>
+            </div>
+          </form>
+
+          <div *ngIf="userSucesso" class="retorno-sucesso">
+            <h2>Usuários criados com sucesso.</h2>
+            <p>{{ userResultadoResumo }}</p>
+          </div>
+
+          <div *ngIf="userSubmitError" class="retorno-erro field-full">
+            <p>{{ userSubmitError }}</p>
+          </div>
+
+          <section class="credenciais-criadas field-full" *ngIf="usuariosCriadosCredenciais.length > 0">
+            <h4>Credenciais dos usuários criados</h4>
+            <p>Guarde essas informações com segurança.</p>
+
+            <div class="credenciais-criadas__table-wrap">
+              <table class="credenciais-criadas__table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Login</th>
+                    <th>Senha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let usuario of usuariosCriadosCredenciais">
+                    <td>{{ usuario.nome }}</td>
+                    <td>{{ usuario.login }}</td>
+                    <td>{{ usuario.senha }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <div class="inline-actions" *ngIf="!sucesso">
+            <button mat-stroked-button type="button" (click)="adicionarUsuarioLinha()" [disabled]="submitting">
+              Adicionar usuário
+            </button>
+          </div>
+        </section>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button *ngIf="!sucesso" mat-raised-button color="primary" (click)="cadastrarEmpresa()" [disabled]="submitting">
+          {{ submitting ? 'Criando empresa e usuários...' : 'Criar empresa e usuários' }}
+        </button>
+        <button *ngIf="sucesso" mat-raised-button color="primary" (click)="criarOutraEmpresa()">Criar outra empresa</button>
+        <button mat-stroked-button (click)="voltar()">Voltar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="loading-overlay" *ngIf="submitting" aria-live="polite" aria-busy="true">
+    <div class="loading-overlay__card">
+      <div class="loading-overlay__spinner" aria-hidden="true"></div>
+      <h4>Criando empresa e usuários...</h4>
+      <p>Aguarde a finalização para evitar duplicidade no processo.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<front-zapfarma-menu></front-zapfarma-menu>
+<div class="front-zapfarma-dashboard">
+  <div class="front-zapfarma-dashboard-container">
+    <mat-card class="cadastro-card" appearance="outlined">
+      <mat-card-content>
+        <div *ngIf="!sucesso" class="card-intro">
+          <h3>Cadastrar novo usuário</h3>
+          <p>Preencha os dados abaixo para liberar o acesso no portal e definir o perfil do usuário.</p>
+        </div>
+
+        <form *ngIf="!sucesso" [formGroup]="formCadastro" novalidate class="example-form">
+          <div class="form-section-title form-section-title--first field-full">Dados principais</div>
+          <mat-form-field appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input
+              id="cpfCnpj"
+              (blur)="validarCPfUsuario(); validateDvCpf()"
+              mask="000.000.000-00"
+              formControlName="cpfCnpj"
+              matInput
+              placeholder="Digite o CPF"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input formControlName="nome" matInput placeholder="Digite o nome completo" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>WhatsApp</mat-label>
+            <input mask="(00) 00000-0000||(00) 0000-0000" formControlName="telefone" matInput placeholder="Digite o WhatsApp" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="Digite o email" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Login</mat-label>
+            <input formControlName="login" matInput placeholder="Defina o login de acesso" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Perfil</mat-label>
+            <mat-select formControlName="perfil">
+              <mat-option *ngFor="let option of perfilOptions" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>CEP</mat-label>
+            <input (blur)="consutarEndereco()" mask="00000-000" formControlName="cep" matInput placeholder="Digite o CEP" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="field-full">
+            <mat-label>Endereço</mat-label>
+            <input formControlName="endereco" matInput placeholder="Digite o endereço completo" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Bairro</mat-label>
+            <input formControlName="bairro" matInput placeholder="Digite o bairro" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Cidade</mat-label>
+            <input formControlName="cidade" matInput placeholder="Digite a cidade" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <input formControlName="estado" matInput placeholder="Exemplo: RJ" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Senha inicial</mat-label>
+            <input [type]="hideSenha ? 'password' : 'text'" formControlName="senha" matInput placeholder="Defina a senha inicial" />
+            <mat-icon (click)="exibirSenha()" matSuffix>{{ hideSenha ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </mat-form-field>
+        </form>
+
+        <div *ngIf="sucesso" class="retorno-sucesso">
+          <h2>{{ error ? error : 'Usuário cadastrado com sucesso.' }}</h2>
+          <p *ngIf="!error">O usuário já pode acessar o portal com os dados cadastrados.</p>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button [disabled]="!formCadastro.valid || !validCpf || btnDisable" *ngIf="!sucesso" mat-raised-button (click)="cadastrar()">
+          Cadastrar
+        </button>
+        <button mat-stroked-button (click)="voltar()">
+          {{ sucesso && !error ? 'Voltar para Usuários' : 'Voltar' }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

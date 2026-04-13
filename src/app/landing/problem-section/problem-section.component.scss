@@ -1,0 +1,460 @@
+﻿.results-section {
+  position: relative;
+  padding: 4rem 0 5rem;
+  background: var(--primary);
+  color: #fff;
+  overflow: hidden;
+}
+
+.results-container {
+  position: relative;
+  z-index: 1;
+}
+
+
+.problem-section {
+  padding: 5rem 0 7rem;
+  scroll-margin-top: 5rem;
+}
+
+
+
+@media (min-width: 1024px) {
+  .problem-section {
+    padding: 7rem 0 9rem;
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+.problem-wrapper {
+  max-width: var(--layout-shell-xl);
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-header h2 {
+  font-size: clamp(2rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+  text-wrap: balance;
+}
+
+.section-header p {
+  font-size: 1.1rem;
+  color: var(--muted-foreground);
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: var(--primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.eyebrow.small {
+  font-size: 1.2rem;
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 5rem;
+}
+
+@media (max-width: 560px) {
+  .problem-grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .problem-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+.problem-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .problem-card {
+    text-align: left;
+  }
+}
+
+.problem-card:hover {
+  border-color: color-mix(in oklch, var(--destructive) 30%, transparent);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+}
+
+.dark .problem-card {
+  background: linear-gradient(160deg, #081a2f 0%, #061528 100%);
+  border-color: rgba(109, 145, 189, 0.34);
+  box-shadow: inset 0 0 0 1px rgba(8, 20, 38, 0.45);
+}
+
+.dark .problem-card h3 {
+  color: #e7edf8;
+}
+
+.dark .problem-card:hover {
+  border-color: rgba(220, 38, 38, 0.55);
+  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.35);
+}
+
+.problem-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--foreground);
+  min-height: auto;
+  margin: 0 0 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .problem-card h3 {
+    min-height: 3.5rem;
+    margin: 0 0 0.9rem;
+  }
+}
+
+.problem-card p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .problem-card p {
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+}
+
+.icon-wrap {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  transition: background-color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .icon-wrap {
+    margin: 0 0 1rem;
+  }
+}
+
+.icon-wrap.destructive {
+  background: color-mix(in oklch, var(--destructive) 10%, transparent);
+  color: var(--destructive);
+}
+
+.dark .icon-wrap.destructive {
+  background: rgba(117, 38, 38, 0.34);
+  color: #f87171;
+  box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.12);
+}
+
+.dark .problem-card .icon {
+  stroke-width: 2.25;
+  filter: drop-shadow(0 0 8px rgba(186, 95, 95, 0.18));
+}
+
+.icon-wrap .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.icon-wrap.primary {
+  background: color-mix(in oklch, var(--primary) 10%, transparent);
+  color: var(--primary);
+}
+
+.problem-card:hover .icon-wrap.destructive {
+  background: color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 5rem;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .solution-grid {
+    justify-content: center;
+  }
+}
+
+.solution-content {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 0;
+}
+
+@media (min-width: 1024px) {
+  .solution-content {
+    text-align: center;
+  }
+}
+
+.solution-content h3 {
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+  text-wrap: balance;
+}
+
+.solution-content p {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--muted-foreground);
+  line-height: 1.7;
+  margin: 0 auto 2rem;
+  max-width: 32rem;
+}
+
+@media (min-width: 1024px) {
+  .solution-content p {
+    text-align: center;
+  }
+}
+
+.solution-cta {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .solution-cta {
+    justify-content: center;
+  }
+}
+
+.solution-visual {
+  display: flex;
+  justify-content: center;
+  flex: 1 1 0;
+}
+
+.solution-image-card {
+  width: min(100%, 560px);
+}
+
+.solution-image-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+
+.solution-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.solution-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.solution-card:hover {
+  border-color: color-mix(in oklch, var(--primary) 30%, transparent);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+}
+
+.solution-card h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.solution-card:hover .icon-wrap.primary {
+  background: color-mix(in oklch, var(--primary) 20%, transparent);
+}
+
+.result-callout {
+  text-align: center;
+  margin-top: 5rem;
+  width: min(100%, 78rem);
+  margin-inline: auto;
+  border-radius: 16px;
+  margin-top: 1rem;
+  padding: 1.75rem 1.25rem;
+  border-radius: 2rem;
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 28px 56px rgba(22, 163, 74, 0.22);
+  border: 1px solid color-mix(in oklch, white 18%, transparent);
+}
+
+@media (min-width: 768px) {
+  .result-callout {
+    padding: 3rem 3.25rem;
+  }
+}
+
+.result-callout h3 {
+  font-size: clamp(1.45rem, 6vw, 2.5rem);
+  font-weight: 700;
+  margin: 0 0 0.9rem;
+  text-wrap: balance;
+}
+
+.result-callout h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+}
+
+.result-callout p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.05rem;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.dark .result-callout h4 {
+  color: rgba(255, 255, 255, 0.98);
+}
+
+.dark .result-callout p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+@media (max-width: 768px) {
+  .problem-section {
+    padding: 4rem 0 5rem;
+  }
+
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-header p {
+    font-size: 1rem;
+  }
+
+  .problem-wrapper {
+    width: 100%;
+  }
+
+  .solution-grid {
+    padding-inline: 12px;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .solution-content {
+    width: 100%;
+    text-align: center;
+    padding-left: 0;
+  }
+
+  .solution-content h3 {
+    font-size: clamp(1.85rem, 9vw, 2.25rem);
+    line-height: 1.15;
+  }
+
+  .solution-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 34ch;
+    margin: 0 auto 2rem;
+    text-align: center;
+  }
+
+  .solution-cta .btn {
+    width: min(100%, 360px);
+    justify-content: center;
+  }
+
+  .solution-visual {
+    width: 100%;
+  }
+
+  .solution-image-card {
+    width: min(100%, 360px);
+    padding: 0.6rem;
+    border-radius: 1.25rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .solution-image-card img {
+    border-radius: 0.95rem;
+  }
+
+  .result-callout {
+    width: calc(100% - 24px);
+    padding: 28px 18px;
+    margin-top: 3rem;
+  }
+
+  .result-callout h3 {
+    font-size: clamp(1.55rem, 7vw, 1.9rem);
+    line-height: 1.2;
+  }
+
+  .result-callout h4 {
+    font-size: 1.1rem;
+  }
+
+  .result-callout p {
+    font-size: 1rem;
+    max-width: 30ch;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  max-width: 44rem;
+  margin: 0 auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .result-callout p {
+    font-size: 1.12rem;
+    line-height: 1.8;
+
+  }
+}

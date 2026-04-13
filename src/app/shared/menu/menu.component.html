@@ -1,0 +1,142 @@
+<!-- <div class="mat-app-background basic-container">
+  <mat-sidenav-container class="container" autosize>
+    <mat-sidenav position="end" #sidenav class="sidenav" mode="side" opened="true">
+      <mat-nav-list>
+        <mat-list-item class="top-menu">
+          <a *ngIf="isExpanded" (click)="isExpanded = !isExpanded">
+            <span class="logo" *ngIf="isExpanded || isShowing"><img src="../../../assets/imgs/logo-zapfarma/zapfarma-logo-branca.png"></span>
+          </a>
+          <button class="expanded" mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>{{isExpanded ?
+              'chevron_left': 'chevron_right'}}</mat-icon></button>
+        </mat-list-item>
+        <mat-list-item class="area-account">
+          <mat-icon style="color: #FFFFFF;" mat-list-icon>lock</mat-icon>
+          <div *ngIf="isExpanded || isShowing">
+            <p class="sub-title">{{usuario?.nome}} <span (click)="sair()" class="sair">(sair)</span></p>
+          </div>
+        </mat-list-item>
+        <mat-list-item class="top-menu">
+          <a href="#/dashboard">
+            <mat-icon mat-list-icon>dashboard</mat-icon>
+            <span *ngIf="isExpanded || isShowing">Dashboard</span>
+          </a>
+        </mat-list-item>
+        <mat-list-item class="top-menu">
+          <a href="#/empresas">
+            <mat-icon mat-list-icon>medical_services</mat-icon>
+            <span *ngIf="isExpanded || isShowing">Farmácias</span>
+          </a>
+        </mat-list-item>
+
+        <mat-list-item class="top-menu" *ngIf="usuario.admin">
+          <a href="#/usuarios-afiliados">
+            <mat-icon mat-list-icon>badge</mat-icon>
+            <span *ngIf="isExpanded || isShowing">Afiliados</span>
+          </a>
+        </mat-list-item>
+        <mat-list-item class="top-menu">
+          <a class="disabled">
+            <mat-icon mat-list-icon>payments</mat-icon>
+            <span *ngIf="isExpanded || isShowing">Assinaturas</span>
+          </a>
+        </mat-list-item>
+
+        <mat-list-item class="top-menu">
+          <a class="disabled">
+            <mat-icon mat-list-icon>summarize</mat-icon>
+            <span *ngIf="isExpanded || isShowing">Relatórios</span>
+          </a>
+        </mat-list-item>
+
+        <mat-list-item class="top-menu" (click)="showSubmenu = !showSubmenu">
+          <mat-icon style="color: #FFFFFF;" mat-list-icon>account_circle</mat-icon>
+          <span class="disabled" style="color: #FFFFFF;" *ngIf="isExpanded || isShowing">Minha conta</span>
+          <mat-icon style="color: #FFFFFF;" class="menu-button" [ngClass]="{'rotated' : showSubmenu}"
+            *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+        </mat-list-item>
+        <div style="color: #FFFFFF !important" class="submenu" [ngClass]="{'expanded' : showSubmenu}"
+          *ngIf="isShowing || isExpanded">
+          <a style="color: #FFFFFF !important" mat-list-item>
+            <span style="color: #FFFFFF !important">Alterar dados</span>
+          </a>
+          <a style="color: #FFFFFF !important" mat-list-item>
+            <span style="color: #FFFFFF !important">Configurações</span>
+          </a>
+          <a style="color: #FFFFFF !important" mat-list-item>
+            <span style="color: #FFFFFF !important">Usuários do sistema</span>
+          </a>
+        
+        </div>
+      </mat-nav-list>
+      <mat-nav-list>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <div class="sidenav-content">
+      <ng-content #name></ng-content>
+    </div>
+
+  </mat-sidenav-container>
+
+</div> -->
+
+<div class="menu-container">
+  <mat-toolbar color="primary" class="menu-toolbar">
+    <button class="button" *ngIf="onMenu"  mat-icon-button (click)="openNav()"><mat-icon>menu</mat-icon></button>
+    <img class="img-desktop" src="assets/imgs/logo-zapfarma/zapfarma-logo-branca.png" alt="Logo ZapFarma" (click)="goHome();">
+    <img class="img-mobile" src="assets/imgs/logo-zapfarma/zapfarma-logo-branca.png" alt="Logo ZapFarma" (click)="goHome();">
+    <div class="buttons">
+      <button  *ngIf="iniciaisLogado ===''" class="acessar" mat-raised-button color="primary">
+        <mat-icon>account_circle</mat-icon>
+        Acessar
+      </button>
+      <div *ngIf="iniciaisLogado !==''" class="container-iniciais" [matMenuTriggerFor]="menu">
+        <span [matMenuTriggerFor]="menu" title='Logado como: {{usuarioLogado.nome}}'>{{iniciaisLogado}}</span>
+      </div>
+    </div>
+    <mat-menu #menu="matMenu" class="user-menu-panel">
+      <button  (click)="goMinhaConta()"  mat-menu-item *ngIf="onMenu && podeGerenciarTudo" >
+        <mat-icon>manage_accounts</mat-icon>
+        <span>Configurações</span>
+      </button>
+      <button  (click)="goNovaSenha()" *ngIf="onMenu && podeGerenciarTudo" mat-menu-item>
+        <mat-icon>password</mat-icon>
+        <span>Alterar senha</span>
+      </button>
+      <button (click)="onLogOut()" mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Sair</span>
+      </button>
+    </mat-menu>
+    <mat-menu #menuNotification="matMenu">
+      <button mat-menu-item>
+        <mat-icon>notifications</mat-icon>
+        <span>Minhas notificações</span>
+      </button>
+    </mat-menu>
+
+  </mat-toolbar>
+</div>
+
+<div *ngIf="onMenu"  #mySidepanel id="mySidepanel" class="sidepanel">
+  <div class="sidepanel__header">
+    <div class="sidepanel__brand" (click)="goHome(); closeNav()">
+      <img src="assets/imgs/logo-zapfarma/zapfarma-logo-branca.png" alt="Logo ZapFarma" />
+      <div class="sidepanel__user">
+        <span class="sidepanel__user-label">Conectado como</span>
+        <strong>{{ primeiroNome || 'Usuário' }}</strong>
+      </div>
+    </div>
+    <button type="button" class="sidepanel__close" aria-label="Fechar menu" (click)="closeNav()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div #divElements class="sidepanel__nav">
+    <a class="sidepanel__item-menu" (click)="closeNav()" href="#/dashboard"><mat-icon class="sidepanel__mat-icon-menu">dashboard</mat-icon><span class="item-menu">Início</span></a>
+    <a *ngIf="podeAcessarTelaDrogarias" class="sidepanel__item-menu" (click)="closeNav()" href="#/empresas"><mat-icon class="sidepanel__mat-icon-menu">medical_services</mat-icon><span class="item-menu">Drogarias</span></a>
+    <a *ngIf="podeAcessarTelaUsuarios" class="sidepanel__item-menu" (click)="closeNav()" href="#/usuarios-afiliados"><mat-icon class="sidepanel__mat-icon-menu">badge</mat-icon><span class="item-menu">Usuários</span></a>
+    <a *ngIf="podeGerenciarTudo" class="sidepanel__item-menu" (click)="closeNav()" href="#/treinamentos"><mat-icon class="sidepanel__mat-icon-menu">play_circle</mat-icon><span class="item-menu">Treinamentos</span></a>
+    <!-- <a *ngIf="admin || admin_sys" class="sidepanel__item-menu" (click)="closeNav()" mat-list-item href="#/maps"><mat-icon class="sidepanel__mat-icon-menu">maps</mat-icon><span class="item-menu">Mapa</span></a> -->
+    <a class="sidepanel__item-menu" (click)="onLogOut()"><mat-icon class="sidepanel__mat-icon-menu">logout</mat-icon><span class="item-menu">Sair</span></a>
+  </div>
+</div>

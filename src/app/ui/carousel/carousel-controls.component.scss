@@ -1,0 +1,41 @@
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel-control.prev {
+  left: -3rem;
+}
+
+.carousel-control.next {
+  right: -3rem;
+}
+
+.carousel-control.vertical {
+  top: auto;
+  left: 50%;
+  transform: translateX(-50%) rotate(90deg);
+}
+
+.carousel-control.vertical.prev {
+  top: -3rem;
+}
+
+.carousel-control.vertical.next {
+  bottom: -3rem;
+}
+
+.carousel-button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--background);
+  cursor: pointer;
+}
+
+.carousel-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

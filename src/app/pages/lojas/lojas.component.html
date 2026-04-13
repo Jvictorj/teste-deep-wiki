@@ -1,0 +1,34 @@
+<front-zapfarma-toolbar></front-zapfarma-toolbar>
+
+<main class="stores-page">
+  <section class="hero">
+    <div class="hero__content">
+      <p class="eyebrow">Nossas lojas</p>
+      <h1>Encontre a unidade mais próxima</h1>
+      <p class="lead">
+        Visite nossas drogarias ou fale com a equipe local. Endereço completo e link direto para o Maps.
+      </p>
+    </div>
+  </section>
+
+  <section class="stores-grid">
+    <article class="store-card" *ngFor="let store of stores">
+      <div class="store-card__thumb">
+        <img [src]="store.photo" [alt]="store.name" />
+      </div>
+      <div class="store-card__info">
+        <h3>{{ store.name }}</h3>
+        <p class="address">{{ store.address }}</p>
+        <p class="complement" *ngIf="store.complement">{{ store.complement }}</p>
+        <div class="phone" *ngIf="store.phones?.length">
+          <span *ngFor="let phone of store.phones">Tel: {{ phone }}</span>
+        </div>
+        <a class="maps-link" [href]="store.mapsUrl" target="_blank" rel="noopener noreferrer">
+          Ver rota no Maps
+        </a>
+      </div>
+    </article>
+  </section>
+</main>
+
+<front-zapfarma-rodape></front-zapfarma-rodape>

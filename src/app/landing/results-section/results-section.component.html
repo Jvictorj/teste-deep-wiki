@@ -1,0 +1,25 @@
+<section id="resultados" class="results-section">
+  <div class="container results-container">
+    <div class="results-content">
+      <h2>Resultados que importam</h2>
+
+      <div class="stats-grid">
+        @for (stat of stats; track stat.label) {
+          <div class="stat-card">
+            <p class="value">{{ stat.value }}</p>
+            <p class="label">{{ stat.label }}</p>
+            <p class="sublabel">{{ stat.sublabel }}</p>
+          </div>
+        }
+      </div>
+
+      <a class="btn btn-pill btn-lg results-cta" href="/#/home#contato">
+        Agendar demonstração
+        <mat-icon class="icon">arrow_forward</mat-icon>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+

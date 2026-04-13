@@ -1,0 +1,146 @@
+<front-zapfarma-toolbar></front-zapfarma-toolbar>
+
+<section class="criacao-drogaria">
+  <header class="page-header">
+    <p class="eyebrow">Formulário ZapFarma</p>
+    <h1>Criação de Drogaria e Usuários</h1>
+    <p class="subtitle">
+      Para cada drogaria, preencha os dados da unidade para criarmos a drogaria no sistema e liberarmos
+      os acessos. Para testes, o envio é direcionado ao WhatsApp do time ZapFarma.
+    </p>
+  </header>
+
+  <form class="docs-form" [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+    <section class="form-section">
+      <h2>1. Dados da drogaria</h2>
+      <div class="form-grid">
+        <div class="field" [class.invalid]="f['drogaria'].touched && f['drogaria'].invalid">
+          <label for="drogaria">Nome da drogaria*</label>
+          <input id="drogaria" type="text" formControlName="drogaria" placeholder="Drogaria" />
+          <small *ngIf="f['drogaria'].touched && f['drogaria'].hasError('required')">
+            Informe o nome da drogaria.
+          </small>
+        </div>
+
+        <div class="field full">
+          <label>Telefones a serem cadastrados*</label>
+          <div formArrayName="telefones" class="field-rows">
+            <div
+              class="field-row"
+              *ngFor="let telefoneControl of telefones.controls; let i = index"
+              [class.invalid]="telefoneControl.touched && telefoneControl.invalid"
+            >
+              <input
+                type="text"
+                [formControlName]="i"
+                placeholder="(00) 00000-0000"
+                mask="(00) 00000-0000||(00) 0000-0000"
+              />
+              <button
+                type="button"
+                class="remove-button"
+                (click)="removerTelefone(i)"
+                [disabled]="telefones.length === 1"
+              >
+                Remover
+              </button>
+              <small *ngIf="telefoneControl.touched && telefoneControl.hasError('required')">
+                Informe o telefone que será cadastrado.
+              </small>
+            </div>
+          </div>
+          <button type="button" class="add-button" (click)="adicionarTelefone()">Adicionar telefone</button>
+        </div>
+
+        <div class="field" [class.invalid]="f['emailCliente'].touched && f['emailCliente'].invalid">
+          <label for="emailCliente">E-mail*</label>
+          <input id="emailCliente" type="email" formControlName="emailCliente" placeholder="cliente@empresa.com.br" />
+          <small *ngIf="f['emailCliente'].touched && f['emailCliente'].hasError('required')">
+            Informe o e-mail.
+          </small>
+          <small *ngIf="f['emailCliente'].touched && f['emailCliente'].hasError('email')">
+            Informe um e-mail válido.
+          </small>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>2. Equipe de atendimento</h2>
+      <div class="form-grid">
+        <div class="field full">
+          <label>Usuários atendentes (nome e sobrenome)*</label>
+          <div formArrayName="atendentes" class="field-rows">
+            <div
+              class="field-row"
+              *ngFor="let atendenteControl of atendentes.controls; let i = index"
+              [class.invalid]="atendenteControl.touched && atendenteControl.invalid"
+            >
+              <input type="text" [formControlName]="i" placeholder="Nome e sobrenome do atendente" />
+              <button
+                type="button"
+                class="remove-button"
+                (click)="removerAtendente(i)"
+                [disabled]="atendentes.length === 1"
+              >
+                Remover
+              </button>
+              <small *ngIf="atendenteControl.touched && atendenteControl.hasError('required')">
+                Informe o nome e sobrenome do atendente.
+              </small>
+            </div>
+          </div>
+          <button type="button" class="add-button" (click)="adicionarAtendente()">Adicionar atendente</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>3. Equipe gerencial</h2>
+      <div class="form-grid">
+        <div class="field full">
+          <label>Usuários gerenciais (nome e sobrenome)*</label>
+          <div formArrayName="gerenciais" class="field-rows">
+            <div
+              class="field-row"
+              *ngFor="let gerencialControl of gerenciais.controls; let i = index"
+              [class.invalid]="gerencialControl.touched && gerencialControl.invalid"
+            >
+              <input type="text" [formControlName]="i" placeholder="Nome e sobrenome do usuário gerencial" />
+              <button
+                type="button"
+                class="remove-button"
+                (click)="removerGerencial(i)"
+                [disabled]="gerenciais.length === 1"
+              >
+                Remover
+              </button>
+              <small *ngIf="gerencialControl.touched && gerencialControl.hasError('required')">
+                Informe o nome e sobrenome do usuário gerencial.
+              </small>
+            </div>
+          </div>
+          <button type="button" class="add-button" (click)="adicionarGerencial()">Adicionar usuário gerencial</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="submitting">
+        {{ submitting ? 'Enviando...' : 'Enviar para WhatsApp' }}
+      </button>
+    </div>
+
+    <div class="feedback success" *ngIf="submitSuccess">
+      <p>
+        Dados enviados no WhatsApp! Nossa equipe retornará com os próximos passos.
+      </p>
+    </div>
+
+    <div class="feedback error" *ngIf="submitError">
+      <p>{{ submitError }}</p>
+    </div>
+  </form>
+</section>
+
+<front-zapfarma-rodape></front-zapfarma-rodape>

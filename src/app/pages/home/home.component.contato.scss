@@ -1,0 +1,77 @@
+@use './../../../style/tokens.scss' as *;
+
+.front-zapfarma-home__container_contato {
+  background: linear-gradient(145deg, rgba($primary-color, 0.92), rgba(#050f3a, 0.9));
+  color: #ffffff;
+  padding: clamp($space-large, 6vw, $space-xs-large) 0;
+
+  &__camada {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 clamp($space-medium, 6vw, $space-x-large);
+    display: grid;
+    gap: $space-large;
+    box-sizing: border-box;
+  }
+
+  &__titulo {
+    h2 {
+      margin: 0 0 $space-small 0;
+      font-size: clamp(24px, 3vw, 32px);
+    }
+
+    p {
+      margin: 0;
+      color: rgba(#ffffff, 0.85);
+    }
+  }
+
+  &__form {
+    background: rgba(#ffffff, 0.06);
+    border: 1px solid rgba(#ffffff, 0.12);
+    border-radius: 16px;
+    padding: clamp($space-medium, 4vw, $space-large);
+    box-shadow: 0 12px 30px rgba(#000, 0.25);
+
+    form {
+      display: grid;
+      gap: $space-medium;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(#ffffff, 0.2);
+      background: rgba(#ffffff, 0.08);
+      color: #ffffff;
+      font-size: 1rem;
+
+      &:focus {
+        outline: 2px solid $secondary-color;
+        border-color: $secondary-color;
+      }
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 14px 18px;
+      background: $secondary-color;
+      color: $primary-color;
+      font-weight: 700;
+      cursor: pointer;
+      transition: filter 0.2s ease;
+
+      &:hover {
+        filter: brightness(1.05);
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.command-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 0.9rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+.command-item:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.command-item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

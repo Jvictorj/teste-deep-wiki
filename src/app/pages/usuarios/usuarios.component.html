@@ -1,0 +1,110 @@
+<front-zapfarma-menu></front-zapfarma-menu>
+<div class="front-zapfarma-dashboard">
+  <div class="front-zapfarma-dashboard-container">
+    <mat-card class="list-card" appearance="outlined">
+      <mat-card-content>
+        <div class="list-header">
+          <div>
+            <h3 class="h1-mobile">Lista de Usuários</h3>
+            <p>Gerencie usuários, localize por CPF e acompanhe os cadastros recentes por perfil.</p>
+          </div>
+          <button
+            (click)="irCadastrar()"
+            color="primary"
+            mat-raised-button
+            class="add-button"
+            aria-label="Cadastrar novo Usuário"
+          >
+            <mat-icon>person_add</mat-icon>
+            <span>Novo Usuário</span>
+          </button>
+        </div>
+
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-icon matPrefix>search</mat-icon>
+          <mat-label>Pesquisar usuário</mat-label>
+          <input [value]="dadosNotificacao" matInput (keyup)="applyFilter($event)" placeholder="Ex. CPF, Nome..." #input />
+        </mat-form-field>
+
+        <div class="table-shell">
+          <div class="mat-container">
+            <table id="tableScroll" class="afiliados-table" mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="cpfCnpj">
+                <th class="th-name" mat-header-cell *matHeaderCellDef mat-sort-header>CPF</th>
+                <td class="th-name col-cpf" mat-cell *matCellDef="let row" [ngStyle]="{ color: row.ativo === true ? '' : '#98a2b3' }">
+                  <a class="link-editar" (click)="irAtualizar(row.id, row.nome)">
+                    <mat-icon class="edit-icon" aria-hidden="true">manage_search</mat-icon>
+                    <span>{{ row.cpfCnpj | mask: '000.000.000-00' }}</span>
+                  </a>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="nome">
+                <th class="th-name" mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+                <td class="th-name col-name" mat-cell *matCellDef="let row" [ngStyle]="{ color: row.ativo === true ? '' : '#98a2b3' }">
+                  {{ row.nome }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="perfil">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Perfil</th>
+                <td mat-cell *matCellDef="let row">
+                  <span class="profile-pill">{{ getPerfilLabel(row) }}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="telefone">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Telefone</th>
+                <td class="col-telefone" mat-cell *matCellDef="let row" [ngStyle]="{ color: row.ativo === true ? '' : '#98a2b3' }">
+                  {{ row.telefone | mask: '(00) 00000-0000' }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="cep">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>CEP</th>
+                <td class="col-cep" mat-cell *matCellDef="let row">{{ row.cep | mask: '00000-000' }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="data">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Data</th>
+                <td class="col-data" mat-cell *matCellDef="let row" [ngStyle]="{ color: row.ativo === true ? '' : '#98a2b3' }">
+                  {{ row.data | date : 'dd/MM/yyyy - HH:mm' : '-03:00' }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="acoes">
+                <th class="th-acoes" mat-header-cell *matHeaderCellDef>Ações</th>
+                <td class="col-acoes" mat-cell *matCellDef="let row">
+                  <button
+                    type="button"
+                    mat-icon-button
+                    color="warn"
+                    class="excluir-btn"
+                    (click)="apagarUsuario(row, $event)"
+                    aria-label="Apagar usuário"
+                    title="Apagar usuário"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+            </table>
+          </div>
+
+          <div *ngIf="!loadSkeleton && dataSource?.data?.length === 0" class="empty-state">
+            <mat-icon aria-hidden="true">person_search</mat-icon>
+            <p>{{ erroCarregamento || 'Nenhum usuário encontrado com os filtros aplicados.' }}</p>
+          </div>
+
+          <div *ngIf="loadSkeleton" class="skeleton-container">
+            <ngx-skeleton-loader count="5" appearance="line" animation="progress"></ngx-skeleton-loader>
+          </div>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

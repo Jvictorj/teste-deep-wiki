@@ -1,0 +1,145 @@
+<section id="parceiros" class="partnerships-section">
+  <div class="container">
+    <div class="security-wrapper">
+      <div class="security-grid">
+        <div class="security-visual">
+          <div class="visual-card">
+            <div class="visual-head">
+              <span class="visual-pill">
+                <mat-icon class="icon">handshake</mat-icon>
+                Ecossistema parceiro
+              </span>
+              <p>
+                Infraestrutura, IA e distribuicao apoiadas por players globais
+                para sustentar a operacao da Zapfarma.
+              </p>
+            </div>
+
+            <div class="partnership-carousel">
+              <div class="partnership-carousel__shell">
+                <button
+                  class="partnership-carousel__nav"
+                  type="button"
+                  (click)="prevPartnership()"
+                  aria-label="Parceria anterior"
+                >
+                  <mat-icon class="icon">chevron_left</mat-icon>
+                </button>
+
+                <div class="partnership-carousel__viewport">
+                  <div
+                    class="partnership-carousel__track"
+                    [style.transform]="
+                      'translateX(-' + activePartnershipIndex * 100 + '%)'
+                    "
+                  >
+                    <div
+                      *ngFor="let partnership of partnerships"
+                      class="partnership-card partnership-carousel__slide"
+                      [class.partnership-card--featured]="partnership.featured"
+                    >
+                      <div
+                        class="partnership-logo-wrap"
+                        [class.partnership-logo-wrap--has-dark]="
+                          partnership.imageSrcDark
+                        "
+                      >
+                        <img
+                          [src]="partnership.imageSrc"
+                          [alt]="partnership.imageAlt"
+                          [attr.width]="partnership.imageWidth || null"
+                          [attr.height]="partnership.imageHeight || null"
+                          loading="lazy"
+                          decoding="async"
+                          [ngClass]="[
+                            'partnership-logo',
+                            'partnership-logo--light',
+                            partnership.logoClass || ''
+                          ]"
+                        />
+                        <img
+                          *ngIf="partnership.imageSrcDark"
+                          [src]="partnership.imageSrcDark"
+                          alt=""
+                          aria-hidden="true"
+                          [attr.width]="partnership.imageDarkWidth || null"
+                          [attr.height]="partnership.imageDarkHeight || null"
+                          loading="lazy"
+                          decoding="async"
+                          [ngClass]="[
+                            'partnership-logo',
+                            'partnership-logo--dark',
+                            partnership.logoClass || ''
+                          ]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  class="partnership-carousel__nav"
+                  type="button"
+                  (click)="nextPartnership()"
+                  aria-label="Próxima parceria"
+                >
+                  <mat-icon class="icon">chevron_right</mat-icon>
+                </button>
+              </div>
+
+              <div
+                class="partnership-carousel__dots"
+                aria-label="Selecionar parceria"
+              >
+                <button
+                  *ngFor="
+                    let partnership of partnerships;
+                    let partnershipIndex = index
+                  "
+                  class="partnership-carousel__dot"
+                  type="button"
+                  [class.partnership-carousel__dot--active]="
+                    activePartnershipIndex === partnershipIndex
+                  "
+                  [attr.aria-label]="'Mostrar parceria ' + partnership.name"
+                  [attr.aria-pressed]="activePartnershipIndex === partnershipIndex"
+                  (click)="selectPartnership(partnershipIndex)"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="security-content">
+          <span class="eyebrow">
+            <mat-icon class="icon">verified</mat-icon>
+            Parcerias Oficiais
+          </span>
+          <h2>Construida com parceiros que reforcam confianca e escala</h2>
+          <p>
+            A Zapfarma nao opera sozinha. Nossa base combina parceiros de
+            infraestrutura, aceleracao e inovacao para dar mais robustez a
+            operacao da sua farmacia e suportar crescimento com seguranca.
+          </p>
+          <ul class="benefits">
+            <li>
+              <mat-icon class="icon">task_alt</mat-icon>
+              <span>Infraestrutura preparada para alta disponibilidade</span>
+            </li>
+            <li>
+              <mat-icon class="icon">task_alt</mat-icon>
+              <span>Ecossistema conectado com cloud e IA de mercado</span>
+            </li>
+            <li>
+              <mat-icon class="icon">task_alt</mat-icon>
+              <span>Mais credibilidade comercial na apresentacao da solucao</span>
+            </li>
+          </ul>
+          <a class="btn btn-primary btn-pill btn-lg" href="#contato">
+            Fale com nosso time
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

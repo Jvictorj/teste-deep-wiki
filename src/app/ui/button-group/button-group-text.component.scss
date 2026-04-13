@@ -1,0 +1,11 @@
+.button-group-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}

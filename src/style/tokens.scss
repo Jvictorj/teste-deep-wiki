@@ -1,0 +1,49 @@
+$primary-color: #0f335f;
+$primary-palette-variant1: #00923f;
+$primary-palette-variant2: #00923f;
+$primary-palette-variant3: #00923f;
+$primary-palette-variant5: #00923f;
+$primary-palette-variant4: #f5f7fa;
+$secondary-color: #00923f;
+$secondary-color-light: #dff1e6;
+$primary-color-light: #e8eff6;
+$secondary-contrast-color: #056a2e;
+$gray-palette-strong: #9e9e9e;
+$gray-palette: #f9f9f9;
+$gray-palette-topo: #e4e4e4;
+$error-campo: #fe4b3b;
+$primary-button-color: #00923f;
+$secondary-color-font: #79cfa1;
+
+
+$color-text-wh: #ffffff;
+$color-text-bk: #000000;
+$color-text-02: #00923f;
+$color-wh: #ffffff;
+$color-background-bk: #000000;
+$color-background-wh: #ffffff;
+
+$font-size-medium: 14px;
+$font-size-s-medium: 16px;
+$font-size-small: 12px;
+$font-size-x-small: 10px;
+$font-size-xx-small: 9px;
+$font-size-large: 18px;
+$font-size-large-20: 20px;
+$font-size-x-large: 24px;
+$font-size-xx-large: 32px;
+$font-size-xs-large: 40px;
+$font-size-xss-large: 60px;
+
+$space-medium: 16px;
+$space-s-medium: 12px;
+$space-small: 8px;
+$space-large: 24px;
+$space-x-large: 32px;
+$space-xs-large: 48px;
+
+.mat-mdc-raised-button:not(:disabled) {
+    background-color: $primary-button-color !important;
+    color: #ffffff;
+    border-radius: 20px;
+}

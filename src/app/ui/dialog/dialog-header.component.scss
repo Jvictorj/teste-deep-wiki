@@ -1,0 +1,12 @@
+.dialog-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .dialog-header {
+    text-align: left;
+  }
+}

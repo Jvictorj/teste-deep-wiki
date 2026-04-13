@@ -1,0 +1,7 @@
+<ng-content select="[hoverCardTrigger]"></ng-content>
+
+@if (open) {
+  <div class="hover-card" (mouseleave)="hide()">
+    <ng-content select="app-hover-card-content"></ng-content>
+  </div>
+}

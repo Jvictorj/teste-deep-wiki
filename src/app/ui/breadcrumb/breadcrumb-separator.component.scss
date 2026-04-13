@@ -1,0 +1,11 @@
+.breadcrumb-separator {
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumb-separator mat-icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  font-size: 0.9rem;
+  line-height: 1;
+}

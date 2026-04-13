@@ -1,0 +1,404 @@
+<front-zapfarma-toolbar></front-zapfarma-toolbar>
+
+<section class="configuracao-ia">
+  <header class="page-header">
+    <p class="eyebrow">Onboarding de Inteligência Artificial</p>
+    <h1>Configuração personalizada da IA</h1>
+    <p class="subtitle">
+      Quanto mais informações tivermos sobre o seu negócio, mais rápido conseguimos
+      treinar a IA para atender com o tom de voz correto e trazer resultados reais.
+    </p>
+  </header>
+
+  <form class="ia-form" [formGroup]="iaConfigForm" (ngSubmit)="enviarConfiguracao()">
+    <section class="form-section">
+      <h2>1. Dados da empresa</h2>
+      <div class="form-grid">
+        <div class="field" [class.invalid]="f['empresa'].touched && f['empresa'].invalid">
+          <label for="empresa">Nome da empresa*</label>
+          <input id="empresa" type="text" formControlName="empresa" placeholder="Farmácia Exemplo LTDA" />
+          <small *ngIf="f['empresa'].touched && f['empresa'].hasError('required')">
+            Informe a empresa.
+          </small>
+        </div>
+
+        <div class="field" [class.invalid]="f['nomeIa'].touched && f['nomeIa'].invalid">
+          <label for="nomeIa">Nome da IA*</label>
+          <input id="nomeIa" type="text" formControlName="nomeIa" placeholder="Como a IA deve se apresentar?" />
+          <small *ngIf="f['nomeIa'].touched && f['nomeIa'].hasError('required')">
+            Defina o nome da IA.
+          </small>
+        </div>
+
+        <div class="field" [class.invalid]="f['cnpj'].touched && f['cnpj'].invalid">
+          <label for="cnpj">CNPJ*</label>
+          <input
+            id="cnpj"
+            type="text"
+            formControlName="cnpj"
+            placeholder="00.000.000/0000-00"
+            mask="00.000.000/0000-00"
+          />
+          <small *ngIf="f['cnpj'].touched && f['cnpj'].hasError('required')">
+            Informe o CNPJ.
+          </small>
+        </div>
+
+        <div class="field" [class.invalid]="f['numeroDelivery'].touched && f['numeroDelivery'].invalid">
+          <label for="numeroDelivery">Telefone do delivery*</label>
+          <input
+            id="numeroDelivery"
+            type="text"
+            formControlName="numeroDelivery"
+            placeholder="Telefone ou WhatsApp operacional"
+            mask="(00) 00000-0000"
+          />
+          <small *ngIf="f['numeroDelivery'].touched && f['numeroDelivery'].hasError('required')">
+            Informe o contato usado para delivery.
+          </small>
+        </div>
+
+        <div class="field full" [class.invalid]="f['segmento'].touched && f['segmento'].invalid">
+          <label for="segmento">
+            Segmento ou público principal*
+            <button type="button" class="info-icon" (click)="toggleHint('segmento')">?</button>
+          </label>
+          <input id="segmento" type="text" formControlName="segmento" placeholder="Manipulação, redes independentes, etc." />
+          <small *ngIf="f['segmento'].touched && f['segmento'].hasError('required')">
+            Informe o segmento de atuação.
+          </small>
+          <p class="field-hint" *ngIf="infoHints['segmento']">
+            Indique a linha de negócio predominante e o perfil do público que a IA atenderá (ex.: manipulação premium, redes independentes populares).
+          </p>
+        </div>
+
+        <div class="field full" [class.invalid]="f['horarioAtendimento'].touched && f['horarioAtendimento'].invalid">
+          <label for="horarioAtendimento">
+            Horários da drogaria*
+            <button type="button" class="info-icon" (click)="toggleHint('horario')">?</button>
+          </label>
+          <input id="horarioAtendimento" type="text" formControlName="horarioAtendimento" placeholder="Ex.: Seg a Sex 08h-20h | Sáb 08h-14h | Dom fechado" />
+          <small *ngIf="f['horarioAtendimento'].touched && f['horarioAtendimento'].hasError('required')">
+            Informe os horários de funcionamento da drogaria.
+          </small>
+          <p class="field-hint" *ngIf="infoHints['horario']">
+            Descreva os horários por dia/turno, incluindo sábado, domingo e feriados quando aplicável.
+          </p>
+        </div>
+
+        <div class="field full" [class.invalid]="f['horariosAtendimento'].touched && f['horariosAtendimento'].invalid">
+          <label for="horariosAtendimento">
+            Atendimento após o fechamento da loja*
+            <button type="button" class="info-icon" (click)="toggleHint('regras')">?</button>
+          </label>
+          <select id="horariosAtendimento" formControlName="horariosAtendimento">
+            <option value="">Selecione</option>
+            <option value="Não, atender apenas no horário de funcionamento da drogaria">
+              Não, atender apenas no horário de funcionamento da drogaria
+            </option>
+            <option value="Sim, a IA pode atender após o fechamento e deve avisar que a entrega será feita na abertura da drogaria">
+              Sim, a IA atende e avisa entrega na abertura da drogaria
+            </option>
+          </select>
+          <small *ngIf="f['horariosAtendimento'].touched && f['horariosAtendimento'].hasError('required')">
+            Escolha como a IA deve agir após o fechamento.
+          </small>
+          <p class="field-hint" *ngIf="infoHints['regras']">
+            Se escolher atendimento após fechamento, a IA continuará o atendimento e informará que a entrega acontece na abertura da loja.
+          </p>
+        </div>
+
+        <div class="field full" [class.invalid]="f['numeroFiliais'].touched && f['numeroFiliais'].invalid">
+          <label for="numeroFiliais">Filiais ou unidades*</label>
+          <input id="numeroFiliais" type="text" formControlName="numeroFiliais" placeholder="Ex.: 12 unidades" />
+          <small *ngIf="f['numeroFiliais'].touched && f['numeroFiliais'].hasError('required')">
+            Informe o número de filiais.
+          </small>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>2. Contato responsável</h2>
+      <p class="section-note">
+        Informe a pessoa da drogaria que acompanhará o dia a dia da IA (ajustes, dúvidas e direcionamentos).
+      </p>
+      <div class="form-grid">
+        <div class="field" [class.invalid]="f['responsavel'].touched && f['responsavel'].invalid">
+          <label for="responsavel">Nome completo*</label>
+          <input id="responsavel" type="text" formControlName="responsavel" placeholder="Quem fará o acompanhamento" />
+          <small *ngIf="f['responsavel'].touched && f['responsavel'].hasError('required')">
+            Informe o responsável.
+          </small>
+        </div>
+
+        <div class="field" [class.invalid]="f['email'].touched && f['email'].invalid">
+          <label for="email">E-mail*</label>
+          <input id="email" type="email" formControlName="email" placeholder="responsavel@empresa.com.br" />
+          <small *ngIf="f['email'].touched && f['email'].hasError('required')">
+            Informe o e-mail.
+          </small>
+          <small *ngIf="f['email'].touched && f['email'].hasError('email')">
+            Utilize um e-mail válido.
+          </small>
+        </div>
+
+        <div class="field" [class.invalid]="f['telefone'].touched && f['telefone'].invalid">
+          <label for="telefone">Telefone / WhatsApp*</label>
+          <input
+            id="telefone"
+            type="text"
+            formControlName="telefone"
+            placeholder="(00) 00000-0000"
+            mask="(00) 00000-0000"
+          />
+          <small *ngIf="f['telefone'].touched && f['telefone'].hasError('required')">
+            Informe um telefone.
+          </small>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>3. Operação atual</h2>
+      <div class="form-grid">
+        <div class="field" [class.invalid]="f['volumeAtendimentos'].touched && f['volumeAtendimentos'].invalid">
+          <label for="volumeAtendimentos">Atendimentos por mês*</label>
+          <input id="volumeAtendimentos" type="text" formControlName="volumeAtendimentos" placeholder="Ex.: 3.000 atendimentos/mês" />
+          <small *ngIf="f['volumeAtendimentos'].touched && f['volumeAtendimentos'].hasError('required')">
+            Informe o volume de atendimentos.
+          </small>
+        </div>
+
+        <div class="field" [class.invalid]="f['canaisAtendimento'].touched && f['canaisAtendimento'].invalid">
+          <label for="canaisAtendimento">Canais atuais*</label>
+          <input id="canaisAtendimento" type="text" formControlName="canaisAtendimento" placeholder="WhatsApp, telefone, site, etc." />
+          <small *ngIf="f['canaisAtendimento'].touched && f['canaisAtendimento'].hasError('required')">
+            Informe os canais utilizados.
+          </small>
+        </div>
+
+        <div class="field" [class.invalid]="f['sistemasIntegrados'].touched && f['sistemasIntegrados'].invalid">
+          <label for="sistemasIntegrados">Sistemas integrados com a IA*</label>
+          <input id="sistemasIntegrados" type="text" formControlName="sistemasIntegrados" placeholder="ERP, CRM, PDV, etc." />
+          <small *ngIf="f['sistemasIntegrados'].touched && f['sistemasIntegrados'].hasError('required')">
+            Informe os sistemas integrados.
+          </small>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>4. Estratégia e treinamento da IA</h2>
+      <div class="form-grid">
+        <div class="field full" [class.invalid]="f['objetivosIa'].touched && f['objetivosIa'].invalid">
+          <label for="objetivosIa">
+            Objetivos principais da IA*
+            <button type="button" class="info-icon" (click)="toggleHint('objetivos')">?</button>
+          </label>
+          <textarea id="objetivosIa" rows="3" formControlName="objetivosIa" placeholder="Ex.: reduzir tempo de resposta, aumentar vendas recorrentes..."></textarea>
+          <small *ngIf="f['objetivosIa'].touched && f['objetivosIa'].hasError('required')">
+            Conte quais objetivos precisamos perseguir.
+          </small>
+          <p class="field-hint" *ngIf="infoHints['objetivos']">
+            Liste metas mensuráveis (ex.: diminuir abandono em X%, aumentar tickets médios, liberar equipe humana em horários de pico).
+          </p>
+        </div>
+
+        <div class="field full" [class.invalid]="f['tomDeVoz'].touched && f['tomDeVoz'].invalid">
+          <label for="tomDeVoz">
+            Tom de voz / diretrizes*
+            <button type="button" class="info-icon" (click)="toggleHint('tom')">?</button>
+          </label>
+          <textarea id="tomDeVoz" rows="3" formControlName="tomDeVoz" placeholder="Formal, consultivo, descontraído... inclua exemplos."></textarea>
+          <small *ngIf="f['tomDeVoz'].touched && f['tomDeVoz'].hasError('required')">
+            Defina o tom de voz desejado.
+          </small>
+          <p class="field-hint" *ngIf="infoHints['tom']">
+            Descreva se a IA deve ser mais técnica, acolhedora ou comercial e inclua frases proibidas/aprovadas.
+          </p>
+        </div>
+
+        <div class="field full" [class.invalid]="f['palavrasChave'].touched && f['palavrasChave'].invalid">
+          <label for="palavrasChave">
+            Palavras-chave e ofertas obrigatórias*
+            <button type="button" class="info-icon" (click)="toggleHint('palavras')">?</button>
+          </label>
+          <textarea id="palavrasChave" rows="3" formControlName="palavrasChave" placeholder="Medicamentos, campanhas, clubes, descontos, etc."></textarea>
+          <small *ngIf="f['palavrasChave'].touched && f['palavrasChave'].hasError('required')">
+            Informe as palavras-chave e mensagens obrigatórias.
+          </small>
+          <p class="field-hint" *ngIf="infoHints['palavras']">
+            Cite campanhas ativas, nomes de clubes de desconto e ofertas que não podem faltar no atendimento.
+          </p>
+        </div>
+
+        <div class="field full" [class.invalid]="f['baseConhecimento'].touched && f['baseConhecimento'].invalid">
+          <label for="baseConhecimento">
+            Bases de conhecimento*
+            <button type="button" class="info-icon" (click)="toggleHint('base')">?</button>
+          </label>
+          <textarea id="baseConhecimento" rows="3" formControlName="baseConhecimento" placeholder="Links de catálogos, planilhas de produtos, scripts, PDFs, etc."></textarea>
+          <small *ngIf="f['baseConhecimento'].touched && f['baseConhecimento'].hasError('required')">
+            Indique os materiais de apoio.
+          </small>
+          <p class="field-hint" *ngIf="infoHints['base']">
+            Inclua links ou caminhos de arquivos (Drive, SharePoint, etc.) que terão informações oficiais para treinar a IA.
+          </p>
+        </div>
+
+        <div class="field full">
+          <label for="restricoes">Restrições ou termos proibidos</label>
+          <textarea id="restricoes" rows="3" formControlName="restricoes" placeholder="Produtos que não podem ser citados, palavras que devemos evitar..."></textarea>
+        </div>
+
+        <div class="field full">
+          <label for="observacoes">Observações gerais</label>
+          <textarea id="observacoes" rows="3" formControlName="observacoes" placeholder="Links de referência, anexos que serão enviados por e-mail, etc."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>5. Operação logística e serviços</h2>
+      <div class="form-grid">
+        <div class="field" [class.invalid]="f['taxaEntrega'].touched && f['taxaEntrega'].invalid">
+          <label for="taxaEntrega">Taxa de entrega*</label>
+          <input
+            id="taxaEntrega"
+            type="text"
+            formControlName="taxaEntrega"
+            placeholder="Ex.: R$ 9,90 por entrega"
+            mask="separator.2"
+            thousandSeparator="."
+            decimalMarker=","
+            prefix="R$ "
+          />
+          <small *ngIf="f['taxaEntrega'].touched && f['taxaEntrega'].hasError('required')">
+            Informe a taxa de entrega.
+          </small>
+        </div>
+
+        <div class="field" [class.invalid]="f['valorIsencaoTaxa'].touched && f['valorIsencaoTaxa'].invalid">
+          <label for="valorIsencaoTaxa">Valor para isenção da taxa*</label>
+          <input
+            id="valorIsencaoTaxa"
+            type="text"
+            formControlName="valorIsencaoTaxa"
+            placeholder="Ex.: Acima de R$ 150,00 ou R$ 0"
+            mask="separator.2"
+            thousandSeparator="."
+            decimalMarker=","
+            prefix="R$ "
+          />
+          <small *ngIf="f['valorIsencaoTaxa'].touched && f['valorIsencaoTaxa'].hasError('required')">
+            Informe se existe isenção e a partir de qual valor.
+          </small>
+        </div>
+
+        <div class="field" [class.invalid]="f['trabalhaGenericos'].touched && f['trabalhaGenericos'].invalid">
+          <label for="trabalhaGenericos">Trabalha com genéricos?*</label>
+          <select id="trabalhaGenericos" formControlName="trabalhaGenericos">
+            <option value="">Selecione</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+          </select>
+          <small *ngIf="f['trabalhaGenericos'].touched && f['trabalhaGenericos'].hasError('required')">
+            Informe se comercializa medicamentos genéricos.
+          </small>
+        </div>
+
+        <div class="field" [class.invalid]="f['programaPrecoPopular'].touched && f['programaPrecoPopular'].invalid">
+          <label for="programaPrecoPopular">Farmácia popular?*</label>
+          <select id="programaPrecoPopular" formControlName="programaPrecoPopular">
+            <option value="">Selecione</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+          </select>
+          <small *ngIf="f['programaPrecoPopular'].touched && f['programaPrecoPopular'].hasError('required')">
+            Informe se participa desses programas.
+          </small>
+        </div>
+
+        <div class="field full" [class.invalid]="f['servicosDrogaria'].touched && f['servicosDrogaria'].invalid">
+          <label for="servicosDrogaria">
+            Serviços oferecidos*
+            <button type="button" class="info-icon" (click)="toggleHint('servicos')">?</button>
+          </label>
+          <textarea id="servicosDrogaria" rows="3" formControlName="servicosDrogaria" placeholder="Aplicação de injeção, aferição de pressão, furo de orelha..."></textarea>
+          <small *ngIf="f['servicosDrogaria'].touched && f['servicosDrogaria'].hasError('required')">
+            Liste os serviços disponíveis.
+          </small>
+          <p class="field-hint" *ngIf="infoHints['servicos']">
+            Informe serviços presenciais (injeção, testes rápidos, perfuração) e se exigem agendamento.
+          </p>
+        </div>
+
+        <div class="field full" [class.invalid]="f['gatilhosTransferenciaHumano'].touched && f['gatilhosTransferenciaHumano'].invalid">
+          <label for="gatilhosTransferenciaHumano">
+            Quando transferir para um humano?*
+            <button type="button" class="info-icon" (click)="toggleHint('gatilhos')">?</button>
+          </label>
+          <textarea
+            id="gatilhosTransferenciaHumano"
+            rows="3"
+            formControlName="gatilhosTransferenciaHumano"
+            placeholder="Não encontrou o produto, envio de fotos, erro no pedido, medicamentos controlados..."
+          ></textarea>
+          <small *ngIf="f['gatilhosTransferenciaHumano'].touched && f['gatilhosTransferenciaHumano'].hasError('required')">
+            Indique os gatilhos de transferência.
+          </small>
+          <p class="field-hint" *ngIf="infoHints['gatilhos']">
+            Detalhe as situações em que a IA deve parar e chamar alguém (ex.: receitas especiais, fotos de prescrições, divergência de preço).
+          </p>
+        </div>
+
+        <div class="field full" [class.invalid]="f['formasPagamento'].touched && f['formasPagamento'].invalid">
+          <label for="formasPagamento">Formas de pagamento*</label>
+          <textarea id="formasPagamento" rows="2" formControlName="formasPagamento" placeholder="Pix, cartão de crédito na entrega, link de pagamento, dinheiro..."></textarea>
+          <small *ngIf="f['formasPagamento'].touched && f['formasPagamento'].hasError('required')">
+            Liste as formas de pagamento aceitas.
+          </small>
+        </div>
+
+        <div class="field" [class.invalid]="f['modeloPedido'].touched && f['modeloPedido'].invalid">
+          <label for="modeloPedido">Modelo do resumo do pedido*</label>
+          <select id="modeloPedido" formControlName="modeloPedido">
+            <option value="">Selecione</option>
+            <option value="Padrao">Padrão</option>
+            <option value="Customizado">Customizado</option>
+          </select>
+          <small *ngIf="f['modeloPedido'].touched && f['modeloPedido'].hasError('required')">
+            Escolha o modelo de pedido adotado.
+          </small>
+        </div>
+      </div>
+    </section>
+
+    <label class="consentimento" [class.invalid]="f['consentimentoLgpd'].touched && f['consentimentoLgpd'].invalid">
+      <input type="checkbox" formControlName="consentimentoLgpd" />
+      <span>
+        Autorizo a Zapfarma a utilizar estes dados exclusivamente para configurar minha experiência com a IA e estou de acordo com a LGPD.
+      </span>
+    </label>
+    <small *ngIf="f['consentimentoLgpd'].touched && f['consentimentoLgpd'].hasError('required')">
+      É necessário aceitar o consentimento para continuar.
+    </small>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="submitting">
+        {{ submitting ? 'Enviando informações...' : 'Enviar configuração' }}
+      </button>
+    </div>
+
+    <p *ngIf="submitSuccess" class="feedback success">
+      Dados enviados com sucesso! Nossa equipe entrará em contato nas próximas horas.
+    </p>
+    <p *ngIf="submitError" class="feedback error">
+      {{ submitError }}
+    </p>
+  </form>
+</section>
+
+<front-zapfarma-rodape></front-zapfarma-rodape>

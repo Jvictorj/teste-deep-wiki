@@ -1,0 +1,204 @@
+<front-zapfarma-menu></front-zapfarma-menu>
+<div class="front-zapfarma-dashboard">
+  <front-zapfarma-header title=" "></front-zapfarma-header>
+  <div class="front-zapfarma-dashboard-container">
+    <section class="hero-panel">
+      <span class="hero-panel__chip">Portal de Representantes</span>
+      <h1>Olá, {{ usuario ? usuario?.nome : '' }}!</h1>
+      <p>
+        Que bom que você está conosco. A <strong>Equipe Zapfarma</strong> está feliz
+        com esta parceria de sucesso.
+      </p>
+      <div class="hero-panel__notice">
+        <span class="hero-panel__icon">⚠️</span>
+        <p>
+          Prezado Representante, não esqueça de cadastrar todos os dados do cliente.
+          Essas informações atualizam nossa base e melhoram a comunicação entre o
+          cliente final e a farmácia.
+        </p>
+      </div>
+    </section>
+
+    <div class="links-grid">
+      <mat-card class="dashboard-card" appearance="outlined">
+        <mat-card-content>
+          <h2>Atalhos do painel</h2>
+          <p class="section-subtitle">Acesse rapidamente as páginas:</p>
+          <a
+            *ngIf="podeAcessarTelaUsuarios"
+            class="link-item"
+            [routerLink]="['/usuarios-afiliados']"
+          >
+            <span>Página de Usuários</span>
+            <mat-icon>badge</mat-icon>
+          </a>
+          <a class="link-item" href="#/empresas">
+            <span>Página das Drogarias</span>
+            <mat-icon>local_pharmacy</mat-icon>
+          </a>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="dashboard-card" appearance="outlined">
+        <mat-card-content>
+          <h2>Drogarias criadas por você</h2>
+          <p class="section-subtitle" *ngIf="!carregandoDrogariasCriadas">
+            Total: {{ totalDrogariasCriadasPorMim }}
+          </p>
+          <p class="section-subtitle" *ngIf="carregandoDrogariasCriadas">
+            Carregando drogarias...
+          </p>
+          <p class="section-subtitle section-subtitle--error" *ngIf="erroDrogariasCriadas">
+            {{ erroDrogariasCriadas }}
+          </p>
+          <p class="empty-state" *ngIf="!carregandoDrogariasCriadas && !erroDrogariasCriadas && !drogariasCriadasPorMim.length">
+            Você ainda não tem drogarias criadas.
+          </p>
+
+          <a
+            *ngFor="let drogaria of drogariasCriadasPreview; trackBy: trackByDrogaria"
+            class="link-item"
+            [routerLink]="drogaria.id ? ['/editar-empresas'] : ['/empresas']"
+            [queryParams]="drogaria.id ? { id: drogaria.id } : null"
+          >
+            <span>
+              {{ drogaria.nome }}
+              <small>{{ drogaria.plano }}</small>
+            </span>
+            <mat-icon>storefront</mat-icon>
+          </a>
+
+          <a class="link-item link-item--light" href="#/empresas" *ngIf="temMaisDrogariasCriadas">
+            <span>Ver todas as drogarias</span>
+            <mat-icon>arrow_forward</mat-icon>
+          </a>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="dashboard-card dashboard-card--span-2" appearance="outlined">
+        <mat-card-content>
+          <h2>Central de Arquivos</h2>
+          <p class="section-subtitle">Suba materiais de marketing e atualizações do sistema por aqui.</p>
+          <p class="section-subtitle" *ngIf="!podeGerenciarCentralArquivos">
+            Visualização liberada. Apenas perfis gerenciais podem adicionar ou remover arquivos.
+          </p>
+          <p class="section-subtitle section-subtitle--error" *ngIf="erroCentralArquivos">
+            {{ erroCentralArquivos }}
+          </p>
+
+          <section class="upload-card">
+            <div class="upload-card__header">
+              <div>
+                <h3>Arquivos de Marketing</h3>
+                <p>Anexe materiais de divulgação para upload.</p>
+              </div>
+              <button
+                *ngIf="podeGerenciarCentralArquivos"
+                type="button"
+                mat-stroked-button
+                class="upload-card__add"
+                (click)="abrirSeletorArquivosMarketing($event)"
+              >
+                <mat-icon>upload_file</mat-icon>
+                <span>Adicionar arquivos</span>
+              </button>
+            </div>
+
+            <input
+              id="dashboard-marketing-files-input"
+              type="file"
+              class="upload-card__input"
+              multiple
+              (change)="onArquivosMarketingSelecionados($event)"
+            />
+
+            <div class="upload-list" *ngIf="arquivosMarketing.length; else semArquivosMarketing">
+              <article class="upload-item" *ngFor="let arquivo of arquivosMarketing">
+                <div class="upload-item__meta">
+                  <mat-icon>description</mat-icon>
+                  <div>
+                    <strong [title]="arquivo.nome">{{ arquivo.nome }}</strong>
+                    <small>{{ formatarTamanhoArquivo(arquivo.tamanho) }} • {{ arquivo.adicionadoEm | date : 'dd/MM/yyyy HH:mm' }}</small>
+                  </div>
+                </div>
+                <div class="upload-item__actions">
+                  <button type="button" mat-stroked-button (click)="abrirArquivo(arquivo, $event)">
+                    Abrir
+                  </button>
+                  <button
+                    *ngIf="podeGerenciarCentralArquivos"
+                    type="button"
+                    mat-stroked-button
+                    color="warn"
+                    (click)="removerArquivoMarketing(arquivo.id, $event)"
+                  >
+                    Remover
+                  </button>
+                </div>
+              </article>
+            </div>
+            <ng-template #semArquivosMarketing>
+              <p class="upload-empty">Nenhum arquivo de marketing selecionado.</p>
+            </ng-template>
+          </section>
+
+          <section class="upload-card">
+            <div class="upload-card__header">
+              <div>
+                <h3>Atualizações do Sistema</h3>
+                <p>Anexe comunicados e arquivos de atualização do sistema.</p>
+              </div>
+              <button
+                *ngIf="podeGerenciarCentralArquivos"
+                type="button"
+                mat-stroked-button
+                class="upload-card__add"
+                (click)="abrirSeletorArquivosContratos($event)"
+              >
+                <mat-icon>upload_file</mat-icon>
+                <span>Adicionar arquivos</span>
+              </button>
+            </div>
+
+            <input
+              id="dashboard-contract-files-input"
+              type="file"
+              class="upload-card__input"
+              multiple
+              (change)="onArquivosContratosSelecionados($event)"
+            />
+
+            <div class="upload-list" *ngIf="arquivosContratos.length; else semArquivosContratos">
+              <article class="upload-item" *ngFor="let arquivo of arquivosContratos">
+                <div class="upload-item__meta">
+                  <mat-icon>description</mat-icon>
+                  <div>
+                    <strong [title]="arquivo.nome">{{ arquivo.nome }}</strong>
+                    <small>{{ formatarTamanhoArquivo(arquivo.tamanho) }} • {{ arquivo.adicionadoEm | date : 'dd/MM/yyyy HH:mm' }}</small>
+                  </div>
+                </div>
+                <div class="upload-item__actions">
+                  <button type="button" mat-stroked-button (click)="abrirArquivo(arquivo, $event)">
+                    Abrir
+                  </button>
+                  <button
+                    *ngIf="podeGerenciarCentralArquivos"
+                    type="button"
+                    mat-stroked-button
+                    color="warn"
+                    (click)="removerArquivoContrato(arquivo.id, $event)"
+                  >
+                    Remover
+                  </button>
+                </div>
+              </article>
+            </div>
+            <ng-template #semArquivosContratos>
+              <p class="upload-empty">Nenhuma atualização do sistema selecionada.</p>
+            </ng-template>
+          </section>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<section id="planos" class="pricing-section">
+  <div class="container">
+    <div class="pricing-wrapper">
+      <div class="section-header">
+        <span class="eyebrow">Planos</span>
+        <h2>Invista na Venda Inteligente da Sua Farmácia</h2>
+        <p>
+          A Zapfarma não é um custo, é um investimento inteligente que se reflete diretamente no seu faturamento.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        @for (plan of plans; track plan.name) {
+          <div class="pricing-card" [class.featured]="plan.featured">
+            @if (plan.featured) {
+              <div class="badge">Recomendado</div>
+            }
+            <div class="card-header">
+              <div class="icon-wrap" [class.featured]="plan.featured">
+                <mat-icon class="icon">{{ plan.icon }}</mat-icon>
+              </div>
+              <div>
+                <h3>{{ plan.name }}</h3>
+                <p>{{ plan.description }}</p>
+              </div>
+            </div>
+
+            <div class="price">
+              <span class="value">{{ plan.price }}</span>
+              <span class="period">{{ plan.period }}</span>
+            </div>
+
+            <ul class="features">
+              @for (feature of plan.features; track feature.text) {
+                <li>
+                  <mat-icon class="icon" [class.muted]="!feature.included">
+                    {{ feature.included ? 'check' : 'close' }}
+                  </mat-icon>
+                  <span [class.muted]="!feature.included">{{ feature.text }}</span>
+                </li>
+              }
+            </ul>
+
+            <a
+              class="btn btn-pill btn-lg"
+              [class.featured]="plan.featured"
+              href="/#/home#contato"
+            >
+              {{ plan.cta }}
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+
+

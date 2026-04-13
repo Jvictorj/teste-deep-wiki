@@ -1,0 +1,9 @@
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.field-group .field-group {
+  gap: 1rem;
+}

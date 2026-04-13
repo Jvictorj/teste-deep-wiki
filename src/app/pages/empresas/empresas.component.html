@@ -1,0 +1,281 @@
+<front-zapfarma-menu></front-zapfarma-menu>
+<div class="front-zapfarma-dashboard">
+  <div class="front-zapfarma-dashboard-container">
+    <mat-card class="list-card" appearance="outlined">
+      <mat-card-content>
+        <div class="list-header">
+          <div>
+            <h3 class="h1-mobile">Lista de Drogarias</h3>
+            <p>Visualize, pesquise e edite os cadastros de drogarias.</p>
+          </div>
+          <button (click)="irCadastrar()" color="primary" mat-raised-button class="add-button" aria-label="Cadastrar nova farmácia">
+            <mat-icon>add</mat-icon>
+            <span>Nova Drogaria</span>
+          </button>
+        </div>
+
+        <div class="insights-strip">
+          <article class="insight-card">
+            <small>Drogarias na lista</small>
+            <strong>{{ totalDrogarias }}</strong>
+          </article>
+          <article class="insight-card">
+            <small>Pronta para criar SAAS</small>
+            <strong>{{ totalComSaas }}</strong>
+          </article>
+          <article class="insight-card">
+            <small>Criadas por você</small>
+            <strong>{{ totalCriadasPorMim }}</strong>
+          </article>
+        </div>
+
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-icon matPrefix>search</mat-icon>
+          <mat-label>Pesquisar</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. CNPJ, Nome Fantasia..." #input />
+          <button
+            *ngIf="dataSource?.filter"
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="limparFiltroPesquisa($event)"
+            aria-label="Limpar pesquisa"
+            title="Limpar pesquisa"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <div class="table-shell">
+          <div class="mat-container">
+            <table id="tableScroll" class="farmacias-table" mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="nomeFantasia">
+                <th class="th-name" mat-header-cell *matHeaderCellDef mat-sort-header>Nome Fantasia</th>
+                <td class="th-name" mat-cell *matCellDef="let row" [ngStyle]="{ color: row.ativo === true ? '' : '#ccc' }">
+                  <a class="link-editar" (click)="irAtualizar(row.id)">
+                    <mat-icon class="edit-icon" aria-hidden="true">edit</mat-icon>
+                    <span class="nome-fantasia-text">{{ row.nomeFantasia }}</span>
+                    <span
+                      class="payment-indicator"
+                      [ngClass]="'payment-indicator--' + obterStatusPagamentoBadge(row)"
+                      [attr.aria-label]="obterDescricaoStatusPagamento(row)"
+                      [title]="obterDescricaoStatusPagamento(row)"
+                    >
+                      $
+                    </span>
+                  </a>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="afiliados">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Criado por</th>
+                <td mat-cell *matCellDef="let row" [ngStyle]="{ color: row.ativo === true ? '' : '#ccc' }">
+                  <div class="creator-cell">
+                    <div class="creator-main">
+                      <span class="creator-name">{{ obterNomeCriador(row) }}</span>
+                      <span class="creator-tag" *ngIf="isCriadoPeloUsuarioLogado(row)">você</span>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="whatsApp">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>WhatsApp</th>
+                <td class="col-whatsapp" mat-cell *matCellDef="let row" [ngStyle]="{ color: row.ativo === true ? '' : '#ccc' }">{{ row.whatsApp | mask: '(00) 00000-0000' }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="nomePlanos">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Plano</th>
+                <td class="col-plano" mat-cell *matCellDef="let row" [ngStyle]="{ color: row.ativo === true ? '' : '#ccc' }">
+                  <span class="plan-badge">{{ row.nomePlanos }}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="saas">
+                <th mat-header-cell *matHeaderCellDef>SaaS / Arquivos</th>
+                <td class="col-saas" mat-cell *matCellDef="let row">
+                  <div class="saas-actions">
+                    <button
+                      *ngIf="!temArquivoSaas(row) && !isSaasCriado(row)"
+                      type="button"
+                      mat-stroked-button
+                      class="saas-attach-btn"
+                      [class.saas-attach-btn--blocked]="!podeAnexarArquivoSaas()"
+                      [attr.aria-disabled]="!podeAnexarArquivoSaas() ? 'true' : null"
+                      [title]="
+                        podeAnexarArquivoSaas()
+                          ? 'Anexar arquivo'
+                          : 'espere o time comercial adicionar o contrato para criar o SAAS'
+                      "
+                      (click)="abrirSeletorArquivoSaas(row, $event)"
+                    >
+                      <mat-icon>attach_file</mat-icon>
+                      <span>Anexar</span>
+                    </button>
+                    <button
+                      *ngIf="temArquivoSaas(row) && !isSaasCriado(row)"
+                      type="button"
+                      mat-flat-button
+                      color="primary"
+                      class="saas-create-btn"
+                      (click)="criarSaas(row, $event)"
+                    >
+                      Criar SAAS
+                    </button>
+                    <button
+                      *ngIf="isSaasCriado(row)"
+                      type="button"
+                      mat-flat-button
+                      class="saas-created-btn"
+                      disabled
+                      aria-label="SaaS já criado"
+                      title="SaaS já criado"
+                    >
+                      <mat-icon>check_circle</mat-icon>
+                      <span>Criado</span>
+                    </button>
+                    <button
+                      type="button"
+                      mat-stroked-button
+                      class="arquivos-btn"
+                      (click)="abrirModalArquivosDrogaria(row, $event)"
+                      aria-label="Arquivos da drogaria"
+                      title="Arquivos da drogaria"
+                    >
+                      <mat-icon>folder_open</mat-icon>
+                      <span>Arquivos</span>
+                    </button>
+                  </div>
+                  <input
+                    [id]="obterInputArquivoSaasId(row)"
+                    type="file"
+                    class="saas-file-input"
+                    (click)="$event.stopPropagation()"
+                    (change)="onSaasArquivoSelecionado($event, row)"
+                  />
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="data">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Data</th>
+                <td class="col-data" mat-cell *matCellDef="let row" [ngStyle]="{ color: row.ativo === true ? '' : '#ccc' }">{{ row.data | date : 'dd/MM/yyyy - HH:mm' : '-03:00' }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="acoes" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef>Ações</th>
+                <td class="col-acoes" mat-cell *matCellDef="let row">
+                  <button
+                    *ngIf="canExcluirFarmacia(); else semPermissaoExcluir"
+                    type="button"
+                    mat-icon-button
+                    color="warn"
+                    class="excluir-btn"
+                    (click)="apagarFarmacia(row, $event)"
+                    aria-label="Apagar drogaria"
+                    title="Apagar drogaria"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <ng-template #semPermissaoExcluir>
+                    <span>-</span>
+                  </ng-template>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="data_final">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Data Final</th>
+                <td mat-cell *matCellDef="let row" [ngStyle]="{ color: row.ativo === true ? '' : '#ccc' }">{{ row.data_final | date : 'dd/MM/yyyy - HH:mm' : '+00:00' }}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+            </table>
+          </div>
+
+          <div *ngIf="loadSkeleton" class="skeleton-container">
+            <ngx-skeleton-loader count="5" appearance="line" animation="progress"></ngx-skeleton-loader>
+          </div>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #drogariaArquivosModal>
+  <section class="drogaria-arquivos-modal" (click)="$event.stopPropagation()">
+    <div class="drogaria-arquivos-modal__header">
+      <div>
+        <h3>Arquivos da Drogaria</h3>
+        <p>{{ farmaciaArquivosModal?.nomeFantasia || 'Sem drogaria selecionada' }}</p>
+      </div>
+      <button
+        type="button"
+        mat-icon-button
+        aria-label="Fechar"
+        title="Fechar"
+        (click)="fecharModalArquivosDrogaria()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="drogaria-arquivos-modal__toolbar">
+      <button
+        type="button"
+        mat-flat-button
+        color="primary"
+        class="drogaria-arquivos-modal__add-btn"
+        (click)="abrirSeletorArquivosDrogaria($event)"
+      >
+        <mat-icon>upload_file</mat-icon>
+        <span>Adicionar arquivos</span>
+      </button>
+      <small>Total: {{ arquivosDrogariaModal.length }}</small>
+    </div>
+
+    <input
+      [id]="obterInputArquivosDrogariaId()"
+      type="file"
+      class="drogaria-arquivos-modal__file-input"
+      multiple
+      (change)="onArquivosDrogariaSelecionados($event)"
+    />
+
+    <h4 class="drogaria-arquivos-modal__section-title">Arquivos adicionados</h4>
+
+    <div class="drogaria-arquivos-modal__content" *ngIf="arquivosDrogariaModal.length; else semArquivosDrogaria">
+      <article class="arquivo-item" *ngFor="let arquivo of arquivosDrogariaModal">
+        <div class="arquivo-item__left">
+          <mat-icon>description</mat-icon>
+          <div>
+            <strong [title]="arquivo.nome">{{ arquivo.nome }}</strong>
+            <small>{{ formatarTamanhoArquivo(arquivo.tamanho) }} • {{ arquivo.adicionadoEm | date : 'dd/MM/yyyy HH:mm' : '-03:00' }}</small>
+          </div>
+        </div>
+        <button
+          type="button"
+          mat-stroked-button
+          color="warn"
+          class="arquivo-item__remove"
+          (click)="removerArquivoDrogaria(arquivo.id, $event)"
+          [disabled]="!podeRemoverArquivoDrogaria(arquivo)"
+          [title]="
+            podeRemoverArquivoDrogaria(arquivo)
+              ? 'Remover arquivo'
+              : 'Apenas gerenciador/admin pode remover arquivo vinculado ao SaaS criado'
+          "
+        >
+          Remover
+        </button>
+      </article>
+    </div>
+
+    <ng-template #semArquivosDrogaria>
+      <div class="drogaria-arquivos-modal__empty">
+        <mat-icon>folder_off</mat-icon>
+        <p>Nenhum arquivo adicionado para esta drogaria.</p>
+      </div>
+    </ng-template>
+  </section>
+</ng-template>

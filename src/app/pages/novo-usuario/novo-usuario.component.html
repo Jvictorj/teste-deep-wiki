@@ -1,0 +1,89 @@
+<div class="front-zapfarma-login">
+  <div class="front-zapfarma-login__image-login">
+    <img class="logo" src="../../../assets/imgs/logo-zapfarma/zapfarma-logo-branca.png">
+  </div>
+  <div class="front-zapfarma-login__login">
+    <div>
+
+      <mat-card class="example-card" appearance="outlined">
+        <mat-card-content>
+          <div *ngIf="!sucesso" >
+            <h1 class="h1-mobile">Zapfarma</h1>
+          <front-zapfarma-header title="Novo usário"></front-zapfarma-header>
+          <form [formGroup]="formLogin" novalidate class="example-form">
+            <mat-form-field>
+              <mat-label>CPF/CNPJ</mat-label>
+              <input               
+              (blur)="validarCPfUsuario();validateDvCpf();"
+              mask="000.000.000-00||00.000.000/0000-00"
+              formControlName="cpfCnpj" matInput placeholder="Digite o CPF ou CNPJ">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Nome</mat-label>
+              <input formControlName="nome" matInput placeholder="Digite o nome">
+            </mat-form-field>
+            <mat-form-field >
+              <mat-label>WhatsApp</mat-label>
+              <input               
+              mask="(00) 00000-0000"
+              formControlName="telefone" matInput placeholder="Digite o telefone">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input formControlName="email" matInput placeholder="Digite o email">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Login</mat-label>
+              <input formControlName="login" matInput placeholder="Defina o login de acesso">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>CEP</mat-label>
+              <input               
+              mask="00000-000"
+              (blur)="consutarEndereco();"
+              formControlName="cep" matInput placeholder="Digite o CEP">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Endereço</mat-label>
+              <input 
+              [(ngModel)]="cep.logradouro"
+              formControlName="endereco" matInput placeholder="Digite o Endereço">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Cidade</mat-label>
+              <input                 
+              [(ngModel)]="cep.cidade"
+              formControlName="cidade" matInput placeholder="Digite a cidade">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Estado</mat-label>
+              <input               
+              [(ngModel)]="cep.uf"
+              formControlName="estado" matInput placeholder="Exemplo: RJ">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Bairro</mat-label>
+              <input
+              [(ngModel)]="cep.bairro"
+              formControlName="bairro" matInput placeholder="Digite o Bairro">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Senha</mat-label>
+              <input formControlName="senha" type="password" matInput placeholder="Informe sua senha">
+            </mat-form-field>
+          </form>   
+          </div>
+          <div *ngIf="sucesso" class="retorno-sucesso">
+            <h2>{{error ? error : 'Cadastro realizado com suscesso'}}</h2>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button *ngIf="!sucesso" [disabled]="!formLogin.valid" (click)="cadastrar();" mat-raised-button>Cadastrar</button>
+            <div class="no-login" *ngIf="sucesso">
+              <button mat-stroked-button (click)="login()">Voltar</button>
+            </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

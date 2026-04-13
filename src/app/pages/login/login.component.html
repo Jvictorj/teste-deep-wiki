@@ -1,0 +1,47 @@
+<div class="front-zapfarma-login">
+  <div class="front-zapfarma-login__image-login">
+    <img (click)="home()" class="logo" src="assets/imgs/logo-zapfarma/zapfarma-logo-branca.png" alt="Logo ZapFarma">
+  </div>
+  <div class="front-zapfarma-login__login">
+    <div>
+
+      <mat-card class="example-card" appearance="outlined">
+        <mat-card-content>
+          <front-zapfarma-header title="Área do Representante"></front-zapfarma-header>
+          <form [formGroup]="formLogin" novalidate>
+            <mat-form-field class="example-full-width">
+              <mat-label>login</mat-label>
+              <input matInput (keydown)="onKeydown($event)" placeholder="Informe o login do usuário" formControlName="login">
+              <mat-error *ngIf="formLogin.get('login')?.hasError('required') && formLogin.get('login')?.touched">
+                Login é <strong>obrigatório</strong>
+              </mat-error>
+              <mat-error *ngIf="formLogin.get('login')?.hasError('minlength') && formLogin.get('login')?.touched">
+                Login deve ter ao menos 3 caracteres
+              </mat-error>
+            </mat-form-field>
+      
+            <mat-form-field class="example-full-width">
+              <mat-label>senha</mat-label>
+              <input (keydown)="onKeydown($event)" matInput placeholder="Informe a senha" [type]="hide ? 'password' : 'text'" formControlName="senha">
+              <mat-icon (click)="exibirSenha();" matSuffix>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              <mat-error *ngIf="formLogin.get('senha')?.invalid && formLogin.get('senha')?.touched">Senha é
+                <strong>obrigatória</strong>
+              </mat-error>
+            </mat-form-field>
+          </form>    
+        </mat-card-content>
+        <mat-card-actions>
+            <button #btnLogar mat-raised-button (click)="logar()">entrar</button>
+            <div class="no-login">
+              <span mat-stroked-button (click)="esqueceuSenha()">esqueceu a senha ?</span>
+              <span mat-stroked-button>|</span>
+              <span mat-stroked-button (click)="novoUsuario()">Cadastre-se!</span>
+            </div>
+        </mat-card-actions>
+      </mat-card>
+
+
+    </div>
+
+  </div>
+</div>

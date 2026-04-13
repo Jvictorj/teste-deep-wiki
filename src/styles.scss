@@ -1,0 +1,296 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.15 0.02 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.02 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.02 250);
+  --primary: #16a34a;
+  --primary-foreground: #ffffff;
+  --secondary: #e8f1ff;
+  --secondary-foreground: #0b1630;
+  --muted: oklch(0.94 0.005 240);
+  --muted-foreground: oklch(0.45 0.02 250);
+  --accent: #2987ff;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.90 0.005 240);
+  --input: oklch(0.96 0.005 240);
+  --ring: #16a34a;
+  --radius: 0.75rem;
+  --font-inter: "Ubuntu", sans-serif;
+  --tertiary: #0f4c81;
+  --page-max-width: 1440px;
+  --page-gutter: clamp(1rem, 2.2vw, 2.75rem);
+  --layout-shell-xl: 86rem;
+  --layout-shell-lg: 80rem;
+  --layout-shell-md: 64rem;
+  --layout-shell-sm: 58rem;
+  --surface-subtle: color-mix(in oklch, var(--secondary) 28%, white 72%);
+  --surface-panel: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 249, 255, 0.92));
+  --surface-panel-strong: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(235, 244, 255, 0.94));
+  --surface-border-strong: color-mix(in oklch, var(--border) 86%, rgba(41, 135, 255, 0.16));
+  --shadow-soft: 0 16px 36px rgba(15, 23, 42, 0.08);
+  --shadow-floating: 0 18px 42px rgba(6, 40, 22, 0.24);
+  --shadow-modal: 0 32px 64px rgba(15, 23, 42, 0.2);
+}
+
+.dark {
+  --background: oklch(0.13 0.02 250);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.18 0.02 250);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.18 0.02 250);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: #16a34a;
+  --primary-foreground: #ffffff;
+  --secondary: #102644;
+  --secondary-foreground: #e8f1ff;
+  --muted: oklch(0.22 0.02 250);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: #2987ff;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.28 0.02 250);
+  --input: oklch(0.22 0.02 250);
+  --ring: #16a34a;
+  --surface-subtle: color-mix(in oklch, var(--secondary) 36%, #091526 64%);
+  --surface-panel: linear-gradient(180deg, rgba(15, 28, 47, 0.98), rgba(10, 21, 36, 0.96));
+  --surface-panel-strong: linear-gradient(180deg, rgba(19, 38, 68, 0.96), rgba(8, 18, 34, 0.96));
+  --surface-border-strong: color-mix(in oklch, #60a5fa 26%, var(--border));
+  --shadow-soft: 0 18px 38px rgba(2, 10, 22, 0.34);
+  --shadow-floating: 0 22px 48px rgba(2, 10, 22, 0.4);
+  --shadow-modal: 0 34px 76px rgba(2, 10, 22, 0.54);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter, "Ubuntu", sans-serif);
+  font-weight: 300;
+  font-style: normal;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  border: 0;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.container {
+  width: min(var(--page-max-width), 100%);
+  margin: 0 auto;
+  padding: 0 var(--page-gutter);
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  cursor: pointer;
+  max-width: 100%;
+  text-align: center;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-pill {
+  border-radius: 999px;
+}
+
+.btn-lg {
+  min-height: 3rem;
+  font-size: 1rem;
+}
+
+main,
+section {
+  max-width: 100%;
+}
+
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+@media (max-width: 640px) {
+  .btn {
+    width: 100%;
+  }
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.btn-primary:hover {
+  background: color-mix(in oklch, var(--primary) 90%, transparent);
+  box-shadow: 0 16px 24px color-mix(in oklch, var(--primary) 22%, transparent);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid color-mix(in oklch, var(--foreground) 20%, transparent);
+  color: var(--foreground);
+}
+
+.btn-outline:hover {
+  background: color-mix(in oklch, var(--foreground) 5%, transparent);
+}
+
+input,
+textarea,
+select {
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: color-mix(in oklch, var(--ring) 34%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--ring) 12%, transparent);
+}
+
+.dark .site-header {
+  background: color-mix(in oklch, #081225 88%, transparent);
+  border-bottom-color: color-mix(in oklch, #60a5fa 18%, transparent);
+}
+
+.dark .site-header .nav-link {
+  color: color-mix(in oklch, #e5edf8 82%, #93a8c4 18%);
+}
+
+.dark .site-header .nav-link:hover {
+  color: #ffffff;
+}
+
+.dark .site-header .icon-btn {
+  background: #10213f;
+  color: #dce7f7;
+  border: 1px solid color-mix(in oklch, #60a5fa 28%, transparent);
+}
+
+.dark .hero {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklch, #0b1d36 82%, transparent),
+    color-mix(in oklch, #070f1e 96%, #000000 4%)
+  );
+}
+
+.dark .hero .hero-subtitle,
+.dark .hero .trust-item,
+.dark .hero .bubble span,
+.dark .hero .floating-card .label,
+.dark .hero .delta .muted {
+  color: #b7c6de;
+}
+
+.dark .hero .mockup-card {
+  background: linear-gradient(140deg, #172f4f 0%, #0e2039 100%);
+  border: 1px solid color-mix(in oklch, #60a5fa 18%, transparent);
+}
+
+.dark .hero .phone-frame {
+  background: #050d1b;
+}
+
+.dark .hero .chat {
+  background: color-mix(in oklch, #0d1f39 72%, transparent);
+}
+
+.dark .hero .bubble {
+  border: 1px solid color-mix(in oklch, #93c5fd 12%, transparent);
+}
+
+.dark .hero .floating-card {
+  background: #101f36;
+  border-color: color-mix(in oklch, #60a5fa 22%, transparent);
+}
+
+.dark .upload-card {
+  background: rgba(8, 26, 48, 0.72) !important;
+  border-color: rgba(89, 143, 202, 0.34) !important;
+}
+
+.dark .upload-item {
+  background: #0d213b !important;
+  border-color: rgba(89, 143, 202, 0.28) !important;
+}
+
+.dark .upload-item__meta strong {
+  color: #e7eef8 !important;
+}
+
+.dark .upload-item__meta small,
+.dark .upload-empty {
+  color: #b7c6de !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

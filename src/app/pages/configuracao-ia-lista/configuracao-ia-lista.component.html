@@ -1,0 +1,125 @@
+<front-zapfarma-toolbar></front-zapfarma-toolbar>
+
+<section class="lista-configuracoes">
+  <header class="page-header">
+    <p class="eyebrow">Onboarding de Inteligência Artificial</p>
+    <h1>Configurações enviadas pelas drogarias</h1>
+    <p class="subtitle">
+      Consulta interna para acompanhar quem já preencheu o formulário de configuração da IA.
+    </p>
+  </header>
+
+  <div class="status" *ngIf="carregando">Carregando configurações...</div>
+  <div class="status meta" *ngIf="!carregando && totalRegistros">
+    Total: {{ totalRegistros }} registro(s)
+    <span *ngIf="hasMore" class="has-more">— existem mais registros para paginação</span>
+  </div>
+  <div class="status erro" *ngIf="erro">{{ erro }}</div>
+  <div class="status" *ngIf="!carregando && !erro && !configuracoes.length">
+    Nenhum registro encontrado até o momento.
+  </div>
+
+  <div class="cards" *ngIf="!carregando && configuracoes.length">
+    <article
+      class="config-card"
+      *ngFor="let config of configuracoes; trackBy: trackByConfigId"
+    >
+      <div class="card-header">
+        <div>
+          <p class="empresa">{{ config.empresa }}</p>
+          <p class="nome-ia">IA: {{ config.nomeIa }}</p>
+        </div>
+        <div class="chips">
+          <span class="chip">
+            <strong>Genéricos:</strong> {{ config.trabalhaGenericos }}
+          </span>
+          <span class="chip">
+            <strong>Popular:</strong> {{ config.programaPrecoPopular }}
+          </span>
+          <span class="chip">
+            <strong>Modelo:</strong> {{ config.modeloPedido }}
+          </span>
+        </div>
+      </div>
+
+      <dl>
+        <div>
+          <dt>Responsável</dt>
+          <dd>{{ config.responsavel }} — {{ formatTelefone(config.telefone) }}</dd>
+        </div>
+        <div>
+          <dt>E-mail</dt>
+          <dd>{{ config.email }}</dd>
+        </div>
+        <div>
+          <dt>Delivery</dt>
+          <dd>{{ formatTelefone(config.numeroDelivery) }}</dd>
+        </div>
+        <div>
+          <dt>Horários da drogaria</dt>
+          <dd>{{ config.horarioAtendimento }}</dd>
+        </div>
+        <div>
+          <dt>Taxa de entrega</dt>
+          <dd>
+            {{ formatCurrency(config.taxaEntrega) }} /
+            Isenção: {{ formatCurrency(config.valorIsencaoTaxa) }}
+          </dd>
+        </div>
+        <div>
+          <dt>Volume / canais</dt>
+          <dd>{{ config.volumeAtendimentos }} · {{ config.canaisAtendimento }}</dd>
+        </div>
+        <div>
+          <dt>Sistemas integrados</dt>
+          <dd>{{ config.sistemasIntegrados }}</dd>
+        </div>
+        <div>
+          <dt>Palavras-chave obrigatórias</dt>
+          <dd>{{ config.palavrasChave }}</dd>
+        </div>
+        <div>
+          <dt>Formas de pagamento</dt>
+          <dd>{{ config.formasPagamento }}</dd>
+        </div>
+      </dl>
+
+      <details>
+        <summary>Ver detalhes estratégicos</summary>
+        <div class="details-grid">
+          <section>
+            <h3>Objetivos da IA</h3>
+            <p>{{ config.objetivosIa }}</p>
+          </section>
+          <section>
+            <h3>Tom de voz / diretrizes</h3>
+            <p>{{ config.tomDeVoz }}</p>
+          </section>
+          <section>
+            <h3>Base de conhecimento</h3>
+            <p>{{ config.baseConhecimento }}</p>
+          </section>
+          <section>
+            <h3>Atendimento após o fechamento</h3>
+            <p>{{ config.horariosAtendimento }}</p>
+          </section>
+          <section>
+            <h3>Serviços e gatilhos</h3>
+            <p><strong>Serviços:</strong> {{ config.servicosDrogaria }}</p>
+            <p><strong>Transferência:</strong> {{ config.gatilhosTransferenciaHumano }}</p>
+          </section>
+          <section *ngIf="config.restricoes">
+            <h3>Restrições</h3>
+            <p>{{ config.restricoes }}</p>
+          </section>
+          <section *ngIf="config.observacoes">
+            <h3>Observações</h3>
+            <p>{{ config.observacoes }}</p>
+          </section>
+        </div>
+      </details>
+    </article>
+  </div>
+</section>
+
+<front-zapfarma-rodape></front-zapfarma-rodape>

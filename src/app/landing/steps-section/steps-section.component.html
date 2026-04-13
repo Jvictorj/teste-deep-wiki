@@ -1,0 +1,30 @@
+﻿<section id="como-funciona" class="steps-section">
+  <div class="container">
+    <div class="steps-wrapper">
+      <div class="section-header">
+        <span class="eyebrow">Como Funciona</span>
+        <h2>
+          Veja como a <span class="highlight">IA da Zapfarma</span> faz sua farmácia começa a vender no automático em poucos passos
+        </h2>
+      </div>
+
+      <div class="steps-track">
+        <div class="steps-line"></div>
+        <div class="steps-grid">
+          @for (step of steps; track step.number) {
+            <div class="step-card">
+              <div class="step-icon">
+                <mat-icon class="icon">{{ step.icon }}</mat-icon>
+              </div>
+              <div class="step-number">{{ step.number }}</div>
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.description }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

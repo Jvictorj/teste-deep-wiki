@@ -1,0 +1,65 @@
+<section id="sobre" class="problem-section">
+  <div class="container">
+    <div class="problem-wrapper">
+      <div class="section-header">
+        <span class="eyebrow">O problema</span>
+        <h2>Todo dia, sua farm&aacute;cia perde vendas por motivos simples</h2>
+        <p>
+          Estamos falando de atender múltiplos clientes simultaneamente, não deixar ninguém esperando,
+           tratando cada um pelo nome e com memória do histórico de compra. 
+           Isso sim faz a taxa de conversão explodir.
+        </p>
+      </div>
+
+      <div class="problem-grid">
+        @for (problem of problems; track problem.title) {
+          <div class="problem-card">
+            <div class="icon-wrap destructive">
+              <mat-icon class="icon">{{ problem.icon }}</mat-icon>
+            </div>
+            <h3>{{ problem.title }}</h3>
+            <p>{{ problem.description }}</p>
+          </div>
+        }
+      </div>
+
+      
+      <div class="solution-grid">
+        <div class="solution-content">
+          <span class="eyebrow small">Solu&ccedil;&atilde;o</span>
+          <h3>Sua farm&aacute;cia vendendo no autom&aacute;tico 24h por dia</h3>
+          <p>
+            Um sistema que responde, vende e acompanha seus clientes automaticamente, 
+            sem depender de atendentes e sem perder vendas fora do hor&aacute;rio.
+          </p>
+          <div class="solution-cta">
+            <a class="btn btn-primary btn-pill btn-lg" href="/#/home#contato">Fale com nossa equipe agora</a>
+          </div>
+        </div>
+
+        <div class="solution-visual">
+          <div class="solution-image-card">
+            <img
+              src="assets/imgs/img-whats.png"
+              alt="Interface da Zapfarma no WhatsApp para atendimento automatizado de farmácias"
+              loading="lazy"
+              decoding="async"
+              width="736"
+              height="677"
+            />
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="result-callout results-section  results-container">
+        <h3>Foque no marketing. 
+          <br>
+          Nossa IA cuida do atendimento.</h3>
+        <p>
+          Todos os clientes atendidos, mais vendas conclu&iacute;das e nenhum pedido perdido.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

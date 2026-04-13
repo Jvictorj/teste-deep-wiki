@@ -1,0 +1,92 @@
+<nav class="zf-navbar" [class.menu-open]="mobileMenuOpen">
+  <div class="navbar-shell">
+    <a class="brand" routerLink="/" (click)="closeMenu()" aria-label="ZapFarma - voltar para o início">
+      <img src="assets/imgs/logo-zapfarma/zapfarma-logo-branca.png" alt="Logo ZapFarma" />
+    </a>
+
+    <div class="shell-actions">
+      <a class="pill ghost" href="#front-zapfarma-home__container_08" (click)="closeMenu()">
+        Ver planos
+      </a>
+      <button
+        class="nav-toggle"
+        type="button"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="mobileMenuOpen"
+        aria-controls="main-navigation-panels"
+      >
+        <span class="sr-only">Abrir menu de navegação</span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="nav-panels" id="main-navigation-panels">
+    <ul class="nav-list">
+      <li *ngFor="let link of publicLinks; trackBy: trackByLabel">
+        <a
+          *ngIf="link.href"
+          class="nav-link"
+          [href]="link.href"
+          (click)="closeMenu()"
+        >
+          <mat-icon [fontIcon]="link.icon"></mat-icon>
+          <div>
+            <span>{{ link.label }}</span>
+            <small>{{ link.description }}</small>
+          </div>
+        </a>
+        <a
+          *ngIf="link.routerLink"
+          class="nav-link"
+          [routerLink]="link.routerLink"
+          (click)="closeMenu()"
+        >
+          <mat-icon [fontIcon]="link.icon"></mat-icon>
+          <div>
+            <span>{{ link.label }}</span>
+            <small>{{ link.description }}</small>
+          </div>
+        </a>
+      </li>
+    </ul>
+
+    <div *ngIf="!isAuthenticated" class="nav-group">
+      <p class="nav-heading">Acesso</p>
+      <ul class="nav-list">
+        <li>
+          <a class="nav-link" [routerLink]="['/login']" (click)="closeMenu()">
+            <mat-icon fontIcon="login"></mat-icon>
+            <div>
+              <span>Login representante</span>
+              <small>Acesse a área do representante.</small>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="isAuthenticated" class="nav-group private">
+      <p class="nav-heading">Área logada</p>
+      <ul class="nav-list">
+        <li *ngFor="let link of privateLinks; trackBy: trackByLabel">
+          <a
+            *ngIf="link.routerLink"
+            class="nav-link"
+            [routerLink]="link.routerLink"
+            (click)="closeMenu()"
+          >
+            <mat-icon [fontIcon]="link.icon"></mat-icon>
+            <div>
+              <span>{{ link.label }}</span>
+              <small>{{ link.description }}</small>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</nav>

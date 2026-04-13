@@ -1,0 +1,133 @@
+<front-zapfarma-menu></front-zapfarma-menu>
+<div class="front-zapfarma-dashboard">
+  <div class="margin-top">
+    <!-- <front-zapfarma-header title="Cadastro de Farmácias"></front-zapfarma-header> -->
+  </div>
+  <div class="front-zapfarma-dashboard-container">
+    <div class="front-zapfarma-empresas">
+      <mat-card class="cadastro-card" appearance="outlined">
+        <mat-card-content>
+          <div *ngIf="!sucesso" class="card-intro">
+            <h3>Cadastrar nova drogaria</h3>
+            <p>Preencha os dados abaixo para liberar o acesso da unidade no sistema.</p>
+          </div>
+          <div *ngIf="!sucesso">
+            <form [formGroup]="formLogin" novalidate class="example-form">
+              <div class="form-section-title form-section-title--first field-full">Drogaria</div>
+              <mat-form-field appearance="outline" class="field-full">
+                <mat-label>CNPJ</mat-label>
+                <input
+                  id="cpfCnpj"
+                  (blur)="validarCPfUsuario();validateDvCpf();"
+                  mask="00.000.000/0000-00"
+                  formControlName="cpfCnpj"
+                  matInput
+                  placeholder="Digite o CNPJ"
+                />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="field-full">
+                <mat-label>Nome Fantasia</mat-label>
+                <input formControlName="nomeFantasia" matInput placeholder="Digite o nome fantasia da empresa" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="field-full">
+                <mat-label>Razão Social</mat-label>
+                <input formControlName="razaoSocial" matInput placeholder="Digite a razão social da empresa" />
+              </mat-form-field>
+              <div class="field-full whatsapp-main-row">
+                <mat-form-field appearance="outline" class="whatsapp-main-field">
+                  <mat-label>WhatsApp (Delivery)</mat-label>
+                  <input
+                    mask="(00) 00000-0000||(00) 0000-0000"
+                    formControlName="whatsApp"
+                    matInput
+                    placeholder="Digite o WhatsApp de atendimento"
+                  />
+                </mat-form-field>
+                <button type="button" mat-stroked-button class="add-whatsapp-btn" (click)="addWhatsAppExtra()">
+                  <mat-icon>add</mat-icon>
+                  Adicionar outro WhatsApp
+                </button>
+              </div>
+              <ng-container formArrayName="whatsAppsExtras">
+                <mat-form-field
+                  *ngFor="let control of whatsAppsExtras.controls; let i = index"
+                  appearance="outline"
+                  class="field-full"
+                >
+                  <mat-label>WhatsApp (Delivery) {{ i + 2 }}</mat-label>
+                  <input [formControlName]="i" mask="(00) 00000-0000||(00) 0000-0000" matInput placeholder="Digite outro WhatsApp" />
+                  <button type="button" mat-icon-button matSuffix (click)="removeWhatsAppExtra(i)" aria-label="Remover número">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </mat-form-field>
+              </ng-container>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Plano</mat-label>
+                <mat-select formControlName="plano">
+                  <mat-option [value]="3">Plano Premium</mat-option>
+                  <mat-option [value]="4">Plano Premium 2</mat-option>
+                  <mat-option [value]="1">Plano SAAS</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput placeholder="Digite o email de compra" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>CEP</mat-label>
+                <input (blur)="consutarEndereco();" mask="00000-000" formControlName="cep" matInput placeholder="Digite o CEP" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="field-full">
+                <mat-label>Endereço</mat-label>
+                <input [(ngModel)]="cep.logradouro" formControlName="endereco" matInput placeholder="Digite o endereço" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Bairro</mat-label>
+                <input [(ngModel)]="cep.bairro" formControlName="bairro" matInput placeholder="Digite o bairro" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Cidade</mat-label>
+                <input [(ngModel)]="cep.cidade" formControlName="cidade" matInput placeholder="Digite a cidade" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Estado</mat-label>
+                <input [(ngModel)]="cep.uf" formControlName="estado" matInput placeholder="Digite o estado" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Telefone Contato</mat-label>
+                <input
+                  mask="(00) 00000-0000||(00) 0000-0000"
+                  formControlName="telefone"
+                  matInput
+                  placeholder="Digite o telefone da empresa"
+                />
+              </mat-form-field>
+              <div class="form-section-title field-full">Responsável</div>
+              <mat-form-field appearance="outline">
+                <mat-label>Responsável</mat-label>
+                <input formControlName="responsavel" matInput placeholder="Digite o nome" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Número do responsável</mat-label>
+                <input
+                  mask="(00) 00000-0000||(00) 0000-0000"
+                  formControlName="numeroResponsavel"
+                  matInput
+                  placeholder="Digite o telefone do responsável"
+                />
+              </mat-form-field>
+            </form>
+          </div>
+          <div *ngIf="sucesso" class="retorno-sucesso">
+            <h2>{{ error ? error : 'Cadastrado com sucesso' }}</h2>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button [disabled]="!formLogin.valid" *ngIf="!sucesso" mat-raised-button (click)="cadastrar();">Cadastrar</button>
+          <button mat-stroked-button (click)="voltar();">Voltar</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

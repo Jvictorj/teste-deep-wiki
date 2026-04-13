@@ -1,0 +1,285 @@
+<section id="contato" class="contact-section">
+  <div class="container">
+    <div class="contact-wrapper">
+      <div class="contact-grid">
+        <div class="form-card">
+          <h2>Agende sua demonstração</h2>
+          <p>Preencha os dados abaixo para abrir o agendamento.</p>
+
+          <form class="contact-form" (ngSubmit)="handleSubmit()">
+            <label>
+              <span>Nome e Sobrenome</span>
+              <input
+                type="text"
+                name="name"
+                placeholder="Digite o nome"
+                [(ngModel)]="formData.name"
+                required
+              />
+            </label>
+
+            <label>
+              <span>Número do seu contato com DDD</span>
+              <input
+                type="text"
+                name="phone"
+                placeholder="(21) 99999-9999"
+                [(ngModel)]="formData.phone"
+                required
+              />
+            </label>
+
+            <label>
+              <span>Quantidade de drogarias em operação</span>
+              <input
+                type="number"
+                name="drugstoreCount"
+                placeholder="Informe o total de unidades"
+                [(ngModel)]="formData.drugstoreCount"
+                min="1"
+                required
+              />
+            </label>
+
+            @if (submitError) {
+              <p class="submit-error">{{ submitError }}</p>
+            }
+
+            <button class="btn btn-pill btn-lg submit" type="submit">
+              <mat-icon class="icon">send</mat-icon>
+              Agendar demonstração
+            </button>
+          </form>
+        </div>
+
+        <div class="contact-info">
+          <h3>Ainda tem alguma dúvida? Entre em contato agora mesmo</h3>
+
+          <a class="info-card" href="tel:+552135205492">
+            <span class="icon-box">
+              <mat-icon class="icon">call</mat-icon>
+            </span>
+            <div>
+              <p class="info-title">21 3520-5492</p>
+              <p class="info-subtitle">Segunda à Sexta: 08h às 18h</p>
+            </div>
+          </a>
+
+          <a class="info-card" href="mailto:Contato&#64;zapfarma.com">
+            <span class="icon-box">
+              <mat-icon class="icon">mail</mat-icon>
+            </span>
+            <div>
+              <p class="info-title">Contato&#64;zapfarma.com</p>
+              <p class="info-subtitle">Resposta em até 24h úteis</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (showThankYouModal) {
+    <div class="thankyou-modal-backdrop" (click)="closeThankYouModal()">
+      <div class="thankyou-modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+        <button class="thankyou-close" type="button" aria-label="Fechar modal" (click)="closeThankYouModal()">
+          &times;
+        </button>
+
+        <div class="thankyou-scroll">
+          <section class="thankyou-hero">
+            <div class="thankyou-icon" aria-hidden="true">
+              <mat-icon class="icon">check</mat-icon>
+            </div>
+            <div class="thankyou-badge-pill">
+              <span class="dot"></span>
+              Recebemos o seu contato!
+            </div>
+            <h3>
+              Nosso especialista vai entrar em contato pelo WhatsApp em instantes.
+              <span>Enquanto isso, veja como a Zapfarma gera resultado real.</span>
+            </h3>
+            <p>
+              Assista ao depoimento abaixo e, se preferir, j&aacute; escolha o melhor hor&aacute;rio para a sua
+              demonstra&ccedil;&atilde;o.
+            </p>
+          </section>
+
+          <section class="thankyou-video-section">
+            <p class="section-label">Case Real · 1 minuto</p>
+            <h4 class="section-title">Veja o que um cliente fala sobre a <span>Zapfarma</span></h4>
+
+            <!--
+            <div class="thankyou-video">
+              <iframe
+                [src]="thankYouVideoUrl"
+                title="Vídeo de agradecimento"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            -->
+
+            <div class="video-quote">
+              <div class="avatar">💬</div>
+              <div class="video-quote-text">
+                <p>
+                  "Reduzimos de 6 para 2 colaboradores no atendimento. A conversão disparou e a equipe ficou muito
+                  mais leve. Venda finalizada. Isso sim que é resultado!"
+                </p>
+                <span>Thiago Castro — Gerente, Drogaria Pense Bem</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="next-steps">
+            <p class="section-label">O que acontece agora</p>
+            <h4 class="section-title">Seus pr&oacute;ximos <span>3 passos</span></h4>
+
+            <div class="steps-grid">
+              <article class="step-card">
+                <div class="step-number">1</div>
+                <h5>Receba nossa mensagem</h5>
+                <p>
+                  Nosso especialista vai entrar em contato pelo WhatsApp com os pr&oacute;ximos passos e materiais
+                  preparados para a sua farm&aacute;cia.
+                </p>
+                <span class="step-tag">Agora mesmo</span>
+              </article>
+
+              <article class="step-card">
+                <div class="step-number">2</div>
+                <h5>Agende sua demonstra&ccedil;&atilde;o</h5>
+                <p>
+                  Voc&ecirc; ver&aacute; a IA atendendo um cliente do zero, consultando estoque e fechando a venda ao
+                  vivo.
+                </p>
+                <span class="step-tag">30 minutos</span>
+              </article>
+
+              <article class="step-card">
+                <div class="step-number">3</div>
+                <h5>Implante e comece a vender</h5>
+                <p>
+                  Nossa equipe cuida da integra&ccedil;&atilde;o com o ERP, da configura&ccedil;&atilde;o da IA e do
+                  apoio inicial da opera&ccedil;&atilde;o.
+                </p>
+                <span class="step-tag">R&aacute;pido e sem dor</span>
+              </article>
+            </div>
+          </section>
+
+          <section class="cta-block">
+            @if (useCalApiScheduling) {
+              <div class="scheduler-card">
+                <h5>Agendar demo agora pela disponibilidade da equipe</h5>
+
+                @if (loadingSlots) {
+                  <p class="scheduler-status">Carregando horários disponíveis...</p>
+                } @else if (slotsError) {
+                  <p class="scheduler-status scheduler-error">{{ slotsError }}</p>
+                  <button type="button" class="scheduler-refresh" (click)="loadAvailableSlots()">
+                    Tentar carregar horários novamente
+                  </button>
+                } @else {
+                  <div class="slots-header">
+                    <p class="scheduler-status">
+                      Selecione um horário e informe seu e-mail para receber a confirmação.
+                    </p>
+                    <span class="slots-count">{{ availableSlots.length }} horários disponíveis</span>
+                  </div>
+                  <div class="days-grid">
+                    @for (day of dayGroups; track day.dayKey) {
+                      <button
+                        type="button"
+                        class="day-chip"
+                        [class.active]="selectedDayKey === day.dayKey"
+                        (click)="selectDay(day.dayKey)"
+                      >
+                        {{ day.label }}
+                      </button>
+                    }
+                  </div>
+
+                  <div class="slots-grid">
+                    @for (slot of getSelectedDaySlots(); track slot.start) {
+                      <button
+                        type="button"
+                        class="slot-chip"
+                        [class.active]="isSlotSelected(slot)"
+                        (click)="selectSlot(slot)"
+                      >
+                        {{ formatSlotTime(slot) }}
+                      </button>
+                    }
+                  </div>
+
+                  <div class="booking-form-inline" [class.with-error]="bookingError">
+                    <div class="booking-fields">
+                      <input
+                        type="email"
+                        placeholder="Seu melhor e-mail"
+                        [(ngModel)]="bookingEmail"
+                        name="bookingEmail"
+                      />
+                      <input
+                        type="tel"
+                        placeholder="Telefone com DDD"
+                        mask="(00) 00000-0000||(00) 0000-0000"
+                        prefix="+55 "
+                        [(ngModel)]="bookingPhone"
+                        name="bookingPhone"
+                      />
+                    </div>
+                    <button type="button" class="btn-primary" [disabled]="bookingSubmitting" (click)="submitBooking()">
+                      {{ bookingSubmitting ? 'Agendando...' : 'Confirmar agendamento' }}
+                    </button>
+                  </div>
+
+                  @if (bookingError) {
+                    <p class="scheduler-status scheduler-error">{{ bookingError }}</p>
+                  }
+
+                  @if (bookingSuccessMessage) {
+                    <p class="scheduler-status scheduler-success">{{ bookingSuccessMessage }}</p>
+                  }
+                }
+              </div>
+            }
+
+            <h4>Não quer esperar? Fale agora.</h4>
+            <p>
+              Se preferir agilizar, entre direto no WhatsApp ou escolha o melhor horário para a sua demonstração.
+            </p>
+            <div class="cta-buttons">
+              <a
+                href="https://wa.me/552135205492?text=Ol%C3%A1!%20Acabei%20de%20preencher%20o%20formul%C3%A1rio%20da%20Zapfarma%20e%20gostaria%20de%20agendar%20minha%20demonstra%C3%A7%C3%A3o."
+                class="btn-primary"
+                target="_blank"
+                rel="noopener"
+              >
+                Falar no WhatsApp agora
+              </a>
+              <a
+                [href]="getFallbackCalDemoUrl()"
+                class="btn-outline"
+                target="_blank"
+                rel="noopener"
+              >
+                Escolher hor&aacute;rio da demo
+              </a>
+            </div>
+          </section>
+
+          <div class="trust-bar">
+            <div class="trust-item">🛡️ API Oficial Meta · Anti-Banimento</div>
+            <div class="trust-item">📈 +40% no faturamento delivery</div>
+            <div class="trust-item">⏰ Atendimento 24h · 7 dias por semana</div>
+            <div class="trust-item">🔗 Integração com ERP em dias</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</section>

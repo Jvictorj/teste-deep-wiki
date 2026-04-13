@@ -1,0 +1,160 @@
+﻿.steps-section {
+  padding: 5rem 0 7rem;
+  background: color-mix(in oklch, var(--secondary) 50%, transparent);
+}
+
+@media (min-width: 1024px) {
+  .steps-section {
+    padding: 7rem 0 9rem;
+  }
+}
+
+.steps-wrapper {
+  max-width: var(--layout-shell-xl);
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-header h2 {
+  font-size: clamp(2rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: var(--primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.highlight {
+  color: var(--primary);
+}
+
+.steps-track {
+  position: relative;
+}
+
+.steps-line {
+  display: none;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .steps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .steps-line {
+    display: block;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    height: 2.5px;
+    background: var(--border);
+  }
+
+  .steps-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  }
+
+  .steps-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+.step-card {
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 24px color-mix(in oklch, var(--primary) 20%, transparent);
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.step-icon .icon {
+  width: 1.55rem;
+  height: 1.55rem;
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.step-number {
+  position: absolute;
+  top: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.step-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  min-height: 3rem;
+}
+
+.step-card p {
+  font-size: 0.95rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  max-width: 220px;
+  margin: 0;
+}
+
+@media (max-width: 639px) {
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .step-card h3 {
+    min-height: unset;
+  }
+
+  .step-card p {
+    max-width: 100%;
+  }
+}
+

@@ -1,0 +1,11 @@
+.carousel-content {
+  overflow: hidden;
+}
+
+.carousel-content .carousel-track {
+  display: flex;
+}
+
+.carousel-content.vertical .carousel-track {
+  flex-direction: column;
+}

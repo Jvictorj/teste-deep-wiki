@@ -1,0 +1,94 @@
+﻿<section class="calculator-section">
+  <div class="container">
+    <div class="calculator-wrapper">
+      <div class="section-header">
+        <span class="eyebrow">
+          <mat-icon class="eyebrow-icon">calculate</mat-icon>
+          Calculadora de Desempenho
+        </span>
+        <h2>Veja quanto você pode faturar a mais</h2>
+        <p>
+          Cálculo baseado em dados de crescimento médio das vendas em 15 pontos percentuais sobre a conversão atual da farmácia.
+        </p>
+      </div>
+
+      <div class="calculator-grid">
+        <div class="calculator-card">
+          <h3>Informe seus dados atuais</h3>
+          <div class="field-group">
+            <label for="pedidos">Quantas conversas chegam pelo WhatsApp no dia?</label>
+            <input
+              id="pedidos"
+              type="number"
+              min="0"
+              class="input"
+              [ngModel]="pedidos"
+              (ngModelChange)="pedidos = onNumberInput($event)"
+            />
+          </div>
+
+          <div class="field-group">
+            <label for="vendas">Quantas vendas sao fechadas pelo WhatsApp no dia?</label>
+            <input
+              id="vendas"
+              type="number"
+              min="0"
+              class="input"
+              [ngModel]="vendas"
+              (ngModelChange)="vendas = onNumberInput($event)"
+            />
+          </div>
+
+          <div class="field-group">
+            <label for="ticket">Qual o ticket medio das vendas pelo WhatsApp?</label>
+            <div class="input-prefix">
+              <span>R$</span>
+              <input
+                id="ticket"
+                type="number"
+                min="0"
+                class="input with-prefix"
+                [ngModel]="ticket"
+                (ngModelChange)="ticket = onNumberInput($event)"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="results-card">
+          <h3>Resultado Mensal</h3>
+          <div class="result-row">
+            <span>Conversão atual dos pedidos</span>
+            <strong>{{ results.conversaoAtual }}%</strong>
+          </div>
+          <div class="result-row">
+            <span>Faturamento atual no WhatsApp</span>
+            <strong>{{ results.faturamentoAtual }}</strong>
+          </div>
+          <div class="result-row">
+            <span>conversão com Zapfarma</span>
+            <strong class="accent">{{ results.conversaoZapfarma }}%</strong>
+          </div>
+          <div class="result-row">
+            <span>Faturamento com Zapfarma</span>
+            <strong class="accent">{{ results.faturamentoZapfarma }}</strong>
+          </div>
+
+          <div class="result-highlight">
+            <div class="highlight-label">
+              <mat-icon class="icon">trending_up</mat-icon>
+              <span>Crescimento no faturamento</span>
+            </div>
+            <span class="highlight-value">{{ results.crescimento }}</span>
+          </div>
+
+          <a class="btn btn-pill btn-lg results-cta" href="#contato">
+            Quero esses resultados
+            <mat-icon class="icon">arrow_forward</mat-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

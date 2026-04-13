@@ -1,0 +1,25 @@
+<div class="toaster" [class.bottom]="position === 'bottom-right'">
+  @for (item of toast.toasts$ | async; track item.id) {
+    <div class="toast" [class.open]="item.open" [attr.aria-hidden]="!item.open">
+      <div class="toast-content">
+        @if (item.title) {
+          <div class="toast-title">{{ item.title }}</div>
+        }
+        @if (item.description) {
+          <div class="toast-description">{{ item.description }}</div>
+        }
+      </div>
+
+      <div class="toast-actions">
+        @if (item.action) {
+          <button class="toast-action" type="button" (click)="runAction(item)">
+            {{ item.action.label }}
+          </button>
+        }
+        <button class="toast-close" type="button" (click)="dismiss(item.id)" aria-label="Fechar notificacao">
+          ×
+        </button>
+      </div>
+    </div>
+  }
+</div>

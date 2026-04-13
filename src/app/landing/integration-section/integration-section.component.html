@@ -1,0 +1,100 @@
+﻿<section class="integration-section">
+  <div class="container">
+    <div class="integration-wrapper">
+      <div class="section-header">
+        <span class="eyebrow">Integração</span>
+        <h2>Conectada ao seu sistema. Pronta para vender.</h2>
+        <p>
+          A Zapfarma integra diretamente com o seu <span class="highlight"> ERP </span> e transforma seu WhatsApp em um canal de vendas automático.
+        </p>
+      </div>
+
+      <div class="integration-grid">
+        <div class="integration-card">
+          <div class="card-header">
+            <span class="badge">ERP</span>
+            <div>
+              <h3>Integrações com ERP</h3>
+              <p>Dados sincronizados em tempo real com o seu sistema</p>
+            </div>
+          </div>
+
+          <div class="erp-carousel-shell">
+            <button class="erp-carousel-nav" type="button" aria-label="Anterior" (click)="prevIntegration()">
+              <mat-icon class="icon">chevron_left</mat-icon>
+            </button>
+
+            <div class="erp-carousel-stage">
+              @for (item of erpIntegrations; track item.name; let i = $index) {
+                <div class="erp-carousel-slide" [class.active]="i === activeIntegrationIndex">
+                  <div
+                    class="erp-logo-wrap"
+                    [class.erp-logo-wrap--has-dark]="item.srcDark"
+                  >
+                    <img
+                      [src]="item.src"
+                      [alt]="'Logo do ERP ' + item.name"
+                      [attr.width]="item.srcWidth || null"
+                      [attr.height]="item.srcHeight || null"
+                      loading="lazy"
+                      decoding="async"
+                      [class]="'erp-logo erp-logo--light ' + (item.logoClass || '')"
+                    />
+                    @if (item.srcDark) {
+                      <img
+                        [src]="item.srcDark"
+                        alt=""
+                        aria-hidden="true"
+                        [attr.width]="item.srcDarkWidth || null"
+                        [attr.height]="item.srcDarkHeight || null"
+                        loading="lazy"
+                        decoding="async"
+                        [class]="'erp-logo erp-logo--dark ' + (item.logoClass || '')"
+                      />
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+
+            <button class="erp-carousel-nav" type="button" aria-label="Próximo" (click)="nextIntegration()">
+              <mat-icon class="icon">chevron_right</mat-icon>
+            </button>
+          </div>
+
+          <div class="erp-carousel-dots">
+            @for (item of erpIntegrations; track item.name; let i = $index) {
+              <button
+                class="dot"
+                type="button"
+                [class.active]="i === activeIntegrationIndex"
+                [attr.aria-label]="'Ir para ' + item.name"
+                (click)="goToIntegration(i)"
+              ></button>
+            }
+          </div>
+        </div>
+
+        <div class="integration-card">
+          <h3>Muito além do atendimento automático</h3>
+          <p class="subtitle">Menos cliques. Mais velocidade. Mais vendas.</p>
+          <div class="card-list">
+            @for (item of extraFeatures; track item.text) {
+              <div class="list-item">
+                <mat-icon class="icon">{{ item.icon }}</mat-icon>
+                <span>{{ item.text }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="integration-footer">
+        <div class="footer-pill">
+          <mat-icon class="icon">bolt</mat-icon>
+          <p>Zapfarma conecta sua IA ao ERP e transforma atendimento em vendas finalizadas no caixa.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

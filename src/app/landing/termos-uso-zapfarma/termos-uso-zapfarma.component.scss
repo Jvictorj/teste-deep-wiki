@@ -1,0 +1,87 @@
+.terms-page {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.terms-hero {
+  padding: 6rem 0 3rem;
+  background: radial-gradient(circle at top, rgba(16, 185, 129, 0.14), transparent 5%);
+}
+
+.terms-hero h1 {
+  font-size: clamp(2.1rem, 3.8vw, 3rem);
+  font-weight: 700;
+  margin: 0 0 1rem;
+  text-wrap: balance;
+}
+
+.terms-hero p {
+  max-width: 48rem;
+  color: var(--muted-foreground);
+  font-size: 1.03rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: var(--primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.terms-section {
+  padding: 2rem 0 6rem;
+}
+
+.terms-content {
+  max-width: 72rem;
+}
+
+.terms-content h2 {
+  margin: 2.5rem 0 1rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.terms-content p {
+  margin: 0 0 1rem;
+  color: var(--muted-foreground);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.terms-content ul,
+.terms-content ol {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+  color: var(--muted-foreground);
+  display: grid;
+  gap: 0.6rem;
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.terms-content ul li,
+.terms-content ol li {
+  padding-left: 0.2rem;
+}
+
+@media (max-width: 768px) {
+  .terms-hero {
+    padding: 5rem 0 2.5rem;
+  }
+
+  .terms-hero p {
+    font-size: 1rem;
+  }
+
+  .terms-section {
+    padding: 1.5rem 0 4.5rem;
+  }
+
+  .terms-content h2 {
+    font-size: 1.2rem;
+  }
+}

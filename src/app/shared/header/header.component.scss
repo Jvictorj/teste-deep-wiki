@@ -1,0 +1,8 @@
+
+@use './../../../style/tokens.scss' as *;
+
+.front-zapfarma-header {
+    &__padding {
+        padding: 60px 8px 8px 16px;
+    }
+}

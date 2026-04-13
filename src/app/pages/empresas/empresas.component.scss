@@ -1,0 +1,962 @@
+@use './../../../style/tokens.scss' as *;
+
+.front-zapfarma-dashboard {
+  padding-top: 80px;
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(0, 146, 63, 0.11), transparent 35%),
+    radial-gradient(circle at 92% 14%, rgba(31, 79, 120, 0.12), transparent 40%),
+    linear-gradient(155deg, #f8fbfe 0%, #eff4fa 100%);
+
+  .front-zapfarma-dashboard-container {
+    width: min(1280px, calc(100% - 28px));
+    margin: 0 auto;
+    padding: 14px 0 22px;
+  }
+
+  .list-card {
+    border-radius: 20px;
+    border: 1px solid rgba(31, 79, 120, 0.12);
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+    background:
+      linear-gradient(165deg, rgba(255, 255, 255, 0.99), rgba(244, 248, 254, 0.98)),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(31, 79, 120, 0.015),
+        rgba(31, 79, 120, 0.015) 8px,
+        rgba(31, 79, 120, 0.03) 8px,
+        rgba(31, 79, 120, 0.03) 16px
+      );
+  }
+
+  .mat-mdc-card-content {
+    padding: 14px;
+  }
+
+  .list-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+
+    h3 {
+      margin: 0;
+      color: #111827;
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      margin: 4px 0 0;
+      color: #475467;
+      font-size: 0.9rem;
+    }
+  }
+
+  .add-button {
+    border-radius: 10px;
+    min-height: 38px;
+    padding: 0 12px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(31, 79, 120, 0.12);
+
+    mat-icon {
+      margin-right: 4px;
+    }
+  }
+
+  .search-field {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .insights-strip {
+    margin: 8px 0 12px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .insight-card {
+    border-radius: 12px;
+    border: 1px solid rgba(31, 79, 120, 0.12);
+    background: linear-gradient(160deg, #ffffff, #f3f7ff);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    small {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #475467;
+    }
+
+    strong {
+      font-size: 1.2rem;
+      line-height: 1.05;
+      color: #1f4f78;
+      font-weight: 800;
+    }
+  }
+
+  ::ng-deep .search-field {
+    .mat-mdc-text-field-wrapper {
+      border-radius: 10px;
+      background: #ffffff;
+      height: 44px;
+    }
+
+    .mat-mdc-form-field-flex {
+      height: 44px;
+      align-items: center;
+    }
+
+    .mat-mdc-form-field-infix {
+      display: flex;
+      align-items: center;
+      min-height: auto;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .mat-mdc-input-element {
+      margin: 0;
+      height: 44px;
+      line-height: 44px;
+      padding: 0;
+    }
+
+    .mdc-floating-label {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .mdc-floating-label--float-above {
+      transform: translateY(-106%) scale(0.75);
+    }
+
+    .mat-icon[matprefix] {
+      margin-right: 10px;
+      color: #344054;
+    }
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: rgba(31, 79, 120, 0.16) !important;
+    }
+  }
+
+  .table-shell {
+    border-radius: 12px;
+    border: 1px solid rgba(31, 79, 120, 0.12);
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  .mat-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  table {
+    min-width: 1020px;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  th.mat-mdc-header-cell {
+    background: #f8fafc;
+    color: #344054;
+    font-size: 0.84rem;
+    font-weight: 700;
+    border-bottom: 1px solid #e4e7ec;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    vertical-align: middle;
+    text-align: left;
+  }
+
+  ::ng-deep .farmacias-table th.mat-mdc-header-cell .mat-sort-header-container {
+    justify-content: flex-start;
+  }
+
+  ::ng-deep .farmacias-table th.mat-mdc-header-cell .mat-sort-header-content {
+    text-align: left;
+  }
+
+  td.mat-mdc-cell {
+    color: #101828;
+    border-bottom: 1px solid #f2f4f7;
+    font-size: 0.92rem;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    vertical-align: middle;
+    text-align: left;
+  }
+
+  .farmacias-table tr.mat-mdc-row:nth-child(even) td.mat-mdc-cell {
+    background: #f9fbff;
+  }
+
+  .farmacias-table tr.mat-mdc-row:hover td.mat-mdc-cell {
+    background: #eef4ff;
+  }
+
+  .creator-cell {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .creator-main {
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .creator-name {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+  }
+
+  .creator-tag {
+    border-radius: 999px;
+    border: 1px solid rgba(5, 150, 105, 0.24);
+    background: rgba(16, 185, 129, 0.12);
+    color: #065f46;
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 1;
+    padding: 4px 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .link-editar {
+    cursor: pointer;
+    text-decoration: none;
+    color: #295d8a;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 100%;
+  }
+
+  .nome-fantasia-text {
+    min-width: 0;
+    max-width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .edit-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #295d8a;
+  }
+
+  .payment-indicator {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1;
+    border: 1px solid transparent;
+    user-select: none;
+  }
+
+  .payment-indicator--paid {
+    color: #065f46;
+    background: rgba(16, 185, 129, 0.18);
+    border-color: rgba(5, 150, 105, 0.34);
+  }
+
+  .payment-indicator--pending {
+    color: #92400e;
+    background: rgba(251, 191, 36, 0.24);
+    border-color: rgba(217, 119, 6, 0.34);
+  }
+
+  .payment-indicator--overdue {
+    color: #991b1b;
+    background: rgba(239, 68, 68, 0.16);
+    border-color: rgba(220, 38, 38, 0.34);
+  }
+
+  .payment-indicator--unknown {
+    color: #334155;
+    background: rgba(148, 163, 184, 0.18);
+    border-color: rgba(100, 116, 139, 0.3);
+  }
+
+  .link-editar:hover {
+    color: #122b69;
+  }
+
+  .col-whatsapp,
+  .col-data {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .col-acoes {
+    width: 78px;
+    text-align: center;
+    white-space: nowrap;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .arquivos-btn {
+    height: 32px;
+    border-radius: 8px;
+    padding: 0 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-color: rgba(31, 79, 120, 0.16) !important;
+    color: #2c618f !important;
+    background: #ffffff;
+
+    .mat-icon {
+      margin-right: 4px;
+      font-size: 15px;
+      width: 15px;
+      height: 15px;
+      line-height: 15px;
+    }
+  }
+
+  .excluir-btn {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 8px;
+    padding: 0;
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #dc2626 !important;
+    background: transparent !important;
+    --mdc-icon-button-state-layer-size: 34px;
+  }
+
+  .excluir-btn:hover {
+    background: rgba(220, 38, 38, 0.12) !important;
+  }
+
+  .excluir-btn .mat-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    line-height: 22px;
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  }
+
+  .col-plano {
+    min-width: 118px;
+
+    .plan-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #0f3e8a;
+      background: rgba(29, 78, 216, 0.1);
+      border: 1px solid rgba(29, 78, 216, 0.2);
+      text-transform: capitalize;
+      white-space: nowrap;
+      line-height: 1.1;
+    }
+  }
+
+  .col-saas {
+    min-width: 220px;
+  }
+
+  .saas-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .saas-attach-btn,
+  .saas-create-btn,
+  .saas-created-btn {
+    height: 32px;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0 8px;
+    white-space: nowrap;
+    min-width: fit-content;
+  }
+
+  .saas-attach-btn {
+    border-color: rgba(31, 79, 120, 0.16) !important;
+    color: #2c618f !important;
+    background: #ffffff;
+
+    .mat-icon {
+      margin-right: 4px;
+      font-size: 15px;
+      width: 15px;
+      height: 15px;
+      line-height: 15px;
+    }
+  }
+
+  .saas-attach-btn.saas-attach-btn--blocked {
+    opacity: 1 !important;
+    color: #667085 !important;
+    border-color: rgba(100, 116, 139, 0.38) !important;
+    background: linear-gradient(180deg, #f4f6fa 0%, #e5eaf3 100%) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
+    filter: saturate(0.42);
+    cursor: not-allowed;
+
+    .mat-icon {
+      color: #64748b !important;
+    }
+  }
+
+  .saas-created-btn {
+    color: #0f5132 !important;
+    background: rgba(16, 185, 129, 0.16) !important;
+    border: 1px solid rgba(16, 185, 129, 0.34) !important;
+
+    .mat-icon {
+      margin-right: 4px;
+      font-size: 15px;
+      width: 15px;
+      height: 15px;
+      line-height: 15px;
+    }
+  }
+
+  .saas-created-btn[disabled] {
+    opacity: 1 !important;
+  }
+
+  .saas-file-input {
+    display: none;
+  }
+
+  ::ng-deep .mat-mdc-paginator {
+    border-top: 1px solid #eaecf0;
+    background: #f8fafc;
+  }
+
+  ::ng-deep .mat-mdc-paginator-container {
+    min-height: 48px;
+    padding: 4px 10px;
+  }
+
+  .farmacias-table .mat-column-nomeFantasia {
+    width: 23%;
+    min-width: 230px;
+  }
+
+  .farmacias-table .mat-column-afiliados {
+    width: 18%;
+    min-width: 280px;
+  }
+
+  .farmacias-table .mat-column-whatsApp {
+    width: 13%;
+    min-width: 130px;
+    white-space: nowrap;
+  }
+
+  .farmacias-table .mat-column-nomePlanos {
+    width: 11%;
+    min-width: 120px;
+  }
+
+  .farmacias-table .mat-column-saas {
+    width: 24%;
+    min-width: 270px;
+  }
+
+  .farmacias-table .mat-column-data {
+    width: 10%;
+    min-width: 145px;
+    white-space: nowrap;
+  }
+
+  .farmacias-table .mat-column-acoes {
+    width: 78px;
+    min-width: 76px;
+    text-align: center;
+    background: #ffffff;
+  }
+
+  .farmacias-table .mat-mdc-header-cell.mat-column-acoes,
+  .farmacias-table .mat-mdc-cell.mat-column-acoes {
+    text-align: center;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .farmacias-table .mat-mdc-header-cell.mat-column-acoes {
+    background: #f8fafc;
+  }
+
+  .farmacias-table tr.mat-mdc-row:nth-child(even) .mat-column-acoes {
+    background: #f9fbff;
+  }
+
+  .farmacias-table tr.mat-mdc-row:hover .mat-column-acoes {
+    background: #eef4ff;
+  }
+
+  .skeleton-container {
+    padding: 12px 16px;
+  }
+
+  ::ng-deep .drogaria-arquivos-dialog-panel .mat-mdc-dialog-surface {
+    border-radius: 16px;
+    border: 1px solid rgba(31, 79, 120, 0.12);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+    background: linear-gradient(170deg, #ffffff, #f5f8ff);
+  }
+
+  .drogaria-arquivos-modal {
+    padding: 12px;
+  }
+
+  .drogaria-arquivos-modal__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+
+    h3 {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    p {
+      margin: 3px 0 0;
+      font-size: 0.82rem;
+      color: #475467;
+      font-weight: 600;
+    }
+  }
+
+  .drogaria-arquivos-modal__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+
+    small {
+      color: #475467;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+  }
+
+  .drogaria-arquivos-modal__add-btn {
+    border-radius: 7px;
+    height: 32px;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .drogaria-arquivos-modal__file-input {
+    display: none;
+  }
+
+  .drogaria-arquivos-modal__content {
+    max-height: 54vh;
+    overflow: auto;
+    border: 1px solid #e4e7ec;
+    border-radius: 10px;
+    background: #ffffff;
+  }
+
+  .arquivo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 9px 10px;
+    border-bottom: 1px solid #f2f4f7;
+  }
+
+  .arquivo-item:last-child {
+    border-bottom: 0;
+  }
+
+  .arquivo-item__left {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .mat-icon {
+      color: #33539a;
+      flex: 0 0 auto;
+    }
+
+    strong {
+      display: block;
+      max-width: 100%;
+      font-size: 0.86rem;
+      color: #101828;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    small {
+      display: block;
+      margin-top: 2px;
+      color: #667085;
+      font-size: 0.73rem;
+  }
+  }
+
+  .arquivo-item__remove {
+    height: 28px;
+    border-radius: 7px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex: 0 0 auto;
+  }
+
+  .drogaria-arquivos-modal__empty {
+    border: 1px dashed #d0d5dd;
+    border-radius: 10px;
+    background: #ffffff;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    color: #667085;
+    text-align: center;
+    padding: 14px;
+
+    .mat-icon {
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 980px) {
+    .list-header {
+      flex-direction: column;
+      align-items: stretch;
+
+      h3 {
+        font-size: 1.45rem;
+      }
+    }
+
+    .add-button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .insights-strip {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .front-zapfarma-dashboard-container {
+      width: calc(100% - 12px);
+      padding-bottom: 18px;
+    }
+
+    .mat-mdc-card-content {
+      padding: 10px;
+    }
+
+    .list-header {
+      margin-bottom: 4px;
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      p {
+        font-size: 0.82rem;
+      }
+    }
+
+    table {
+      min-width: 940px;
+    }
+
+    .col-plano .plan-badge {
+      padding: 4px 9px;
+      font-size: 0.78rem;
+    }
+
+    .saas-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: stretch;
+    }
+
+    .saas-attach-btn,
+    .saas-create-btn,
+    .saas-created-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .drogaria-arquivos-modal {
+      padding: 10px;
+    }
+
+    .drogaria-arquivos-modal__toolbar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .drogaria-arquivos-modal__add-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .arquivo-item {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .arquivo-item__remove {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+/* Dialog é renderizado no overlay fora de .front-zapfarma-dashboard */
+::ng-deep .drogaria-arquivos-dialog-panel .mat-mdc-dialog-surface {
+  border-radius: 16px;
+  border: 1px solid rgba(31, 79, 120, 0.12);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+  background: linear-gradient(170deg, #ffffff, #f5f8ff);
+}
+
+::ng-deep .drogaria-arquivos-modal {
+  padding: 12px;
+}
+
+::ng-deep .drogaria-arquivos-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+::ng-deep .drogaria-arquivos-modal__header h3 {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+::ng-deep .drogaria-arquivos-modal__header p {
+  margin: 3px 0 0;
+  font-size: 0.82rem;
+  color: #475467;
+  font-weight: 600;
+}
+
+::ng-deep .drogaria-arquivos-modal__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+::ng-deep .drogaria-arquivos-modal__toolbar small {
+  color: #475467;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+::ng-deep .drogaria-arquivos-modal__add-btn {
+  border-radius: 7px;
+  height: 32px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+::ng-deep .drogaria-arquivos-modal__file-input {
+  display: none;
+}
+
+::ng-deep .drogaria-arquivos-modal__section-title {
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #344054;
+}
+
+::ng-deep .drogaria-arquivos-modal__content {
+  max-height: 54vh;
+  overflow: auto;
+  border: 1px solid #e4e7ec;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+::ng-deep .drogaria-arquivos-modal .arquivo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 10px;
+  border-bottom: 1px solid #f2f4f7;
+}
+
+::ng-deep .drogaria-arquivos-modal .arquivo-item:last-child {
+  border-bottom: 0;
+}
+
+::ng-deep .drogaria-arquivos-modal .arquivo-item__left {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+::ng-deep .drogaria-arquivos-modal .arquivo-item__left .mat-icon {
+  color: #33539a;
+  flex: 0 0 auto;
+}
+
+::ng-deep .drogaria-arquivos-modal .arquivo-item__left strong {
+  display: block;
+  max-width: 100%;
+  font-size: 0.86rem;
+  color: #101828;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .drogaria-arquivos-modal .arquivo-item__left small {
+  display: block;
+  margin-top: 2px;
+  color: #667085;
+  font-size: 0.73rem;
+}
+
+::ng-deep .drogaria-arquivos-modal .arquivo-item__remove {
+  height: 28px;
+  border-radius: 7px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+::ng-deep .drogaria-arquivos-modal__empty {
+  border: 1px dashed #d0d5dd;
+  border-radius: 10px;
+  background: #ffffff;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  color: #667085;
+  text-align: center;
+  padding: 14px;
+}
+
+::ng-deep .drogaria-arquivos-modal__empty .mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+::ng-deep .drogaria-arquivos-modal__empty p {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  ::ng-deep .drogaria-arquivos-modal {
+    padding: 10px;
+  }
+
+  ::ng-deep .drogaria-arquivos-modal__toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  ::ng-deep .drogaria-arquivos-modal__add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  ::ng-deep .drogaria-arquivos-modal .arquivo-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  ::ng-deep .drogaria-arquivos-modal .arquivo-item__remove {
+    width: 100%;
+    justify-content: center;
+  }
+}

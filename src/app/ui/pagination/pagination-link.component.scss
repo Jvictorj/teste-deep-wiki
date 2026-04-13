@@ -1,0 +1,15 @@
+.pagination-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid transparent;
+}
+
+.pagination-link.active {
+  border-color: var(--border);
+}

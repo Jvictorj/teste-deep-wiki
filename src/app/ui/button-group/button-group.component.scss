@@ -1,0 +1,30 @@
+.button-group {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.button-group.horizontal > *:not(:first-child) {
+  border-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.button-group.horizontal > *:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button-group.vertical {
+  flex-direction: column;
+}
+
+.button-group.vertical > *:not(:first-child) {
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.button-group.vertical > *:not(:last-child) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}

@@ -1,0 +1,129 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="/" aria-label="Ir para a home da Zapfarma">
+      <span class="logo-icon">
+        <img
+          [src]="logoSrc"
+          alt="Logotipo da Zapfarma"
+          [attr.width]="logoWidth"
+          [attr.height]="logoHeight"
+          decoding="async"
+        />
+      </span>
+      <span class="partner-seal" aria-label="Meta Tech Provider">
+        <img
+          [src]="sealSrc"
+          alt="Selo Meta Tech Provider da Zapfarma"
+          [attr.width]="sealWidth"
+          [attr.height]="sealHeight"
+          decoding="async"
+        />
+      </span>
+    </a>
+
+    <nav class="desktop-nav">
+      @for (link of navLinks; track link.href) {
+        <a class="nav-link" [href]="link.href">{{ link.label }}</a>
+      }
+    </nav>
+
+    <div class="desktop-cta">
+      @if (isBrowser) {
+        <button
+          class="theme-toggle"
+          type="button"
+          (click)="toggleDarkMode()"
+          aria-label="Alternar modo escuro"
+        >
+          <app-theme-icon class="icon"></app-theme-icon>
+        </button>
+      }
+      <a class="btn btn-primary btn-pill" href="/#/home#contato">Agendar Demo IA</a>
+      <a class="login-link-subtle" href="/#/login">
+        Entrar
+      </a>
+    </div>
+
+    <div class="mobile-actions">
+      @if (isBrowser) {
+        <button
+          class="theme-toggle"
+          type="button"
+          (click)="toggleDarkMode()"
+          aria-label="Alternar modo escuro"
+        >
+          <app-theme-icon class="icon"></app-theme-icon>
+        </button>
+      }
+
+      <button
+        class="icon-btn icon-btn--ghost"
+        type="button"
+        aria-label="Abrir menu principal"
+        aria-haspopup="dialog"
+        [attr.aria-controls]="mobileMenuPanelId"
+        [attr.aria-expanded]="isMenuOpen"
+        (click)="openMenu()"
+      >
+        <mat-icon class="icon" aria-hidden="true">menu</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <app-sheet
+    [open]="isMenuOpen"
+    side="right"
+    [panelId]="mobileMenuPanelId"
+    [ariaLabelledby]="mobileMenuTitleId"
+    [ariaDescribedby]="mobileMenuDescriptionId"
+    closeButtonAriaLabel="Fechar menu principal"
+    (openChange)="handleMenuOpenChange($event)"
+  >
+    <div class="mobile-menu">
+      <h2 [id]="mobileMenuTitleId" class="sr-only">Menu principal</h2>
+      <p [id]="mobileMenuDescriptionId" class="sr-only">
+        Navegue pelas secoes da landing page e agende uma demonstracao.
+      </p>
+
+      <a
+        class="logo mobile-menu__brand"
+        href="/"
+        aria-label="Ir para a home da Zapfarma"
+        (click)="closeMenu()"
+      >
+        <span class="logo-icon">
+          <img
+            [src]="logoSrc"
+            alt="Logotipo da Zapfarma"
+            [attr.width]="logoWidth"
+            [attr.height]="logoHeight"
+            decoding="async"
+          />
+        </span>
+        <span class="partner-seal" aria-label="Meta Tech Provider">
+          <img
+            [src]="sealSrc"
+            alt="Selo Meta Tech Provider da Zapfarma"
+            [attr.width]="sealWidth"
+            [attr.height]="sealHeight"
+            decoding="async"
+          />
+        </span>
+      </a>
+
+      <nav class="mobile-menu__nav" aria-label="Menu mobile">
+        @for (link of navLinks; track link.href) {
+          <a class="mobile-menu__link" [href]="link.href" (click)="closeMenu()">
+            {{ link.label }}
+          </a>
+        }
+        <a class="drawer-link drawer-link--subtle" href="/#/login" (click)="closeMenu()">
+          Entrar
+        </a>
+        <a class="btn btn-primary btn-pill" href="/#/home#contato" (click)="closeMenu()">
+          Agendar Demo IA
+        </a>
+      </nav>
+    </div>
+  </app-sheet>
+</header>

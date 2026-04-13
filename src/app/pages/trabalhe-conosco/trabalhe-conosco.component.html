@@ -1,0 +1,545 @@
+<main class="careers-page">
+  <app-header></app-header>
+
+  <section class="careers-hero">
+    <div class="container">
+      <div class="hero-surface">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <app-badge variant="outline">Trabalhe Conosco</app-badge>
+            <h1>Ajude a construir a IA que mais vende no Brasil.</h1>
+            <p class="hero-subtitle">
+              Estamos montando um banco de talentos para quem quer construir produto,
+              operação, crescimento e tecnologia com impacto real no varejo farmacêutico.
+            </p>
+
+            <div class="hero-actions">
+              <app-button size="lg" (click)="openApplicationModal()">
+                Entrar no banco de talentos
+              </app-button>
+              <app-button size="lg" (click)="scrollToSection('vagas')">
+                Ver áreas e vagas
+              </app-button>
+            </div>
+
+            <div class="highlights-grid">
+              @for (highlight of careerHighlights; track highlight.label; let index = $index) {
+                <app-card
+                  [ngClass]="[
+                    'highlight-card',
+                    'highlight-card--' + highlight.slug
+                  ]"
+                >
+                  <app-card-content>
+                    <div class="highlight-card__icon">
+                      @switch (index) {
+                        @case (0) {
+                          <mat-icon class="icon" aria-hidden="true">workspaces</mat-icon>
+                        }
+                        @case (1) {
+                          <mat-icon class="icon" aria-hidden="true">auto_awesome</mat-icon>
+                        }
+                        @default {
+                          <mat-icon class="icon" aria-hidden="true">groups_2</mat-icon>
+                        }
+                      }
+                    </div>
+                    <div class="highlight-card__text">
+                      <strong>{{ highlight.value }}</strong>
+                      <span>{{ highlight.label }}</span>
+                    </div>
+                  </app-card-content>
+                </app-card>
+              }
+            </div>
+          </div>
+
+          <app-card class="hero-panel">
+            <div class="hero-visual">
+              <div class="hero-visual-badge">
+                <mat-icon class="icon" aria-hidden="true">verified</mat-icon>
+                <span>Banco de talentos ativo</span>
+              </div>
+              <div class="hero-visual-frame">
+                <div class="hero-visual-mock">
+                  <div class="hero-visual-block hero-visual-block--large"></div>
+                  <div class="hero-visual-block hero-visual-block--small"></div>
+                  <div class="hero-visual-pill"></div>
+                  <div class="hero-visual-pill hero-visual-pill--alt"></div>
+                </div>
+                <div class="hero-visual-card hero-visual-card--primary">
+                  <strong>Triagem estruturada</strong>
+                  <span>Dados, links e currículo organizados desde o primeiro contato.</span>
+                </div>
+                <div class="hero-visual-card hero-visual-card--secondary">
+                  <strong>Vagas sob demanda</strong>
+                  <span>Quando surgir uma posição, o time já parte de uma base qualificada.</span>
+                </div>
+              </div>
+            </div>
+
+            <app-card-header>
+              <app-card-title>Como pensamos contratação</app-card-title>
+              <app-card-description>
+                Mantemos uma base viva de perfis para acelerar novas vagas sem perder contexto.
+              </app-card-description>
+            </app-card-header>
+            <app-card-content>
+              <div class="process-list">
+                @for (step of hiringSteps; track step.title; let index = $index) {
+                  <div class="process-item">
+                    <span class="process-index">0{{ index + 1 }}</span>
+                    <div>
+                      <strong>{{ step.title }}</strong>
+                      <p>{{ step.description }}</p>
+                    </div>
+                  </div>
+                }
+              </div>
+            </app-card-content>
+          </app-card>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <div class="section-header">
+        <app-badge variant="secondary">Nossa cultura</app-badge>
+        <h2>Buscamos gente que pensa com clareza, executa com ritmo e assume responsabilidade.</h2>
+      </div>
+
+      <div class="card-grid card-grid--three culture-grid">
+        @for (pillar of culturePillars; track pillar.title) {
+          <app-card
+            [ngClass]="[
+              'culture-card',
+              'culture-card--' + pillar.slug
+            ]"
+          >
+            <app-card-header>
+              <span class="card-eyebrow">{{ pillar.eyebrow }}</span>
+              <app-card-title>{{ pillar.title }}</app-card-title>
+            </app-card-header>
+            <app-card-content>
+              <p>{{ pillar.description }}</p>
+            </app-card-content>
+          </app-card>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section page-section--muted">
+    <div class="container">
+      <div class="talent-area-layout">
+        <div class="talent-area-content">
+          <div class="section-header section-header--compact">
+            <app-badge variant="secondary">Banco de talentos</app-badge>
+            <h2>Áreas que costumamos abrir primeiro</h2>
+          </div>
+
+          <div class="card-grid card-grid--two talent-area-grid">
+            @for (area of talentAreas; track area.title) {
+              <app-card
+                [ngClass]="[
+                  'talent-area-card',
+                  'talent-area-card--' + area.slug
+                ]"
+              >
+                <app-card-header>
+                  <app-card-title>{{ area.title }}</app-card-title>
+                  <app-card-description>{{ area.description }}</app-card-description>
+                </app-card-header>
+                <app-card-content>
+                  <div class="talent-area-card__tags">
+                    @for (tag of area.tags; track tag) {
+                      <app-badge variant="outline">{{ tag }}</app-badge>
+                    }
+                  </div>
+                </app-card-content>
+              </app-card>
+            }
+          </div>
+        </div>
+
+        <aside class="talent-area-aside">
+          <span class="talent-area-aside__eyebrow">Por que entrar agora</span>
+          <h3 class="talent-area-aside__title">
+            Mesmo sem uma vaga específica aberta, queremos conhecer perfis com aderência ao nosso momento.
+          </h3>
+          <ul class="talent-area-aside__list">
+            @for (benefit of benefits; track benefit) {
+              <li class="talent-area-aside__item">
+                <mat-icon class="icon" aria-hidden="true">done</mat-icon>
+                <span>{{ benefit }}</span>
+              </li>
+            }
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section" id="vagas">
+    <div class="container">
+      <div class="section-header">
+        <app-badge variant="secondary">Vagas</app-badge>
+        <h2>Quando tivermos uma oportunidade específica, ela aparece aqui.</h2>
+      </div>
+
+      @if (featuredVacancies.length) {
+        <app-accordion type="single" [collapsible]="true">
+          @for (vacancy of featuredVacancies; track vacancy.id) {
+            <app-accordion-item [value]="vacancy.id">
+              <app-accordion-trigger>
+                <div class="vacancy-trigger">
+                  <div>
+                    <strong>{{ vacancy.title }}</strong>
+                    <p>{{ vacancy.summary }}</p>
+                  </div>
+                  <div class="vacancy-trigger__meta">
+                    <app-badge variant="outline">{{ vacancy.team }}</app-badge>
+                    <app-badge variant="outline">{{ vacancy.model }}</app-badge>
+                    <app-badge variant="outline">{{ vacancy.level }}</app-badge>
+                  </div>
+                </div>
+              </app-accordion-trigger>
+              <app-accordion-content>
+                <div class="vacancy-details">
+                  <div>
+                    <h3>Responsabilidades</h3>
+                    <ul>
+                      @for (responsibility of vacancy.responsibilities; track responsibility) {
+                        <li>{{ responsibility }}</li>
+                      }
+                    </ul>
+                  </div>
+                  <div>
+                    <h3>Requisitos</h3>
+                    <ul>
+                      @for (requirement of vacancy.requirements; track requirement) {
+                        <li>{{ requirement }}</li>
+                      }
+                    </ul>
+                  </div>
+                </div>
+                <div class="vacancy-details__footer">
+                  <span>{{ vacancy.location }}</span>
+                  <app-button size="sm" (click)="focusVacancy(vacancy)">Candidatar-se</app-button>
+                </div>
+              </app-accordion-content>
+            </app-accordion-item>
+          }
+        </app-accordion>
+      } @else {
+        <app-empty class="vacancy-empty">
+          <app-empty-header>
+            <mat-icon class="icon vacancy-empty__icon" aria-hidden="true">work_outline</mat-icon>
+            <app-empty-title>Nenhuma vaga pública no momento</app-empty-title>
+            <app-empty-description>
+              O banco de talentos segue aberto. Se o seu perfil fizer sentido para próximas posições, vale se cadastrar agora.
+            </app-empty-description>
+          </app-empty-header>
+        </app-empty>
+      }
+    </div>
+  </section>
+
+  @if (showApplicationModal) {
+    <div class="application-modal-backdrop" (click)="closeApplicationModal()">
+      <app-card
+        class="application-card application-card--single application-card--modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="application-modal-title"
+        (click)="$event.stopPropagation()"
+      >
+        <button
+          class="application-modal__close"
+          type="button"
+          aria-label="Fechar modal de candidatura"
+          (click)="closeApplicationModal()"
+        >
+          &times;
+        </button>
+
+        <app-card-header class="application-card__intro">
+          <app-card-title id="application-modal-title">Sua candidatura segue para a API de talentos</app-card-title>
+          <app-card-description>
+            Organizamos os seus dados e enviamos o currículo para a API da Zapfarma,
+            preparada para persistir no banco de talentos.
+          </app-card-description>
+        </app-card-header>
+        
+        <app-card-header class="application-card__form-header">
+          <app-card-title>Cadastre seu perfil</app-card-title>
+          <app-card-description>
+            Preencha os dados abaixo para entrar no banco de talentos da Zapfarma.
+          </app-card-description>
+        </app-card-header>
+
+        <app-card-content>
+          @if (submitSuccessMessage) {
+            <app-alert>
+              <app-alert-title>Candidatura enviada</app-alert-title>
+              <app-alert-description>{{ submitSuccessMessage }}</app-alert-description>
+            </app-alert>
+          }
+
+          @if (submitErrorMessage) {
+            <app-alert variant="destructive">
+              <app-alert-title>Falha no envio</app-alert-title>
+              <app-alert-description>{{ submitErrorMessage }}</app-alert-description>
+            </app-alert>
+          }
+
+          <form class="application-form" [formGroup]="applicationForm" (ngSubmit)="submitApplication()" novalidate>
+            <div class="application-form__grid">
+              <app-field class="application-field" orientation="vertical">
+                <label class="application-label" for="firstName">Nome</label>
+                <app-input
+                  id="firstName"
+                  name="firstName"
+                  autocomplete="given-name"
+                  placeholder="Seu primeiro nome"
+                  formControlName="firstName"
+                ></app-input>
+                @if (isControlInvalid('firstName')) {
+                  <p class="application-error">Informe seu nome.</p>
+                }
+              </app-field>
+
+              <app-field class="application-field" orientation="vertical">
+                <label class="application-label" for="lastName">Sobrenome</label>
+                <app-input
+                  id="lastName"
+                  name="lastName"
+                  autocomplete="family-name"
+                  placeholder="Seu sobrenome"
+                  formControlName="lastName"
+                ></app-input>
+                @if (isControlInvalid('lastName')) {
+                  <p class="application-error">Informe seu sobrenome.</p>
+                }
+              </app-field>
+
+              <app-field class="application-field" orientation="vertical">
+                <label class="application-label" for="email">Email</label>
+                <app-input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  placeholder="voce@exemplo.com"
+                  formControlName="email"
+                ></app-input>
+                @if (isControlInvalid('email')) {
+                  <p class="application-error">Informe um email válido.</p>
+                }
+              </app-field>
+
+              <app-field class="application-field" orientation="vertical">
+                <label class="application-label" for="phone">Telefone</label>
+                <app-input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  autocomplete="tel"
+                  placeholder="(21) 99999-9999"
+                  formControlName="phone"
+                ></app-input>
+                @if (isControlInvalid('phone')) {
+                  <p class="application-error">Informe um telefone com DDD.</p>
+                }
+              </app-field>
+
+              <app-field class="application-field" orientation="vertical">
+                <label class="application-label" for="city">Cidade</label>
+                <app-input
+                  id="city"
+                  name="city"
+                  autocomplete="address-level2"
+                  placeholder="Sua cidade"
+                  formControlName="city"
+                ></app-input>
+                @if (isControlInvalid('city')) {
+                  <p class="application-error">Informe sua cidade.</p>
+                }
+              </app-field>
+
+              <app-field class="application-field" orientation="vertical">
+                <label class="application-label" for="state">Estado</label>
+                <app-select
+                  id="state"
+                  name="state"
+                  placeholder="Selecione a UF"
+                  [options]="stateOptions"
+                  formControlName="state"
+                ></app-select>
+                @if (isControlInvalid('state')) {
+                  <p class="application-error">Selecione seu estado.</p>
+                }
+              </app-field>
+
+              <app-field class="application-field" orientation="vertical">
+                <label class="application-label" for="interestArea">Área de interesse</label>
+                <app-select
+                  id="interestArea"
+                  name="interestArea"
+                  placeholder="Escolha a área"
+                  [options]="interestAreaOptions"
+                  formControlName="interestArea"
+                ></app-select>
+                @if (isControlInvalid('interestArea')) {
+                  <p class="application-error">Selecione a área em que você quer atuar.</p>
+                }
+              </app-field>
+
+              <app-field class="application-field" orientation="vertical">
+                <label class="application-label" for="experienceLevel">Senioridade</label>
+                <app-select
+                  id="experienceLevel"
+                  name="experienceLevel"
+                  placeholder="Escolha a senioridade"
+                  [options]="experienceLevelOptions"
+                  formControlName="experienceLevel"
+                ></app-select>
+                @if (isControlInvalid('experienceLevel')) {
+                  <p class="application-error">Selecione seu nível de experiência.</p>
+                }
+              </app-field>
+
+              @if (featuredVacancies.length) {
+                <app-field class="application-field application-field--full" orientation="vertical">
+                  <label class="application-label" for="vacancyId">Vaga específica</label>
+                  <app-select
+                    id="vacancyId"
+                    name="vacancyId"
+                    placeholder="Banco de talentos geral"
+                    [options]="vacancyOptions"
+                    formControlName="vacancyId"
+                  ></app-select>
+                </app-field>
+              }
+
+              <app-field class="application-field application-field--full" orientation="vertical">
+                <label class="application-label" for="linkedinUrl">LinkedIn</label>
+                <app-input
+                  id="linkedinUrl"
+                  name="linkedinUrl"
+                  type="url"
+                  autocomplete="url"
+                  placeholder="linkedin.com/in/seu-perfil"
+                  formControlName="linkedinUrl"
+                ></app-input>
+                @if (isControlInvalid('linkedinUrl')) {
+                  <p class="application-error">Informe um perfil do LinkedIn válido.</p>
+                }
+              </app-field>
+
+              <app-field class="application-field application-field--full" orientation="vertical">
+                <label class="application-label" for="portfolioUrl">Portfólio ou site pessoal</label>
+                <app-input
+                  id="portfolioUrl"
+                  name="portfolioUrl"
+                  type="url"
+                  autocomplete="url"
+                  placeholder="Opcional"
+                  formControlName="portfolioUrl"
+                ></app-input>
+                @if (isControlInvalid('portfolioUrl')) {
+                  <p class="application-error">Informe uma URL válida ou deixe em branco.</p>
+                }
+              </app-field>
+
+              <app-field class="application-field application-field--full" orientation="vertical">
+                <label class="application-label" for="message">Contexto profissional</label>
+                <app-textarea
+                  id="message"
+                  name="message"
+                  [rows]="6"
+                  placeholder="Conte rapidamente no que você atua hoje, onde pode gerar mais impacto e o que te chamou atenção na Zapfarma."
+                  formControlName="message"
+                ></app-textarea>
+                @if (isControlInvalid('message')) {
+                  <p class="application-error">Escreva uma mensagem com pelo menos 20 caracteres.</p>
+                }
+              </app-field>
+
+              <div class="application-field application-field--full">
+                <label class="application-label" for="resumeFile">Currículo</label>
+                <div class="resume-upload" [class.resume-upload--filled]="selectedResumeName">
+                  <input
+                    #resumeInput
+                    id="resumeFile"
+                    class="sr-only"
+                    type="file"
+                    [accept]="acceptedResumeTypes"
+                    (change)="handleResumeSelection($event)"
+                  />
+
+                  <button
+                    class="resume-upload__trigger"
+                    type="button"
+                    (click)="resumeInput.click()"
+                  >
+                    <mat-icon class="icon" aria-hidden="true">upload_file</mat-icon>
+                    <span>Selecionar currículo</span>
+                  </button>
+
+                  <div class="resume-upload__meta">
+                    <strong>{{ selectedResumeName || 'PDF, DOC ou DOCX até 5 MB' }}</strong>
+                    <small>
+                      {{
+                        selectedResumeName
+                          ? 'Arquivo pronto para envio'
+                          : 'Anexe seu currículo atualizado para entrar na triagem'
+                      }}
+                    </small>
+                  </div>
+
+                  @if (selectedResumeName) {
+                    <button class="resume-upload__clear" type="button" (click)="clearResume()">
+                      Remover
+                    </button>
+                  }
+                </div>
+                @if (resumeErrorMessage || isControlInvalid('resumeFile')) {
+                  <p class="application-error">
+                    {{ resumeErrorMessage || 'Anexe seu currículo para seguir com a candidatura.' }}
+                  </p>
+                }
+              </div>
+
+              <label class="application-consent application-field--full">
+                <input type="checkbox" formControlName="consentLgpd" />
+                <span>
+                  Autorizo o uso dos meus dados para avaliação da candidatura e futuras oportunidades na Zapfarma.
+                </span>
+              </label>
+              @if (isControlInvalid('consentLgpd')) {
+                <p class="application-error application-error--full">
+                  Você precisa aceitar o tratamento de dados para enviar a candidatura.
+                </p>
+              }
+            </div>
+
+            <div class="application-form__footer">
+              <p>
+                Ao enviar, a candidatura segue validada para a API de careers da Zapfarma,
+                pronta para persistência no banco de talentos.
+              </p>
+              <app-button type="submit" size="lg" [disabled]="isSubmitting">
+                {{ isSubmitting ? 'Enviando candidatura...' : 'Enviar candidatura' }}
+              </app-button>
+            </div>
+          </form>
+        </app-card-content>
+      </app-card>
+    </div>
+  }
+
+  <app-footer></app-footer>
+</main>

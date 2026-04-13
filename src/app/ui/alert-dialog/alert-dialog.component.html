@@ -1,0 +1,11 @@
+<ng-content select="[alertDialogTrigger]"></ng-content>
+
+@if (open) {
+  <div class="alert-overlay" (click)="closeDialog()"></div>
+  <div class="alert-content" role="alertdialog" aria-modal="true">
+    <ng-content select="app-alert-dialog-header"></ng-content>
+    <ng-content select="app-alert-dialog-title"></ng-content>
+    <ng-content select="app-alert-dialog-description"></ng-content>
+    <ng-content select="app-alert-dialog-footer"></ng-content>
+  </div>
+}

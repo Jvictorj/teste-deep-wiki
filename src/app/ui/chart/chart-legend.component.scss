@@ -1,0 +1,19 @@
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 0.75rem;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+}
+
+.swatch {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 2px;
+}
