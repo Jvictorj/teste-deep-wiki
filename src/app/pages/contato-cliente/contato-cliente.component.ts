@@ -28,7 +28,6 @@ export class ContatoClienteComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this._id)
     //Recuperar dados da URL
 
     // Encaminhar para o WhatsAPP da Farmácia

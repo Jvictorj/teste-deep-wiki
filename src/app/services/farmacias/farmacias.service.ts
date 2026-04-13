@@ -9,10 +9,7 @@ import { UsuariosService } from '../usuarios/usuarios.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
-    'Access-Control-Allow-Headers':
-      'Content-Type, Authorization, X-Requested-With',
+    'Content-Type': 'application/json',
   }),
 };
 
