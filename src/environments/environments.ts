@@ -18,4 +18,10 @@ export const environment = {
     //Banco de Talentos
     careersApiUrl: 'http://127.0.0.1:4000/api/careers',
     careersRecipientEmail: 'contato@zapfarma.com',
+
+    // Google Maps — load from env variable at build time; fallback kept for dev.
+    googleMapsApiKey: 'GOOGLE_MAPS_API_KEY',
+
+    // Allowed origins for server-side CORS (comma-separated in production env).
+    allowedOrigins: 'https://zapfarma.com,https://www.zapfarma.com',
 }

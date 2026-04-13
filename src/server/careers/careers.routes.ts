@@ -41,12 +41,10 @@ export function createCareersRouter(): Router {
         return;
       }
 
+      // Never expose raw error details to the client.
       res.status(500).json({
         success: false,
-        message:
-          error instanceof Error
-            ? error.message
-            : 'Erro interno ao processar candidatura.',
+        message: 'Erro interno ao processar candidatura.',
       });
     }
   });
